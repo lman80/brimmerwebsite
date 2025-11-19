@@ -38,6 +38,7 @@
                         'float': 'float 6s ease-in-out infinite',
                         'wiggle': 'wiggle 1s ease-in-out infinite',
                         'bounce-in': 'bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                        'spin-slow': 'spin 12s linear infinite',
                     },
                     keyframes: {
                         marquee: {
@@ -101,6 +102,14 @@
             padding-bottom: 5px;
             display: inline-block;
         }
+        
+        /* Dashed Cut Line for the new sections */
+        .cut-line {
+            background-image: linear-gradient(to right, #1c1917 50%, rgba(255,255,255,0) 0%);
+            background-position: bottom;
+            background-size: 30px 4px;
+            background-repeat: repeat-x;
+        }
     </style>
 </head>
 <body class="text-brimmer-dark font-sans selection:bg-brimmer-accent selection:text-white">
@@ -149,6 +158,8 @@
                         <!-- Dot / Icon Container -->
                         <div class="relative flex items-center justify-center">
                             <div id="status-dot" class="w-3 h-3 rounded-full animate-pulse border border-black/20 shrink-0"></div>
+                            <!-- Added ID for mobile icon to fix JS error -->
+                            <i id="mobile-status-icon" class="hidden"></i>
                         </div>
                         
                         <!-- Desktop Text (Hidden on Mobile) -->
@@ -219,7 +230,8 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="pt-24 pb-16 md:pt-32 md:pb-24 px-4 max-w-7xl mx-auto relative overflow-hidden">
+    <!-- Reduced bottom padding significantly to allow marquee to 'overlap' -->
+    <header class="pt-24 pb-12 md:pt-32 md:pb-16 px-4 max-w-7xl mx-auto relative overflow-hidden">
         <!-- Decorative Blobs (Removed) -->
 
         <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
@@ -237,6 +249,25 @@
                     JUST <span class="wavy-underline">SERVICE.</span>
                 </h1>
                 
+                <!-- SERVICE TAGS: New Section -->
+                <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-8">
+                    <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                        <i class="fas fa-fire text-brimmer-alert mr-1"></i> Heating Repairs
+                    </span>
+                    <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                        <i class="fas fa-snowflake text-brimmer-blue mr-1"></i> A/C Repairs
+                    </span>
+                    <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                        <i class="fas fa-wrench text-brimmer-accent mr-1"></i> Installs
+                    </span>
+                    <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                        <i class="fas fa-clipboard-check text-brimmer-success mr-1"></i> Inspections
+                    </span>
+                    <span class="inline-block px-3 py-1 bg-brimmer-highlight border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                        All Things HVAC
+                    </span>
+                </div>
+
                 <!-- MOVED CARDS: Info Tiles (Compact Grid) -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                     
@@ -278,34 +309,26 @@
             <!-- Hero Image/Visual -->
             <div class="md:col-span-5 relative">
                 <div class="bg-white border-4 border-brimmer-dark rounded-[3rem] p-6 shadow-neo-lg rotate-2 hover:rotate-0 transition-transform duration-500">
-                    <div class="bg-gray-100 rounded-[2rem] overflow-hidden border-2 border-brimmer-dark relative aspect-[4/5] flex items-center justify-center group cursor-pointer" onclick="loadVideo(this)">
+                    <!-- CHANGED: Replaced interactive container with auto-playing cropped iframe container -->
+                    <div class="bg-gray-100 rounded-[2rem] overflow-hidden border-2 border-brimmer-dark relative aspect-[4/5] group">
                         
-                        <!-- 1. The Facade (Thumbnail + Play Button) -->
-                        <div id="video-placeholder" class="absolute inset-0 w-full h-full">
-                            <!-- YouTube Thumbnail -->
-                            <img 
-                                src="https://img.youtube.com/vi/PvQcD-bK7sk/hqdefault.jpg" 
-                                alt="Video Thumbnail" 
-                                class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                            >
-                            
-                            <!-- Fake UI Overlay -->
-                            <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 animate-pulse z-10">
-                                <div class="w-2 h-2 bg-white rounded-full"></div> REC
-                            </div>
-                            <div class="absolute bottom-4 left-4 text-white font-mono text-sm bg-black/50 px-2 rounded z-10">
-                                <span id="video-timer">00:00:00</span>
-                            </div>
-
-                            <!-- Big Play Button -->
-                            <div class="absolute inset-0 flex items-center justify-center z-20">
-                                <div class="bg-white p-5 rounded-full border-4 border-brimmer-dark shadow-neo group-hover:scale-110 transition-transform">
-                                    <i class="fas fa-play text-3xl ml-1 text-brimmer-dark"></i>
-                                </div>
-                            </div>
+                        <!-- Video Iframe (Cropped & Autoplaying) -->
+                        <div class="absolute inset-0 overflow-hidden">
+                             <iframe
+                                src="https://www.youtube.com/embed/PvQcD-bK7sk?autoplay=1&mute=1&controls=0&loop=1&playlist=PvQcD-bK7sk&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
+                                class="absolute top-1/2 left-1/2 w-[250%] h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                            ></iframe>
                         </div>
 
+                        <!-- Fake UI Overlay (REC) -->
+                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 animate-pulse z-10 pointer-events-none">
+                            <div class="w-2 h-2 bg-white rounded-full"></div> REC
+                        </div>
                     </div>
+
                     <div class="mt-4 text-center">
                         <h3 class="font-black text-xl">Watch Your Technician</h3>
                         <p class="text-sm">We record the fix. You verify the work.</p>
@@ -315,27 +338,54 @@
         </div>
     </header>
 
-    <!-- Infinite Marquee -->
-    <div class="bg-brimmer-dark text-white py-4 border-y-4 border-brimmer-dark overflow-hidden rotate-1 scale-105 relative z-20">
-        <div class="whitespace-nowrap animate-marquee inline-block">
-            <span class="text-3xl font-black mx-8">NO SALESMEN</span>
-            <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-            <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
-            <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-            <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
-            <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-            <span class="text-3xl font-black mx-8">NO SURPRISES</span>
-            <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-            <span class="text-3xl font-black mx-8">NO SALESMEN</span>
-            <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-            <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
-            <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-            <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
+    <!-- Infinite Marquee (Negative Margin Sandwich Approach) -->
+    <!-- Replaced spacer wrapper with a tight, overlapping sticker element -->
+    <div class="relative z-30 bg-brimmer-dark text-white py-4 border-y-4 border-brimmer-dark overflow-hidden -rotate-1 scale-[1.02] shadow-neo-lg origin-center -my-8">
+        <div class="flex overflow-hidden w-full">
+            <!-- Copy 1 -->
+            <div class="animate-marquee whitespace-nowrap shrink-0 flex items-center">
+                <span class="text-3xl font-black mx-8">NO SALESMEN</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">NO SURPRISES</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">NO SALESMEN</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">NO SURPRISES</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+            </div>
+            <!-- Copy 2 (Identical Duplicate for Loop) -->
+            <div class="animate-marquee whitespace-nowrap shrink-0 flex items-center">
+                <span class="text-3xl font-black mx-8">NO SALESMEN</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">NO SURPRISES</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">NO SALESMEN</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                <span class="text-3xl font-black mx-8">NO SURPRISES</span>
+                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+            </div>
         </div>
     </div>
 
     <!-- Pricing Section -->
-    <section class="py-20 px-4 relative overflow-hidden bg-white border-y-4 border-brimmer-dark">
+    <!-- Increased top padding slightly to ensure overlap works visually -->
+    <section class="pt-24 pb-20 px-4 relative overflow-hidden bg-white border-y-4 border-brimmer-dark">
         <!-- Increased max-width to fit two columns comfortably -->
         <div class="max-w-6xl mx-auto relative z-10 text-center">
             
@@ -346,8 +396,8 @@
             <!-- New 2-Column Grid Layout -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
                 
-                <!-- LEFT COLUMN: The Flat Rate Card -->
-                <div class="bg-brimmer-bg border-4 border-brimmer-dark rounded-[2.5rem] p-8 shadow-neo-lg relative reveal-on-scroll flex flex-col justify-start items-center">
+                <!-- LEFT COLUMN: The Flat Rate Card (Added hover wiggle) -->
+                <div class="bg-brimmer-bg border-4 border-brimmer-dark rounded-[2.5rem] p-8 shadow-neo-lg relative reveal-on-scroll flex flex-col justify-start items-center transition-transform duration-300 hover:-translate-y-2 hover:rotate-1">
                     <!-- Sticker -->
                     <div class="absolute -top-6 -right-6 bg-brimmer-alert text-white font-black py-3 px-5 rounded-full border-4 border-brimmer-dark rotate-12 shadow-neo animate-pulse z-20">
                         NO HIDDEN FEES!
@@ -388,9 +438,9 @@
                     </div>
                 </div>
 
-                <!-- RIGHT COLUMN: The Realistic Invoice -->
+                <!-- RIGHT COLUMN: The Realistic Invoice (Added hover wiggle) -->
                 <!-- Updated Design: Removed boxy table, switched to clean document style -->
-                <div class="bg-white border-4 border-brimmer-dark rounded-[2.5rem] p-0 shadow-neo-lg relative reveal-on-scroll text-left flex flex-col overflow-hidden">
+                <div class="bg-white border-4 border-brimmer-dark rounded-[2.5rem] p-0 shadow-neo-lg relative reveal-on-scroll text-left flex flex-col overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:rotate-1">
                     
                     <!-- Invoice Header -->
                     <div class="p-8 border-b-4 border-brimmer-dark flex justify-between items-start bg-gray-50">
@@ -502,6 +552,237 @@
             </div>
         </div>
     </footer>
+    
+    <!-- ========================================= -->
+    <!-- === CUT HERE TO SEPARATE HIRING PAGE === -->
+    <!-- ========================================= -->
+    <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12">
+        <i class="fas fa-scissors text-2xl text-brimmer-dark rotate-90"></i>
+        <div class="cut-line w-full max-w-4xl h-1"></div>
+        <span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR HIRING PAGE</span>
+    </div>
+
+    <!-- NEW PAGE: HIRING (THE ANTI-SALES FORCE) -->
+    <section class="min-h-screen bg-brimmer-highlight text-brimmer-dark border-4 border-brimmer-dark p-8 relative overflow-hidden" style="font-family: 'Space Grotesk', sans-serif;">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #1c1917 0, #1c1917 2px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-16">
+                <h2 class="text-4xl font-black uppercase tracking-tighter border-4 border-brimmer-dark bg-white px-4 py-2 shadow-neo rotate-1">Careers</h2>
+                <div class="text-right hidden md:block">
+                    <p class="font-black text-xl">JOIN THE REBELLION</p>
+                    <p class="text-sm font-mono">EST. 2024</p>
+                </div>
+            </div>
+
+            <!-- Main Headline -->
+            <div class="text-center mb-16">
+                <h1 class="text-6xl md:text-9xl font-black leading-[0.85] tracking-tighter mb-6">
+                    WE DON'T WANT<br>YOUR RESUME.
+                </h1>
+                <div class="inline-block bg-brimmer-dark text-white text-2xl md:text-4xl font-black px-8 py-4 -rotate-2 border-4 border-white shadow-neo-lg">
+                    WE WANT YOUR SKILLS.
+                </div>
+            </div>
+
+            <!-- The Pitch -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+                <div class="bg-white border-4 border-brimmer-dark p-8 shadow-neo rounded-3xl">
+                    <h3 class="text-3xl font-black mb-4 uppercase">The Corporate Trap</h3>
+                    <ul class="space-y-4 font-bold text-lg opacity-70">
+                        <li><i class="fas fa-times-circle text-brimmer-alert mr-2"></i> Sales Quotas to hit every month</li>
+                        <li><i class="fas fa-times-circle text-brimmer-alert mr-2"></i> Pushing repairs grandma doesn't need</li>
+                        <li><i class="fas fa-times-circle text-brimmer-alert mr-2"></i> "Comfort Advisor" titles</li>
+                        <li><i class="fas fa-times-circle text-brimmer-alert mr-2"></i> Commission-based anxiety</li>
+                    </ul>
+                </div>
+                <div class="bg-brimmer-dark text-white border-4 border-brimmer-dark p-8 shadow-neo rounded-3xl relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 text-9xl opacity-10 rotate-12"><i class="fas fa-wrench"></i></div>
+                    <h3 class="text-3xl font-black mb-4 uppercase text-brimmer-highlight">The Brimmer Way</h3>
+                    <ul class="space-y-4 font-bold text-lg">
+                        <li><i class="fas fa-check-circle text-brimmer-success mr-2"></i> Hourly Pay Only ($40-$60/hr)</li>
+                        <li><i class="fas fa-check-circle text-brimmer-success mr-2"></i> Diagnose. Fix. Leave.</li>
+                        <li><i class="fas fa-check-circle text-brimmer-success mr-2"></i> Tools provided. Vans stocked.</li>
+                        <li><i class="fas fa-check-circle text-brimmer-success mr-2"></i> Zero selling. Ever.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center">
+                <p class="text-xl font-bold mb-6 uppercase tracking-widest">Think you can fix it without selling a new unit?</p>
+                <button class="bg-white text-brimmer-dark text-3xl md:text-5xl font-black py-6 px-12 rounded-full border-4 border-brimmer-dark shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all uppercase">
+                    Take The Tech Quiz <i class="fas fa-arrow-right ml-4"></i>
+                </button>
+                <p class="mt-4 text-xs font-mono opacity-60">*If you mention "closing rates" we will delete your application.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- === CUT HERE TO SEPARATE VLOG PAGE === -->
+    <!-- ========================================= -->
+    <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12">
+        <i class="fas fa-scissors text-brimmer-dark text-2xl rotate-90"></i>
+        <div class="cut-line w-full max-w-4xl h-1"></div>
+        <span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR VLOG EXPLAINER</span>
+    </div>
+
+    <!-- NEW PAGE: VLOG PROTOCOL (TECHNICAL/CLEAN) -->
+    <section class="min-h-screen bg-white text-brimmer-dark relative overflow-hidden border-t-4 border-brimmer-dark">
+        <!-- Grid Background -->
+        <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(#1c1917 1px, transparent 1px), linear-gradient(90deg, #1c1917 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+        <div class="max-w-7xl mx-auto px-8 py-24 relative z-10">
+            
+            <!-- Header Area -->
+            <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-24 gap-8">
+                <div>
+                    <span class="bg-brimmer-blue text-white font-bold px-3 py-1 text-xs uppercase tracking-widest rounded mb-2 inline-block">Protocol V.3.0</span>
+                    <h1 class="text-6xl md:text-8xl font-black leading-none tracking-tighter">
+                        TOTAL<br>VISIBILITY.
+                    </h1>
+                </div>
+                <div class="max-w-md">
+                    <p class="text-xl font-medium leading-tight">
+                        We treat your HVAC system like a crime scene. We document the evidence, record the process, and close the case. No hearsay.
+                    </p>
+                </div>
+            </div>
+
+            <!-- The Process Visuals -->
+            <div class="relative">
+                <!-- Connecting Line -->
+                <div class="absolute top-1/2 left-0 w-full h-2 bg-brimmer-dark -translate-y-1/2 hidden md:block z-0"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+                    
+                    <!-- Step 1 -->
+                    <div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-2xl shadow-neo hover:-translate-y-2 transition-transform group">
+                        <div class="w-12 h-12 bg-brimmer-dark text-white rounded-full flex items-center justify-center font-black text-2xl mb-4 border-4 border-white shadow-lg relative">
+                            1
+                            <div class="absolute -top-2 -right-2 bg-red-500 w-4 h-4 rounded-full animate-pulse"></div>
+                        </div>
+                        <h3 class="font-black text-xl mb-2 uppercase">Record</h3>
+                        <p class="text-sm font-medium opacity-80">Technician arrives. Body cam goes ON. We narrate the initial inspection.</p>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="bg-white border-4 border-brimmer-dark p-6 rounded-2xl shadow-neo hover:-translate-y-2 transition-transform group mt-8 md:mt-0">
+                        <div class="w-12 h-12 bg-brimmer-blue text-white rounded-full flex items-center justify-center font-black text-2xl mb-4 border-4 border-brimmer-dark shadow-lg">2</div>
+                        <h3 class="font-black text-xl mb-2 uppercase">Diagnose</h3>
+                        <p class="text-sm font-medium opacity-80">We find the broken part. We point to it. We explain <em>why</em> it failed on camera.</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-2xl shadow-neo hover:-translate-y-2 transition-transform group mt-8 md:mt-0">
+                        <div class="w-12 h-12 bg-brimmer-accent text-white rounded-full flex items-center justify-center font-black text-2xl mb-4 border-4 border-white shadow-lg">3</div>
+                        <h3 class="font-black text-xl mb-2 uppercase">Repair</h3>
+                        <p class="text-sm font-medium opacity-80">We film the fix. Old part out. New part in. We verify the system is running.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-white border-4 border-brimmer-dark p-6 rounded-2xl shadow-neo hover:-translate-y-2 transition-transform group mt-8 md:mt-0">
+                        <div class="w-12 h-12 bg-brimmer-success text-brimmer-dark rounded-full flex items-center justify-center font-black text-2xl mb-4 border-4 border-brimmer-dark shadow-lg">4</div>
+                        <h3 class="font-black text-xl mb-2 uppercase">Review</h3>
+                        <p class="text-sm font-medium opacity-80">You get a text link. Watch the 3-minute summary before you pay the invoice.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Area -->
+            <div class="mt-24 bg-brimmer-dark text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-neo-lg">
+                <div class="flex items-center gap-6">
+                    <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl animate-pulse">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-black uppercase">See an example</h3>
+                        <p class="opacity-60">Watch a real service call from last Tuesday.</p>
+                    </div>
+                </div>
+                <a href="#" class="bg-white text-brimmer-dark font-black px-8 py-4 rounded-xl border-4 border-transparent hover:border-brimmer-blue transition-all shadow-lg whitespace-nowrap">
+                    Watch Sample Video
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- === CUT HERE TO SEPARATE ABOUT PAGE === -->
+    <!-- ========================================= -->
+    <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12">
+        <i class="fas fa-scissors text-brimmer-dark text-2xl rotate-90"></i>
+        <div class="cut-line w-full max-w-4xl h-1"></div>
+        <span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR ABOUT PAGE</span>
+    </div>
+
+    <!-- NEW PAGE: ABOUT US (ORIGIN STORY - DARK MODE) -->
+    <section class="min-h-screen bg-brimmer-dark text-white border-t-4 border-white relative overflow-hidden p-8">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brimmer-blue rounded-full blur-[100px] opacity-20"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-brimmer-alert rounded-full blur-[100px] opacity-20"></div>
+
+        <div class="max-w-5xl mx-auto relative z-10 py-16">
+            
+            <div class="text-center mb-24">
+                <p class="text-brimmer-highlight font-mono font-bold tracking-widest mb-4">THE ORIGIN STORY</p>
+                <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none">
+                    We were tired of<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brimmer-alert to-brimmer-accent">Robbing People.</span>
+                </h1>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                
+                <!-- Text Story -->
+                <div class="space-y-6 text-lg font-medium opacity-90 leading-relaxed">
+                    <p>
+                        <span class="text-4xl float-left mr-2 font-black text-white">I</span>t's an open secret in the HVAC industry. The technician isn't paid to fix your AC. They are paid to find "opportunities."
+                    </p>
+                    <p>
+                        A loose wire becomes a "failed motherboard." A dirty capacitor becomes a "full system replacement."
+                    </p>
+                    <p>
+                        We worked for those big companies. We sat in the morning meetings where managers screamed about "average ticket value." We were told to sell, sell, sell.
+                    </p>
+                    <p class="text-brimmer-highlight font-bold text-xl">
+                        So we quit.
+                    </p>
+                    <p>
+                        Brimmer was born with one rule: <span class="underline decoration-wavy decoration-brimmer-alert">Technicians fix. Salesmen sell. We only hire technicians.</span>
+                    </p>
+                </div>
+
+                <!-- Stats / Visuals -->
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="bg-white/5 border-2 border-white/10 p-6 rounded-2xl backdrop-blur-sm">
+                        <h3 class="text-4xl font-black text-brimmer-success mb-2">$0</h3>
+                        <p class="font-bold uppercase text-sm tracking-widest">Commission Paid to Techs</p>
+                    </div>
+                    <div class="bg-white/5 border-2 border-white/10 p-6 rounded-2xl backdrop-blur-sm">
+                        <h3 class="text-4xl font-black text-brimmer-blue mb-2">100%</h3>
+                        <p class="font-bold uppercase text-sm tracking-widest">Video Recorded Calls</p>
+                    </div>
+                    <div class="bg-white/5 border-2 border-white/10 p-6 rounded-2xl backdrop-blur-sm">
+                        <h3 class="text-4xl font-black text-white mb-2">5 Star</h3>
+                        <p class="font-bold uppercase text-sm tracking-widest">Average Review</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Signature -->
+            <div class="mt-24 text-center border-t border-white/10 pt-12">
+                <h4 class="font-black text-2xl mb-2">Dan Brimmer</h4>
+                <p class="font-mono text-sm opacity-50">Founder & Head Wrench Turner</p>
+            </div>
+
+        </div>
+    </section>
 
     <!-- Scripts -->
     <script>
@@ -545,8 +826,12 @@
                 statusSubline.innerText = "Regular Service";
                 
                 statusDot.classList.add('bg-white'); // White dot on green bg
-                mobileIcon.className = "fas fa-check md:hidden text-sm sm:text-lg"; // Checkmark on mobile
-                mobileIcon.classList.remove('hidden');
+
+                // Safety check added for mobile icon
+                if(mobileIcon) {
+                    mobileIcon.className = "fas fa-check md:hidden text-sm sm:text-lg"; // Checkmark on mobile
+                    mobileIcon.classList.remove('hidden');
+                }
 
                 menuFooter.innerText = "We are currently OPEN";
                 menuFooter.classList.add('bg-brimmer-success', 'text-brimmer-dark');
@@ -559,8 +844,12 @@
                 statusSubline.innerText = "Emergency Service";
                 
                 statusDot.classList.add('bg-white'); // White dot on red bg
-                mobileIcon.className = "fas fa-exclamation-circle md:hidden text-sm sm:text-lg"; // Alert icon on mobile
-                mobileIcon.classList.remove('hidden');
+                
+                // Safety check added for mobile icon
+                if(mobileIcon) {
+                    mobileIcon.className = "fas fa-exclamation-circle md:hidden text-sm sm:text-lg"; // Alert icon on mobile
+                    mobileIcon.classList.remove('hidden');
+                }
 
                 menuFooter.innerText = "After Hours Support Active";
                 menuFooter.classList.add('bg-brimmer-alert', 'text-white');
@@ -686,34 +975,9 @@
             observer.observe(element);
         });
 
-        // --- Video Loader Logic (New) ---
-        function loadVideo(container) {
-            // Prevent reloading if already loaded
-            if (container.querySelector('iframe')) return;
-
-            // Create the iframe
-            const iframe = document.createElement('iframe');
-            iframe.setAttribute('width', '100%');
-            iframe.setAttribute('height', '100%');
-            // autoplay=1 ensures it starts immediately after clicking
-            iframe.setAttribute('src', 'https://www.youtube.com/embed/PvQcD-bK7sk?autoplay=1&rel=0');
-            iframe.setAttribute('title', 'YouTube video player');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-            iframe.setAttribute('allowfullscreen', '');
-            iframe.classList.add('w-full', 'h-full', 'absolute', 'inset-0', 'z-30');
-
-            // Clear the placeholder content
-            container.innerHTML = '';
-            
-            // Add the iframe
-            container.appendChild(iframe);
-        }
-
         // --- Initialize ---
         window.onload = function() {
             checkBusinessHours();
-            startTimer();
         }
     </script>
 </body>
