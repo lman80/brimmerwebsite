@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!-- Added snap-y, snap-mandatory, h-screen, and overflow-y-scroll to the HTML tag to enable the physics -->
+<html lang="en" class="scroll-smooth snap-y snap-mandatory h-screen w-full overflow-y-scroll">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,7 +70,7 @@
             background-image: radial-gradient(#3b82f6 0.5px, transparent 0.5px), radial-gradient(#3b82f6 0.5px, #Fdf6e3 0.5px);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
-            overflow-x: hidden;
+            /* overflow-x: hidden; Removed to let HTML handle scroll */
         }
         
         .no-scrollbar::-webkit-scrollbar {
@@ -114,447 +115,390 @@
 </head>
 <body class="text-brimmer-dark font-sans selection:bg-brimmer-accent selection:text-white">
 
-    <!-- Navigation -->
-    <!-- Using Flex justify-between for creating the Left/Right groups with variable gap -->
-    <nav class="fixed w-full z-50 top-2 md:top-4 px-2 md:px-8 pointer-events-none">
-        <!-- CHANGED: items-start -> items-center (for mobile centering) and md:items-center -> md:items-stretch (for desktop equal height) -->
-        <div class="max-w-7xl mx-auto flex justify-between items-center md:items-stretch pointer-events-auto">
-            
-            <!-- LEFT GROUP: Logo + Dept -->
-            <!-- w-auto ensures it only takes width needed for text -->
-            <div class="bg-white border-4 border-brimmer-dark rounded-full shadow-neo px-4 py-2 md:px-6 md:py-3 flex items-center gap-3 md:gap-6 transition-all duration-300 hover:shadow-neo-lg relative z-40">
+    <!-- MAIN WEBSITE WRAPPER -->
+    <!-- Added snap-start here so the top of the website is a valid snap point -->
+    <div id="main-site" class="snap-start">
+
+        <!-- Navigation -->
+        <nav class="fixed w-full z-50 top-2 md:top-4 px-2 md:px-8 pointer-events-none">
+            <div class="max-w-7xl mx-auto flex justify-between items-center md:items-stretch pointer-events-auto">
                 
-                <!-- Logo: Just "Brimmer" -->
-                <a href="#" class="text-xl md:text-3xl font-black tracking-tighter uppercase hover:-rotate-2 transition-transform shrink-0 leading-none">
-                    Brimmer
-                </a>
-                
-                <!-- Department Switcher -->
-                <div class="relative shrink-0">
-                    <button onclick="toggleDeptMenu()" id="dept-btn" class="bg-brimmer-blue text-white border-2 border-brimmer-dark rounded-full px-3 py-1 md:px-5 md:py-2 font-bold flex items-center gap-1 md:gap-2 transition-all duration-200 shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none text-xs md:text-base whitespace-nowrap">
-                        <span>Residential</span>
-                        <i class="fas fa-chevron-down text-[10px] md:text-sm ml-1"></i>
-                    </button>
-                    <!-- Dropdown Menu -->
-                    <div id="dept-menu" class="absolute top-full left-0 mt-4 w-48 bg-white border-4 border-brimmer-dark rounded-3xl shadow-neo overflow-hidden hidden transform origin-top-left animate-bounce-in z-50">
-                        <a href="#" class="block px-6 py-3 hover:bg-brimmer-highlight font-bold border-b-2 border-brimmer-dark text-base">Residential</a>
-                        <a href="#" class="block px-6 py-3 hover:bg-brimmer-highlight font-bold border-b-2 border-brimmer-dark text-base">Commercial</a>
-                        <a href="#" class="block px-6 py-3 hover:bg-brimmer-highlight font-bold text-base">State</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RIGHT GROUP: Status + Contact -->
-            <!-- Gap between left and right groups is handled by parent justify-between -->
-            <!-- CHANGED: Added md:items-stretch so the wrapper divs fill the height -->
-            <div class="flex items-center md:items-stretch gap-2 md:gap-4">
-                
-                <!-- 1. Status Button -->
-                <!-- Mobile: Circle (w-12 h-12), Desktop: Pill (w-auto h-full) -->
-                <div class="relative z-30">
-                     <!-- CHANGED: md:h-auto -> md:h-full to match the Brimmer bar height -->
-                     <button onclick="toggleHoursMenu()" id="status-badge" class="w-12 h-12 md:w-auto md:h-full flex items-center justify-center md:justify-between gap-0 md:gap-3 px-0 md:px-5 md:py-2 rounded-full border-4 border-brimmer-dark font-black shadow-neo transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-neo-hover active:translate-y-[4px] active:translate-x-[4px] active:shadow-none group bg-white">
-                        
-                        <!-- Dot / Icon Container -->
-                        <div class="relative flex items-center justify-center">
-                            <div id="status-dot" class="w-3 h-3 rounded-full animate-pulse border border-black/20 shrink-0"></div>
-                            <!-- Added ID for mobile icon to fix JS error -->
-                            <i id="mobile-status-icon" class="hidden"></i>
-                        </div>
-                        
-                        <!-- Desktop Text (Hidden on Mobile) -->
-                        <div class="hidden md:flex flex-col items-start text-left leading-none gap-0.5">
-                            <span id="status-headline" class="text-xs font-black uppercase tracking-tighter">CHECKING</span>
-                            <span id="status-subline" class="text-[10px] font-bold uppercase opacity-90 whitespace-nowrap">Please Wait</span>
-                        </div>
-                        
-                        <!-- Desktop Arrow (Hidden on Mobile) -->
-                        <i class="fas fa-chevron-down text-xs opacity-50 group-hover:opacity-100 transition-opacity hidden md:block"></i>
-                    </button>
-
-                    <!-- Hours Popover Card -->
-                    <div id="hours-menu" class="absolute right-0 top-full mt-4 w-72 md:w-80 bg-white border-4 border-brimmer-dark rounded-[2rem] shadow-neo p-6 hidden flex-col gap-4 transform origin-top-right animate-bounce-in z-50">
-                        <div class="flex justify-between items-center border-b-2 border-brimmer-dark pb-2">
-                            <h3 class="font-black text-xl uppercase">Office Hours</h3>
-                            <i class="fas fa-clock text-brimmer-blue text-xl"></i>
-                        </div>
-                        
-                        <ul class="space-y-2 text-sm font-bold">
-                            <li id="day-1" class="flex justify-between items-center p-2 rounded-lg"><span>Mon</span> <span>8:00am - 5:00pm</span></li>
-                            <li id="day-2" class="flex justify-between items-center p-2 rounded-lg"><span>Tue</span> <span>8:00am - 5:00pm</span></li>
-                            <li id="day-3" class="flex justify-between items-center p-2 rounded-lg"><span>Wed</span> <span>8:00am - 5:00pm</span></li>
-                            <li id="day-4" class="flex justify-between items-center p-2 rounded-lg"><span>Thu</span> <span>8:00am - 5:00pm</span></li>
-                            <li id="day-5" class="flex justify-between items-center p-2 rounded-lg"><span>Fri</span> <span>8:00am - 5:00pm</span></li>
-                            <li id="day-6" class="flex justify-between items-center p-2 rounded-lg opacity-50"><span>Sat</span> <span>Closed</span></li>
-                            <li id="day-0" class="flex justify-between items-center p-2 rounded-lg opacity-50"><span>Sun</span> <span>Closed</span></li>
-                        </ul>
-
-                        <div id="menu-footer-status" class="bg-brimmer-dark text-white p-3 rounded-xl text-center font-bold text-xs uppercase tracking-wider mt-2">
-                            <!-- Dynamic Status Text Here -->
-                        </div>
-
-                        <!-- BOOKING BUTTON -->
-                        <div class="mt-2 pt-4 border-t-2 border-brimmer-dark">
-                            <a href="#booking" class="flex items-center justify-center gap-2 w-full bg-brimmer-alert text-white text-center font-black py-3 rounded-xl border-4 border-brimmer-dark shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase group">
-                                Book Online <i class="fas fa-bolt group-hover:animate-wiggle"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. Contact Button -->
-                <!-- Mobile: Circle (w-12 h-12), Desktop: Pill (w-auto h-full) -->
-                <div class="relative z-30">
-                    <!-- CHANGED: md:h-auto -> md:h-full to match the Brimmer bar height -->
-                    <button onclick="toggleContactMenu()" class="w-12 h-12 md:w-auto md:h-full bg-brimmer-highlight border-4 border-brimmer-dark text-brimmer-dark rounded-full md:px-6 md:py-2 font-bold shadow-neo hover:shadow-neo-lg active:shadow-neo-hover active:translate-x-[3px] active:translate-y-[3px] transition-all flex items-center justify-center gap-2">
-                        <span class="hidden md:inline">Contact Us</span>
-                        <i class="fas fa-comment-dots text-xl md:text-xl"></i>
-                    </button>
-                    
-                    <!-- Contact Popover -->
-                    <div id="contact-menu" class="absolute right-0 top-full mt-4 w-64 bg-white border-4 border-brimmer-dark rounded-3xl shadow-neo p-4 hidden flex-col gap-3 transform transition-all z-50 animate-bounce-in">
-                        <a href="tel:+15551234567" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-brimmer-blue hover:text-white transition-colors font-bold border-2 border-transparent hover:border-brimmer-dark">
-                            <i class="fas fa-phone"></i> Call Us
-                        </a>
-                        <a href="sms:+15551234567" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-brimmer-success hover:text-white transition-colors font-bold border-2 border-transparent hover:border-brimmer-dark">
-                            <i class="fas fa-comment"></i> Text Us
-                        </a>
-                        <button onclick="copyPhoneNumber()" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-brimmer-highlight hover:text-brimmer-dark transition-colors font-bold border-2 border-transparent hover:border-brimmer-dark text-left w-full">
-                            <i class="fas fa-copy"></i> <span id="copy-text">555-123-4567</span>
+                <!-- LEFT GROUP: Logo + Dept -->
+                <div class="bg-white border-4 border-brimmer-dark rounded-full shadow-neo px-4 py-2 md:px-6 md:py-3 flex items-center gap-3 md:gap-6 transition-all duration-300 hover:shadow-neo-lg relative z-40">
+                    <a href="#" class="text-xl md:text-3xl font-black tracking-tighter uppercase hover:-rotate-2 transition-transform shrink-0 leading-none">
+                        Brimmer
+                    </a>
+                    <div class="relative shrink-0">
+                        <button onclick="toggleDeptMenu()" id="dept-btn" class="bg-brimmer-blue text-white border-2 border-brimmer-dark rounded-full px-3 py-1 md:px-5 md:py-2 font-bold flex items-center gap-1 md:gap-2 transition-all duration-200 shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none text-xs md:text-base whitespace-nowrap">
+                            <span>Residential</span>
+                            <i class="fas fa-chevron-down text-[10px] md:text-sm ml-1"></i>
                         </button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <!-- Reduced bottom padding significantly to allow marquee to 'overlap' -->
-    <header class="pt-24 pb-12 md:pt-32 md:pb-16 px-4 max-w-7xl mx-auto relative overflow-hidden">
-        <!-- Decorative Blobs (Removed) -->
-
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
-            
-            <!-- Text Content -->
-            <div class="md:col-span-7 text-center md:text-left relative">
-                <h1 class="text-6xl md:text-8xl font-black leading-[0.9] tracking-tighter mb-8 mt-4">
-                    NO <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-brimmer-blue to-brimmer-accent">
-                        SALESMEN
-                        <!-- STICKER FIXED -->
-                        <div class="absolute -top-6 -right-2 md:-top-8 md:-right-32 rotate-6 bg-brimmer-dark text-white px-4 py-2 rounded-full font-bold text-xs md:text-sm border-2 border-white shadow-lg whitespace-nowrap tracking-wide leading-snug z-20 w-max">
-                            HEATING AND COOLING REPAIR
-                        </div>
-                    </span>.<br>
-                    JUST <span class="wavy-underline">SERVICE.</span>
-                </h1>
-                
-                <!-- SERVICE TAGS: New Section -->
-                <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-8">
-                    <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                        <i class="fas fa-fire text-brimmer-alert mr-1"></i> Heating Repairs
-                    </span>
-                    <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                        <i class="fas fa-snowflake text-brimmer-blue mr-1"></i> A/C Repairs
-                    </span>
-                    <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                        <i class="fas fa-wrench text-brimmer-accent mr-1"></i> Installs
-                    </span>
-                    <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                        <i class="fas fa-clipboard-check text-brimmer-success mr-1"></i> Inspections
-                    </span>
-                    <span class="inline-block px-3 py-1 bg-brimmer-highlight border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                        All Things HVAC
-                    </span>
-                </div>
-
-                <!-- MOVED CARDS: Info Tiles (Compact Grid) -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                    
-                    <!-- Card 1: Vlog -->
-                    <div class="bg-white border-4 border-brimmer-dark rounded-2xl p-5 shadow-neo hover:-translate-y-1 transition-transform flex flex-col items-start">
-                        <div class="w-10 h-10 bg-brimmer-blue rounded-full border-2 border-brimmer-dark flex items-center justify-center mb-3 text-white text-sm shadow-neo">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h3 class="font-black text-lg leading-none mb-2">We Vlog It</h3>
-                        <p class="text-sm font-medium opacity-90 leading-tight">
-                            We record the fix. You see exactly what we do.
-                        </p>
-                    </div>
-
-                    <!-- Card 2: Markups -->
-                    <div class="bg-brimmer-highlight border-4 border-brimmer-dark rounded-2xl p-5 shadow-neo hover:-translate-y-1 transition-transform flex flex-col items-start">
-                        <div class="w-10 h-10 bg-white rounded-full border-2 border-brimmer-dark flex items-center justify-center mb-3 text-brimmer-dark text-sm shadow-neo">
-                            <i class="fas fa-ban"></i>
-                        </div>
-                        <h3 class="font-black text-lg leading-none mb-2">No Markups</h3>
-                        <p class="text-sm font-medium opacity-90 leading-tight">
-                            We charge $0 markup on parts. You pay our cost.
-                        </p>
-                    </div>
-
-                    <!-- Card 3: No Salesmen -->
-                    <div class="bg-white border-4 border-brimmer-dark rounded-2xl p-5 shadow-neo hover:-translate-y-1 transition-transform flex flex-col items-start">
-                        <div class="w-10 h-10 bg-brimmer-alert rounded-full border-2 border-brimmer-dark flex items-center justify-center mb-3 text-white text-sm shadow-neo">
-                            <i class="fas fa-user-slash"></i>
-                        </div>
-                        <h3 class="font-black text-lg leading-none mb-2">Just Fixers</h3>
-                        <p class="text-sm font-medium opacity-90 leading-tight">
-                            No salesmen. We fix it, we don't upsell it.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hero Image/Visual -->
-            <div class="md:col-span-5 relative">
-                <div class="bg-white border-4 border-brimmer-dark rounded-[3rem] p-6 shadow-neo-lg rotate-2 hover:rotate-0 transition-transform duration-500">
-                    <!-- CHANGED: Replaced interactive container with auto-playing cropped iframe container -->
-                    <div class="bg-gray-100 rounded-[2rem] overflow-hidden border-2 border-brimmer-dark relative aspect-[4/5] group">
-                        
-                        <!-- Video Iframe (Cropped & Autoplaying) -->
-                        <div class="absolute inset-0 overflow-hidden">
-                             <iframe
-                                src="https://www.youtube.com/embed/PvQcD-bK7sk?autoplay=1&mute=1&controls=0&loop=1&playlist=PvQcD-bK7sk&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1"
-                                class="absolute top-1/2 left-1/2 w-[250%] h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen
-                            ></iframe>
-                        </div>
-
-                        <!-- Fake UI Overlay (REC) -->
-                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 animate-pulse z-10 pointer-events-none">
-                            <div class="w-2 h-2 bg-white rounded-full"></div> REC
-                        </div>
-                    </div>
-
-                    <div class="mt-4 text-center">
-                        <h3 class="font-black text-xl">Watch Your Technician</h3>
-                        <p class="text-sm">We record the fix. You verify the work.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Infinite Marquee (Negative Margin Sandwich Approach) -->
-    <!-- Replaced spacer wrapper with a tight, overlapping sticker element -->
-    <div class="relative z-30 bg-brimmer-dark text-white py-4 border-y-4 border-brimmer-dark overflow-hidden -rotate-1 scale-[1.02] shadow-neo-lg origin-center -my-8">
-        <div class="flex overflow-hidden w-full">
-            <!-- Copy 1 -->
-            <div class="animate-marquee whitespace-nowrap shrink-0 flex items-center">
-                <span class="text-3xl font-black mx-8">NO SALESMEN</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">NO SURPRISES</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">NO SALESMEN</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">NO SURPRISES</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-            </div>
-            <!-- Copy 2 (Identical Duplicate for Loop) -->
-            <div class="animate-marquee whitespace-nowrap shrink-0 flex items-center">
-                <span class="text-3xl font-black mx-8">NO SALESMEN</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">NO SURPRISES</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">NO SALESMEN</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-                <span class="text-3xl font-black mx-8">NO SURPRISES</span>
-                <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pricing Section -->
-    <!-- Increased top padding slightly to ensure overlap works visually -->
-    <section class="pt-24 pb-20 px-4 relative overflow-hidden bg-white border-y-4 border-brimmer-dark">
-        <!-- Increased max-width to fit two columns comfortably -->
-        <div class="max-w-6xl mx-auto relative z-10 text-center">
-            
-            <h2 class="text-5xl md:text-7xl font-black mb-12 uppercase reveal-on-scroll">
-                Pricing So Simple <br>It's <span class="text-brimmer-blue underline decoration-wavy">Boring</span>
-            </h2>
-
-            <!-- New 2-Column Grid Layout -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-                
-                <!-- LEFT COLUMN: The Flat Rate Card (Added hover wiggle) -->
-                <div class="bg-brimmer-bg border-4 border-brimmer-dark rounded-[2.5rem] p-8 shadow-neo-lg relative reveal-on-scroll flex flex-col justify-start items-center transition-transform duration-300 hover:-translate-y-2 hover:rotate-1">
-                    <!-- Sticker -->
-                    <div class="absolute -top-6 -right-6 bg-brimmer-alert text-white font-black py-3 px-5 rounded-full border-4 border-brimmer-dark rotate-12 shadow-neo animate-pulse z-20">
-                        NO HIDDEN FEES!
-                    </div>
-
-                    <div class="flex flex-col justify-center items-center gap-2 mb-6 mt-4">
-                        <span class="text-7xl lg:text-9xl font-black text-brimmer-blue drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]">$150</span>
-                        <div class="text-center">
-                            <p class="text-3xl font-black">FLAT RATE</p>
-                            <p class="text-xl font-bold opacity-75">Includes 1st Hour</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white border-2 border-brimmer-dark rounded-xl p-4 w-full max-w-sm mx-auto mb-8">
-                        <p class="text-lg font-bold">
-                            <i class="fas fa-clock text-brimmer-blue mr-2"></i>
-                            Every hour after is $150/hr.
-                        </p>
-                    </div>
-
-                    <!-- Bullet Points (Moved Here) -->
-                    <div class="text-left space-y-4 w-full max-w-md">
-                        <div class="flex items-start gap-4">
-                            <!-- Neo-Brutalist Checkmark -->
-                            <div class="bg-brimmer-success text-brimmer-dark w-8 h-8 flex items-center justify-center rounded-full border-2 border-brimmer-dark shrink-0 shadow-[2px_2px_0px_0px_rgba(28,25,23,1)] mt-1"><i class="fas fa-check text-xs"></i></div>
-                            <p class="font-medium text-lg leading-tight">We never start work until you know the price.</p>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <!-- Neo-Brutalist Checkmark -->
-                            <div class="bg-brimmer-success text-brimmer-dark w-8 h-8 flex items-center justify-center rounded-full border-2 border-brimmer-dark shrink-0 shadow-[2px_2px_0px_0px_rgba(28,25,23,1)] mt-1"><i class="fas fa-check text-xs"></i></div>
-                            <p class="font-medium text-lg leading-tight">If the bill needs to go up, we stop and ask. <strong>Every. Single. Time.</strong></p>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <!-- Neo-Brutalist Checkmark -->
-                            <div class="bg-brimmer-success text-brimmer-dark w-8 h-8 flex items-center justify-center rounded-full border-2 border-brimmer-dark shrink-0 shadow-[2px_2px_0px_0px_rgba(28,25,23,1)] mt-1"><i class="fas fa-check text-xs"></i></div>
-                            <p class="font-medium text-lg leading-tight">No markup on Parts.</p>
+                        <div id="dept-menu" class="absolute top-full left-0 mt-4 w-48 bg-white border-4 border-brimmer-dark rounded-3xl shadow-neo overflow-hidden hidden transform origin-top-left animate-bounce-in z-50">
+                            <a href="#" class="block px-6 py-3 hover:bg-brimmer-highlight font-bold border-b-2 border-brimmer-dark text-base">Residential</a>
+                            <a href="#" class="block px-6 py-3 hover:bg-brimmer-highlight font-bold border-b-2 border-brimmer-dark text-base">Commercial</a>
+                            <a href="#" class="block px-6 py-3 hover:bg-brimmer-highlight font-bold text-base">State</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- RIGHT COLUMN: The Realistic Invoice (Added hover wiggle) -->
-                <!-- Updated Design: Removed boxy table, switched to clean document style -->
-                <div class="bg-white border-4 border-brimmer-dark rounded-[2.5rem] p-0 shadow-neo-lg relative reveal-on-scroll text-left flex flex-col overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:rotate-1">
-                    
-                    <!-- Invoice Header -->
-                    <div class="p-8 border-b-4 border-brimmer-dark flex justify-between items-start bg-gray-50">
-                        <div>
-                            <h3 class="text-4xl font-black uppercase tracking-tighter text-brimmer-dark mb-1">Invoice</h3>
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold text-sm opacity-60">#1024</span>
-                                <span class="bg-green-100 text-green-800 text-xs font-black px-2 py-0.5 rounded border border-green-800 uppercase">Paid</span>
+                <!-- RIGHT GROUP: Status + Contact -->
+                <div class="flex items-center md:items-stretch gap-2 md:gap-4">
+                    <!-- 1. Status Button -->
+                    <div class="relative z-30">
+                        <button onclick="toggleHoursMenu()" id="status-badge" class="w-12 h-12 md:w-auto md:h-full flex items-center justify-center md:justify-between gap-0 md:gap-3 px-0 md:px-5 md:py-2 rounded-full border-4 border-brimmer-dark font-black shadow-neo transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-neo-hover active:translate-y-[4px] active:translate-x-[4px] active:shadow-none group bg-white">
+                            <div class="relative flex items-center justify-center">
+                                <div id="status-dot" class="w-3 h-3 rounded-full animate-pulse border border-black/20 shrink-0"></div>
+                                <i id="mobile-status-icon" class="hidden"></i>
+                            </div>
+                            <div class="hidden md:flex flex-col items-start text-left leading-none gap-0.5">
+                                <span id="status-headline" class="text-xs font-black uppercase tracking-tighter">CHECKING</span>
+                                <span id="status-subline" class="text-[10px] font-bold uppercase opacity-90 whitespace-nowrap">Please Wait</span>
+                            </div>
+                            <i class="fas fa-chevron-down text-xs opacity-50 group-hover:opacity-100 transition-opacity hidden md:block"></i>
+                        </button>
+                        <!-- Hours Popover Card -->
+                        <div id="hours-menu" class="absolute right-0 top-full mt-4 w-72 md:w-80 bg-white border-4 border-brimmer-dark rounded-[2rem] shadow-neo p-6 hidden flex-col gap-4 transform origin-top-right animate-bounce-in z-50">
+                            <div class="flex justify-between items-center border-b-2 border-brimmer-dark pb-2">
+                                <h3 class="font-black text-xl uppercase">Office Hours</h3>
+                                <i class="fas fa-clock text-brimmer-blue text-xl"></i>
+                            </div>
+                            <ul class="space-y-2 text-sm font-bold">
+                                <li id="day-1" class="flex justify-between items-center p-2 rounded-lg"><span>Mon</span> <span>8:00am - 5:00pm</span></li>
+                                <li id="day-2" class="flex justify-between items-center p-2 rounded-lg"><span>Tue</span> <span>8:00am - 5:00pm</span></li>
+                                <li id="day-3" class="flex justify-between items-center p-2 rounded-lg"><span>Wed</span> <span>8:00am - 5:00pm</span></li>
+                                <li id="day-4" class="flex justify-between items-center p-2 rounded-lg"><span>Thu</span> <span>8:00am - 5:00pm</span></li>
+                                <li id="day-5" class="flex justify-between items-center p-2 rounded-lg"><span>Fri</span> <span>8:00am - 5:00pm</span></li>
+                                <li id="day-6" class="flex justify-between items-center p-2 rounded-lg opacity-50"><span>Sat</span> <span>Closed</span></li>
+                                <li id="day-0" class="flex justify-between items-center p-2 rounded-lg opacity-50"><span>Sun</span> <span>Closed</span></li>
+                            </ul>
+                            <div id="menu-footer-status" class="bg-brimmer-dark text-white p-3 rounded-xl text-center font-bold text-xs uppercase tracking-wider mt-2">
+                                <!-- Dynamic Status Text Here -->
+                            </div>
+                            <div class="mt-2 pt-4 border-t-2 border-brimmer-dark">
+                                <a href="#booking" class="flex items-center justify-center gap-2 w-full bg-brimmer-alert text-white text-center font-black py-3 rounded-xl border-4 border-brimmer-dark shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase group">
+                                    Book Online <i class="fas fa-bolt group-hover:animate-wiggle"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <div class="font-black text-lg">Brimmer HVAC</div>
-                            <div class="text-xs font-bold opacity-50">brimmerhvac.com</div>
+                    </div>
+
+                    <!-- 2. Contact Button -->
+                    <div class="relative z-30">
+                        <button onclick="toggleContactMenu()" class="w-12 h-12 md:w-auto md:h-full bg-brimmer-highlight border-4 border-brimmer-dark text-brimmer-dark rounded-full md:px-6 md:py-2 font-bold shadow-neo hover:shadow-neo-lg active:shadow-neo-hover active:translate-x-[3px] active:translate-y-[3px] transition-all flex items-center justify-center gap-2">
+                            <span class="hidden md:inline">Contact Us</span>
+                            <i class="fas fa-comment-dots text-xl md:text-xl"></i>
+                        </button>
+                        <div id="contact-menu" class="absolute right-0 top-full mt-4 w-64 bg-white border-4 border-brimmer-dark rounded-3xl shadow-neo p-4 hidden flex-col gap-3 transform transition-all z-50 animate-bounce-in">
+                            <a href="tel:+15551234567" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-brimmer-blue hover:text-white transition-colors font-bold border-2 border-transparent hover:border-brimmer-dark">
+                                <i class="fas fa-phone"></i> Call Us
+                            </a>
+                            <a href="sms:+15551234567" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-brimmer-success hover:text-white transition-colors font-bold border-2 border-transparent hover:border-brimmer-dark">
+                                <i class="fas fa-comment"></i> Text Us
+                            </a>
+                            <button onclick="copyPhoneNumber()" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-brimmer-highlight hover:text-brimmer-dark transition-colors font-bold border-2 border-transparent hover:border-brimmer-dark text-left w-full">
+                                <i class="fas fa-copy"></i> <span id="copy-text">555-123-4567</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="pt-24 pb-12 md:pt-32 md:pb-16 px-4 max-w-7xl mx-auto relative overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
+                
+                <!-- Text Content -->
+                <div class="md:col-span-7 text-center md:text-left relative">
+                    
+                    <!-- STICKER (Hidden) -->
+                    <div class="absolute -top-8 right-2 md:-top-10 md:right-20 rotate-6 bg-brimmer-dark text-white px-4 py-2 rounded-full font-bold text-xs md:text-sm border-2 border-white shadow-lg whitespace-nowrap tracking-wide leading-snug z-20 w-max pointer-events-none hidden">
+                        HEATING AND COOLING REPAIR
+                    </div>
+
+                    <h1 class="text-6xl md:text-8xl font-black leading-[0.9] tracking-tighter mb-8 mt-4 relative">
+                        NO <br class="md:hidden">
+                        <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-brimmer-blue to-brimmer-accent">
+                            SALESMEN.
+                        </span><br>
+                        JUST <span class="wavy-underline">SERVICE.</span>
+                    </h1>
+                    
+                    <!-- SERVICE TAGS -->
+                    <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-8">
+                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                            <i class="fas fa-fire text-brimmer-alert mr-1"></i> Heating Repairs
+                        </span>
+                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                            <i class="fas fa-snowflake text-brimmer-blue mr-1"></i> A/C Repairs
+                        </span>
+                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                            <i class="fas fa-wrench text-brimmer-accent mr-1"></i> Installs
+                        </span>
+                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                            <i class="fas fa-clipboard-check text-brimmer-success mr-1"></i> Inspections
+                        </span>
+                        <span class="inline-block px-3 py-1 bg-brimmer-highlight border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
+                            All Things HVAC
+                        </span>
+                    </div>
+
+                    <!-- MOVED CARDS: Info Tiles (Compact Grid) -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                        
+                        <!-- Card 1: Vlog -->
+                        <div class="bg-white border-4 border-brimmer-dark rounded-2xl p-5 shadow-neo hover:-translate-y-1 transition-transform flex flex-col items-start">
+                            <div class="w-10 h-10 bg-brimmer-blue rounded-full border-2 border-brimmer-dark flex items-center justify-center mb-3 text-white text-sm shadow-neo">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3 class="font-black text-lg leading-none mb-2">We Vlog It</h3>
+                            <p class="text-sm font-medium opacity-90 leading-tight">
+                                We record the fix. You see exactly what we do.
+                            </p>
+                        </div>
+
+                        <!-- Card 2: Markups -->
+                        <div class="bg-brimmer-highlight border-4 border-brimmer-dark rounded-2xl p-5 shadow-neo hover:-translate-y-1 transition-transform flex flex-col items-start">
+                            <div class="w-10 h-10 bg-white rounded-full border-2 border-brimmer-dark flex items-center justify-center mb-3 text-brimmer-dark text-sm shadow-neo">
+                                <i class="fas fa-ban"></i>
+                            </div>
+                            <h3 class="font-black text-lg leading-none mb-2">No Markups</h3>
+                            <p class="text-sm font-medium opacity-90 leading-tight">
+                                We charge $0 markup on parts. You pay our cost.
+                            </p>
+                        </div>
+
+                        <!-- Card 3: No Salesmen -->
+                        <div class="bg-white border-4 border-brimmer-dark rounded-2xl p-5 shadow-neo hover:-translate-y-1 transition-transform flex flex-col items-start">
+                            <div class="w-10 h-10 bg-brimmer-alert rounded-full border-2 border-brimmer-dark flex items-center justify-center mb-3 text-white text-sm shadow-neo">
+                                <i class="fas fa-user-slash"></i>
+                            </div>
+                            <h3 class="font-black text-lg leading-none mb-2">Just Fixers</h3>
+                            <p class="text-sm font-medium opacity-90 leading-tight">
+                                No salesmen. We fix it, we don't upsell it.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Image/Visual -->
+                <div class="md:col-span-5 relative">
+                    <div class="bg-white border-4 border-brimmer-dark rounded-[3rem] p-6 shadow-neo-lg rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <div class="bg-gray-100 rounded-[2rem] overflow-hidden border-2 border-brimmer-dark relative aspect-[4/5] group">
+                            <div class="absolute inset-0 overflow-hidden">
+                                <iframe
+                                    src="https://www.youtube.com/embed/PvQcD-bK7sk?autoplay=1&mute=1&controls=0&loop=1&playlist=PvQcD-bK7sk&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=10"
+                                    class="absolute top-1/2 left-1/2 w-[250%] h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen
+                                ></iframe>
+                            </div>
+                            <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 animate-pulse z-10 pointer-events-none">
+                                <div class="w-2 h-2 bg-white rounded-full"></div> REC
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <h3 class="font-black text-xl">Watch Your Technician</h3>
+                            <p class="text-sm">We record the fix. You verify the work.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Infinite Marquee -->
+        <div class="relative z-30 bg-brimmer-dark text-white py-4 border-y-4 border-brimmer-dark overflow-hidden -rotate-1 scale-[1.02] shadow-neo-lg origin-center -my-8 group">
+            <div class="flex overflow-hidden w-full">
+                <!-- Copy 1 -->
+                <div class="animate-marquee whitespace-nowrap shrink-0 flex items-center">
+                    <span class="text-3xl font-black mx-8">NO SALESMEN</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">NO SURPRISES</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">NO SALESMEN</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">NO SURPRISES</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                </div>
+                <!-- Copy 2 -->
+                <div class="animate-marquee whitespace-nowrap shrink-0 flex items-center">
+                    <span class="text-3xl font-black mx-8">NO SALESMEN</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">NO SURPRISES</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">NO SALESMEN</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">ZERO MARKUPS</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                    <span class="text-3xl font-black mx-8">NO SURPRISES</span>
+                    <span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Section -->
+        <section class="pt-24 pb-20 px-4 relative overflow-hidden bg-white border-y-4 border-brimmer-dark">
+            <div class="max-w-6xl mx-auto relative z-10 text-center">
+                <h2 class="text-5xl md:text-7xl font-black mb-12 uppercase reveal-on-scroll">
+                    Pricing So Simple <br>It's <span class="text-brimmer-blue underline decoration-wavy">Boring</span>
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                    <!-- LEFT COLUMN: The Flat Rate Card -->
+                    <div class="bg-brimmer-bg border-4 border-brimmer-dark rounded-[2.5rem] p-8 shadow-neo-lg relative reveal-on-scroll flex flex-col justify-start items-center transition-transform duration-300 hover:-translate-y-2 hover:rotate-1">
+                        <div class="absolute -top-6 -right-6 bg-brimmer-alert text-white font-black py-3 px-5 rounded-full border-4 border-brimmer-dark rotate-12 shadow-neo animate-pulse z-20">
+                            NO HIDDEN FEES!
+                        </div>
+                        <div class="flex flex-col justify-center items-center gap-2 mb-6 mt-4">
+                            <span class="text-7xl lg:text-9xl font-black text-brimmer-blue drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]">$150</span>
+                            <div class="text-center">
+                                <p class="text-3xl font-black">FLAT RATE</p>
+                                <p class="text-xl font-bold opacity-75">Includes 1st Hour</p>
+                            </div>
+                        </div>
+                        <div class="bg-white border-2 border-brimmer-dark rounded-xl p-4 w-full max-w-sm mx-auto mb-8">
+                            <p class="text-lg font-bold">
+                                <i class="fas fa-clock text-brimmer-blue mr-2"></i>
+                                Every hour after is $150/hr.
+                            </p>
+                        </div>
+                        <div class="text-left space-y-4 w-full max-w-md">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-brimmer-success text-brimmer-dark w-8 h-8 flex items-center justify-center rounded-full border-2 border-brimmer-dark shrink-0 shadow-[2px_2px_0px_0px_rgba(28,25,23,1)] mt-1"><i class="fas fa-check text-xs"></i></div>
+                                <p class="font-medium text-lg leading-tight">We never start work until you know the price.</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-brimmer-success text-brimmer-dark w-8 h-8 flex items-center justify-center rounded-full border-2 border-brimmer-dark shrink-0 shadow-[2px_2px_0px_0px_rgba(28,25,23,1)] mt-1"><i class="fas fa-check text-xs"></i></div>
+                                <p class="font-medium text-lg leading-tight">If the bill needs to go up, we stop and ask. <strong>Every. Single. Time.</strong></p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-brimmer-success text-brimmer-dark w-8 h-8 flex items-center justify-center rounded-full border-2 border-brimmer-dark shrink-0 shadow-[2px_2px_0px_0px_rgba(28,25,23,1)] mt-1"><i class="fas fa-check text-xs"></i></div>
+                                <p class="font-medium text-lg leading-tight">No markup on Parts.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Invoice Body (Line Items) -->
-                    <div class="p-8 flex-grow space-y-6">
-                        
-                        <!-- Item 1 -->
-                        <div class="flex justify-between items-start group">
-                            <div class="flex gap-4">
-                                <!-- Bullet Point -->
-                                <div class="mt-2 w-2.5 h-2.5 bg-brimmer-dark rounded-full shrink-0"></div>
-                                <div>
-                                    <p class="font-black text-xl leading-none mb-1">Diagnostic & Repair</p>
-                                    <p class="text-sm font-medium opacity-60">1 Hour Labor @ Flat Rate</p>
+                    <!-- RIGHT COLUMN: The Realistic Invoice -->
+                    <div class="bg-white border-4 border-brimmer-dark rounded-[2.5rem] p-0 shadow-neo-lg relative reveal-on-scroll text-left flex flex-col overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:rotate-1">
+                        <div class="absolute top-4 left-8 pointer-events-none z-20">
+                            <div class="border-4 border-red-600 text-red-600 font-black text-xl px-3 py-0.5 -rotate-6 rounded opacity-60 uppercase tracking-widest">
+                                EXAMPLE
+                            </div>
+                        </div>
+                        <div class="px-8 pb-8 pt-16 border-b-4 border-brimmer-dark flex justify-between items-start bg-gray-50">
+                            <div>
+                                <h3 class="text-4xl font-black uppercase tracking-tighter text-brimmer-dark mb-1">Invoice</h3>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-sm opacity-60">#1024</span>
+                                    <span class="bg-green-100 text-green-800 text-xs font-black px-2 py-0.5 rounded border border-green-800 uppercase">Paid</span>
                                 </div>
                             </div>
-                            <div class="font-black text-xl">$150.00</div>
+                            <div class="text-right">
+                                <div class="font-black text-lg">Brimmer HVAC</div>
+                                <div class="text-xs font-bold opacity-50">brimmerhvac.com</div>
+                            </div>
                         </div>
-
-                        <!-- Item 2 (Highlighted Part) -->
-                        <div class="flex justify-between items-start group">
-                            <div class="flex gap-4">
-                                <!-- Bullet Point (Yellow) -->
-                                <div class="mt-2 w-2.5 h-2.5 bg-brimmer-highlight border-2 border-brimmer-dark rounded-full shrink-0"></div>
-                                <div>
-                                    <p class="font-black text-xl leading-none mb-1">Run Capacitor</p>
-                                    <div class="inline-flex items-center gap-2 mt-1">
-                                        <span class="bg-brimmer-highlight text-brimmer-dark text-[10px] font-black px-2 py-0.5 rounded border border-brimmer-dark uppercase shadow-[2px_2px_0px_0px_rgba(28,25,23,1)]">Zero Markup</span>
-                                        <span class="text-xs font-bold opacity-60">(Part Cost)</span>
+                        <div class="p-8 flex-grow space-y-6">
+                            <div class="flex justify-between items-start group">
+                                <div class="flex gap-4">
+                                    <div class="mt-2 w-2.5 h-2.5 bg-brimmer-dark rounded-full shrink-0"></div>
+                                    <div>
+                                        <p class="font-black text-xl leading-none mb-1">Diagnostic & Repair</p>
+                                        <p class="text-sm font-medium opacity-60">1 Hour Labor @ Flat Rate</p>
                                     </div>
                                 </div>
+                                <div class="font-black text-xl">$150.00</div>
                             </div>
-                            <div class="font-black text-xl">$20.00</div>
+                            <div class="flex justify-between items-start group">
+                                <div class="flex gap-4">
+                                    <div class="mt-2 w-2.5 h-2.5 bg-brimmer-highlight border-2 border-brimmer-dark rounded-full shrink-0"></div>
+                                    <div>
+                                        <p class="font-black text-xl leading-none mb-1">Run Capacitor</p>
+                                        <div class="inline-flex items-center gap-2 mt-1">
+                                            <span class="bg-brimmer-highlight text-brimmer-dark text-[10px] font-black px-2 py-0.5 rounded border border-brimmer-dark uppercase shadow-[2px_2px_0px_0px_rgba(28,25,23,1)]">Zero Markup</span>
+                                            <span class="text-xs font-bold opacity-60">(Part Cost)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="font-black text-xl">$20.00</div>
+                            </div>
+                            <div class="flex justify-between items-center pt-4 border-t-2 border-dashed border-gray-300">
+                                <div class="pl-7 font-bold text-gray-500">Sales Tax (5.5%)</div>
+                                <div class="font-bold text-gray-500">$9.35</div>
+                            </div>
                         </div>
-
-                        <!-- Tax Line -->
-                        <div class="flex justify-between items-center pt-4 border-t-2 border-dashed border-gray-300">
-                            <div class="pl-7 font-bold text-gray-500">Sales Tax (5.5%)</div>
-                            <div class="font-bold text-gray-500">$9.35</div>
+                        <div class="bg-brimmer-dark text-white p-8 flex justify-between items-center mt-auto">
+                            <div class="text-left">
+                                <p class="font-bold text-sm opacity-70 uppercase tracking-widest">Total Due</p>
+                                <p class="text-xs opacity-50">Terms: Due upon receipt</p>
+                            </div>
+                            <span class="font-black text-5xl tracking-tighter">$179.35</span>
                         </div>
-                    </div>
-
-                    <!-- Invoice Footer (Total) -->
-                    <div class="bg-brimmer-dark text-white p-8 flex justify-between items-center mt-auto">
-                        <div class="text-left">
-                            <p class="font-bold text-sm opacity-70 uppercase tracking-widest">Total Due</p>
-                            <p class="text-xs opacity-50">Terms: Due upon receipt</p>
-                        </div>
-                        <span class="font-black text-5xl tracking-tighter">$179.35</span>
                     </div>
                 </div>
+            </div>
+        </section>
 
+        <!-- Booking CTA Section -->
+        <section id="booking" class="py-24 px-4 bg-brimmer-blue text-white text-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 2px, transparent 2px); background-size: 30px 30px;"></div>
+            <div class="max-w-4xl mx-auto relative z-10">
+                <h2 class="text-5xl md:text-7xl font-black mb-8 reveal-on-scroll">
+                    YOUR AC IS BROKEN.<br>LET'S FIX IT.
+                </h2>
+                <p class="text-2xl font-medium mb-12 reveal-on-scroll">Schedule online instantly. No phone tag.</p>
+                <button class="bg-brimmer-highlight text-brimmer-dark text-2xl md:text-4xl font-black py-6 px-12 rounded-full border-4 border-brimmer-dark shadow-[8px_8px_0px_0px_#1c1917] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 animate-bounce">
+                    GET SERVICE TODAY
+                </button>
             </div>
-            
-        </div>
-    </section>
+        </section>
 
-    <!-- Booking CTA Section -->
-    <section id="booking" class="py-24 px-4 bg-brimmer-blue text-white text-center relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 2px, transparent 2px); background-size: 30px 30px;"></div>
-        
-        <div class="max-w-4xl mx-auto relative z-10">
-            <h2 class="text-5xl md:text-7xl font-black mb-8 reveal-on-scroll">
-                YOUR AC IS BROKEN.<br>LET'S FIX IT.
-            </h2>
-            <p class="text-2xl font-medium mb-12 reveal-on-scroll">Schedule online instantly. No phone tag.</p>
-            
-            <button class="bg-brimmer-highlight text-brimmer-dark text-2xl md:text-4xl font-black py-6 px-12 rounded-full border-4 border-white shadow-[8px_8px_0px_0px_#ffffff] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 animate-bounce">
-                GET SERVICE TODAY
-            </button>
-        </div>
-    </section>
+        <!-- Footer -->
+        <footer class="bg-brimmer-dark text-white py-12 px-4 border-t-4 border-brimmer-dark">
+            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="text-center md:text-left">
+                    <h3 class="text-3xl font-black uppercase tracking-tighter">Brimmer</h3>
+                    <p class="opacity-50 mt-2">Heating & Cooling</p>
+                </div>
+                <div class="flex items-center gap-8 flex-col md:flex-row">
+                    <div class="flex gap-4">
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-brimmer-dark transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-brimmer-dark transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-brimmer-dark transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <!-- HIRING BUTTON REMOVED -->
+                </div>
+                <div class="text-sm opacity-50">
+                    &copy; 2024 Brimmer. All rights reserved.
+                </div>
+            </div>
+        </footer>
 
-    <!-- Footer -->
-    <footer class="bg-brimmer-dark text-white py-12 px-4 border-t-4 border-brimmer-dark">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-center md:text-left">
-                <h3 class="text-3xl font-black uppercase tracking-tighter">Brimmer</h3>
-                <p class="opacity-50 mt-2">Heating & Cooling</p>
-            </div>
-            
-            <div class="flex gap-4">
-                <a href="#" class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-brimmer-dark transition-colors">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-brimmer-dark transition-colors">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-brimmer-dark transition-colors">
-                    <i class="fab fa-youtube"></i>
-                </a>
-            </div>
-            
-            <div class="text-sm opacity-50">
-                &copy; 2024 Brimmer. All rights reserved.
-            </div>
-        </div>
-    </footer>
-    
+    </div> <!-- End Main Site Wrapper (Snap Point 1) -->
+
     <!-- ========================================= -->
-    <!-- === CUT HERE TO SEPARATE HIRING PAGE === -->
+    <!-- CUT HERE TO SEPARATE HIRING PAGE -->
     <!-- ========================================= -->
     <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12">
         <i class="fas fa-scissors text-2xl text-brimmer-dark rotate-90"></i>
@@ -562,12 +506,13 @@
         <span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR HIRING PAGE</span>
     </div>
 
-    <!-- NEW PAGE: HIRING (THE ANTI-SALES FORCE) -->
-    <section class="min-h-screen bg-brimmer-highlight text-brimmer-dark border-4 border-brimmer-dark p-8 relative overflow-hidden" style="font-family: 'Space Grotesk', sans-serif;">
+    <!-- PAGE: HIRING (THE ANTI-SALES FORCE) -->
+    <!-- Added snap-start -->
+    <section id="page-hiring" class="snap-start min-h-screen bg-brimmer-highlight text-brimmer-dark border-4 border-brimmer-dark p-8 relative overflow-hidden" style="font-family: 'Space Grotesk', sans-serif;">
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #1c1917 0, #1c1917 2px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
 
-        <div class="max-w-7xl mx-auto relative z-10">
+        <div class="max-w-7xl mx-auto relative z-10 pt-12">
             <!-- Header -->
             <div class="flex justify-between items-center mb-16">
                 <h2 class="text-4xl font-black uppercase tracking-tighter border-4 border-brimmer-dark bg-white px-4 py-2 shadow-neo rotate-1">Careers</h2>
@@ -611,7 +556,7 @@
             </div>
 
             <!-- CTA -->
-            <div class="text-center">
+            <div class="text-center pb-12">
                 <p class="text-xl font-bold mb-6 uppercase tracking-widest">Think you can fix it without selling a new unit?</p>
                 <button class="bg-white text-brimmer-dark text-3xl md:text-5xl font-black py-6 px-12 rounded-full border-4 border-brimmer-dark shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all uppercase">
                     Take The Tech Quiz <i class="fas fa-arrow-right ml-4"></i>
@@ -622,7 +567,7 @@
     </section>
 
     <!-- ========================================= -->
-    <!-- === CUT HERE TO SEPARATE VLOG PAGE === -->
+    <!-- CUT HERE TO SEPARATE VLOG PAGE -->
     <!-- ========================================= -->
     <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12">
         <i class="fas fa-scissors text-brimmer-dark text-2xl rotate-90"></i>
@@ -630,8 +575,10 @@
         <span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR VLOG EXPLAINER</span>
     </div>
 
-    <!-- NEW PAGE: VLOG PROTOCOL (TECHNICAL/CLEAN) -->
-    <section class="min-h-screen bg-white text-brimmer-dark relative overflow-hidden border-t-4 border-brimmer-dark">
+    <!-- PAGE: VLOG PROTOCOL (TECHNICAL/CLEAN) -->
+    <!-- Added snap-start -->
+    <section id="page-vlog" class="snap-start min-h-screen bg-white text-brimmer-dark relative overflow-hidden border-t-4 border-brimmer-dark">
+        
         <!-- Grid Background -->
         <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(#1c1917 1px, transparent 1px), linear-gradient(90deg, #1c1917 1px, transparent 1px); background-size: 40px 40px;"></div>
 
@@ -694,7 +641,7 @@
             </div>
 
             <!-- Bottom Area -->
-            <div class="mt-24 bg-brimmer-dark text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-neo-lg">
+            <div class="mt-24 bg-brimmer-dark text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-neo-lg pb-12">
                 <div class="flex items-center gap-6">
                     <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl animate-pulse">
                         <i class="fas fa-play"></i>
@@ -713,7 +660,7 @@
     </section>
 
     <!-- ========================================= -->
-    <!-- === CUT HERE TO SEPARATE ABOUT PAGE === -->
+    <!-- CUT HERE TO SEPARATE ABOUT PAGE -->
     <!-- ========================================= -->
     <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12">
         <i class="fas fa-scissors text-brimmer-dark text-2xl rotate-90"></i>
@@ -721,15 +668,17 @@
         <span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR ABOUT PAGE</span>
     </div>
 
-    <!-- NEW PAGE: ABOUT US (ORIGIN STORY - DARK MODE) -->
-    <section class="min-h-screen bg-brimmer-dark text-white border-t-4 border-white relative overflow-hidden p-8">
+    <!-- PAGE: ABOUT US (ORIGIN STORY - DARK MODE) -->
+    <!-- Added snap-start -->
+    <section id="page-about" class="snap-start min-h-screen bg-brimmer-dark text-white border-t-4 border-white relative overflow-hidden p-8">
+        
         <!-- Decorative Elements -->
         <div class="absolute top-0 right-0 w-64 h-64 bg-brimmer-blue rounded-full blur-[100px] opacity-20"></div>
         <div class="absolute bottom-0 left-0 w-64 h-64 bg-brimmer-alert rounded-full blur-[100px] opacity-20"></div>
 
         <div class="max-w-5xl mx-auto relative z-10 py-16">
             
-            <div class="text-center mb-24">
+            <div class="text-center mb-24 pt-8">
                 <p class="text-brimmer-highlight font-mono font-bold tracking-widest mb-4">THE ORIGIN STORY</p>
                 <h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none">
                     We were tired of<br>
@@ -776,7 +725,7 @@
             </div>
 
             <!-- Signature -->
-            <div class="mt-24 text-center border-t border-white/10 pt-12">
+            <div class="mt-24 text-center border-t border-white/10 pt-12 pb-12">
                 <h4 class="font-black text-2xl mb-2">Dan Brimmer</h4>
                 <p class="font-mono text-sm opacity-50">Founder & Head Wrench Turner</p>
             </div>
