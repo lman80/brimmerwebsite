@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- REMOVED Leaflet CSS -->
 
     <script>
         tailwind.config = {
@@ -40,6 +42,7 @@
                         'wiggle': 'wiggle 1s ease-in-out infinite',
                         'bounce-in': 'bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
                         'spin-slow': 'spin 12s linear infinite',
+                        'radar-ping': 'radarPing 3s cubic-bezier(0, 0, 0.2, 1) infinite',
                     },
                     keyframes: {
                         marquee: {
@@ -57,6 +60,9 @@
                         bounceIn: {
                             '0%': { opacity: '0', transform: 'scale(0.9) translateY(10px)' },
                             '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+                        },
+                        radarPing: {
+                            '75%, 100%': { transform: 'scale(2)', opacity: '0' },
                         }
                     }
                 }
@@ -70,7 +76,6 @@
             background-image: radial-gradient(#3b82f6 0.5px, transparent 0.5px), radial-gradient(#3b82f6 0.5px, #Fdf6e3 0.5px);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
-            /* overflow-x: hidden; Removed to let HTML handle scroll */
         }
         
         .no-scrollbar::-webkit-scrollbar {
@@ -95,10 +100,9 @@
         /* Custom Wavy Underline - Tighter Pattern */
         .wavy-underline {
             text-decoration: none;
-            /* Tighter sine wave: Reduced width from 40 to 20 for higher frequency */
             background-image: url("data:image/svg+xml,%3Csvg width='20' height='10' viewBox='0 0 20 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 5 0 10 5 T 20 5' fill='none' stroke='%23facc15' stroke-width='4' stroke-linecap='round' /%3E%3C/svg%3E");
             background-position: 0 100%;
-            background-size: 20px 10px; /* Matches SVG width/height */
+            background-size: 20px 10px;
             background-repeat: repeat-x;
             padding-bottom: 5px;
             display: inline-block;
@@ -111,12 +115,16 @@
             background-size: 30px 4px;
             background-repeat: repeat-x;
         }
+
+        /* Google Maps specific override to hide default UI elements if API fails or loads slow */
+        #service-map {
+            background-color: #e5e5e5;
+        }
     </style>
 </head>
 <body class="text-brimmer-dark font-sans selection:bg-brimmer-accent selection:text-white">
 
     <!-- MAIN WEBSITE WRAPPER -->
-    <!-- Added snap-start here so the top of the website is a valid snap point -->
     <div id="main-site" class="snap-start">
 
         <!-- Navigation -->
@@ -279,6 +287,18 @@
                             </p>
                         </div>
                     </div>
+
+                    <!-- NEW: FaceTime Teaser Hero Banner -->
+                    <div class="bg-brimmer-dark text-white border-4 border-white/50 rounded-2xl p-4 flex flex-col sm:flex-row items-center gap-4 shadow-neo hover:-translate-y-1 transition-transform cursor-pointer group">
+                        <div class="bg-brimmer-success text-brimmer-dark px-3 py-1 rounded font-bold uppercase text-xs flex items-center gap-2 animate-pulse">
+                            <div class="w-2 h-2 bg-brimmer-dark rounded-full"></div> Live
+                        </div>
+                        <div class="text-center sm:text-left flex-1">
+                            <p class="font-black uppercase text-sm tracking-widest text-brimmer-highlight mb-1">New Service</p>
+                            <h4 class="font-bold text-lg leading-none group-hover:text-brimmer-highlight transition-colors">Free 15-Min Video Diagnostics</h4>
+                        </div>
+                        <i class="fas fa-arrow-right text-xl group-hover:translate-x-2 transition-transform"></i>
+                    </div>
                 </div>
 
                 <!-- Hero Image/Visual -->
@@ -358,7 +378,7 @@
                     Pricing So Simple <br>It's <span class="text-brimmer-blue underline decoration-wavy">Boring</span>
                 </h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-8">
                     <!-- LEFT COLUMN: The Flat Rate Card -->
                     <div class="bg-brimmer-bg border-4 border-brimmer-dark rounded-[2.5rem] p-8 shadow-neo-lg relative reveal-on-scroll flex flex-col justify-start items-center transition-transform duration-300 hover:-translate-y-2 hover:rotate-1">
                         <div class="absolute -top-6 -right-6 bg-brimmer-alert text-white font-black py-3 px-5 rounded-full border-4 border-brimmer-dark rotate-12 shadow-neo animate-pulse z-20">
@@ -449,7 +469,175 @@
                             </div>
                             <span class="font-black text-5xl tracking-tighter">$179.35</span>
                         </div>
+
+                        <!-- NEW BUTTON: Link to Examples -->
+                        <div class="absolute inset-0 bg-brimmer-dark/90 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 text-center p-8 backdrop-blur-sm">
+                            <h4 class="text-white text-3xl font-black uppercase mb-4">Want to see more?</h4>
+                            <a href="#repair-examples" class="bg-brimmer-highlight text-brimmer-dark font-black text-xl px-8 py-4 rounded-xl border-4 border-white shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all uppercase">
+                                See 6 Common Repair Estimates <i class="fas fa-arrow-down ml-2"></i>
+                            </a>
+                        </div>
                     </div>
+                </div>
+
+                <!-- FULL WIDTH: Video Diagnostics Card (FaceTime) -->
+                <div class="bg-brimmer-dark text-white border-4 border-brimmer-dark rounded-[2.5rem] p-8 shadow-neo-lg reveal-on-scroll flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden mb-8">
+                    <!-- Background Gradient Effect -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-brimmer-success/20 via-transparent to-transparent pointer-events-none"></div>
+                    
+                    <!-- Left: Visual/Icon -->
+                    <div class="flex-shrink-0 relative">
+                        <div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full flex items-center justify-center border-4 border-brimmer-success shadow-[0_0_30px_rgba(74,222,128,0.4)] animate-pulse">
+                            <i class="fas fa-video text-4xl md:text-5xl text-brimmer-dark"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 bg-brimmer-alert text-white text-xs font-black uppercase px-3 py-1 rounded-full border-2 border-white rotate-12 shadow-lg">
+                            Try This First
+                        </div>
+                    </div>
+
+                    <!-- Center: Content -->
+                    <div class="flex-1 text-left">
+                        <h3 class="text-3xl md:text-5xl font-black uppercase leading-none mb-2">
+                            Video <span class="text-brimmer-success">Diagnostics</span>
+                        </h3>
+                        <p class="text-xl font-medium opacity-90 mb-4">
+                            Don't pay for a service call yet. Jump on a 15-min video call using your favorite app.
+                        </p>
+                        
+                        <!-- Supported Platforms List -->
+                        <div class="flex flex-wrap gap-4 md:gap-6 mb-6 opacity-80 border-b border-white/10 pb-4">
+                            <div class="flex items-center gap-2" title="Apple FaceTime">
+                                <i class="fab fa-apple text-2xl"></i> 
+                                <span class="font-bold text-xs uppercase tracking-wider">FaceTime</span>
+                            </div>
+                            <div class="flex items-center gap-2" title="WhatsApp Video">
+                                <i class="fab fa-whatsapp text-2xl"></i> 
+                                <span class="font-bold text-xs uppercase tracking-wider">WhatsApp</span>
+                            </div>
+                            <div class="flex items-center gap-2" title="Facebook Messenger">
+                                <i class="fab fa-facebook-messenger text-2xl"></i> 
+                                <span class="font-bold text-xs uppercase tracking-wider">Messenger</span>
+                            </div>
+                            <div class="flex items-center gap-2" title="Zoom or Google Meet">
+                                <i class="fas fa-video text-2xl"></i> 
+                                <span class="font-bold text-xs uppercase tracking-wider">Zoom/Meet</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            <span class="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-lg border border-white/20 font-bold text-sm">
+                                <i class="fas fa-tools text-brimmer-highlight"></i> DIY Assistance
+                            </span>
+                            <span class="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-lg border border-white/20 font-bold text-sm">
+                                <i class="fas fa-file-invoice-dollar text-brimmer-highlight"></i> Accurate Quotes
+                            </span>
+                            <span class="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-lg border border-white/20 font-bold text-sm">
+                                <i class="fas fa-smile text-brimmer-highlight"></i> No Pressure
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Price & Action -->
+                    <div class="text-center md:text-right flex-shrink-0">
+                        <div class="text-6xl font-black text-brimmer-success mb-2">$0</div>
+                        <div class="text-xs font-bold uppercase tracking-widest opacity-60 mb-4">15 Minutes Free</div>
+                        <button class="bg-brimmer-success text-brimmer-dark font-black text-xl px-8 py-3 rounded-xl border-4 border-transparent hover:border-white shadow-lg transition-all hover:-translate-y-1 whitespace-nowrap">
+                            Book Video Call <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PRICING PHILOSOPHY: Competitors & Wages -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    
+                    <!-- Card 1: The Competitor Callout -->
+                    <div class="bg-white border-4 border-brimmer-dark rounded-3xl p-8 text-left shadow-neo hover:-translate-y-1 transition-transform">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-brimmer-alert text-white rounded-full border-2 border-brimmer-dark flex items-center justify-center text-xl shadow-[2px_2px_0px_black]">
+                                <i class="fas fa-user-mask"></i>
+                            </div>
+                            <h3 class="font-black text-2xl uppercase leading-none">The "Book Price" Trap</h3>
+                        </div>
+                        <p class="font-medium opacity-80 leading-relaxed mb-4">
+                            Most competitors use "Flat Rate Pricing" books. They quote you a massive fee upfront that assumes the job takes 4 hours, even if it takes 20 minutes.
+                        </p>
+                        <p class="font-bold text-sm border-l-4 border-brimmer-alert pl-4">
+                            We guarantee their "Flat Rate" is higher than our "Time + Materials" rate. Every time.
+                        </p>
+                    </div>
+
+                    <!-- Card 2: The Living Wage Justification -->
+                    <div class="bg-white border-4 border-brimmer-dark rounded-3xl p-8 text-left shadow-neo hover:-translate-y-1 transition-transform">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-brimmer-success text-brimmer-dark rounded-full border-2 border-brimmer-dark flex items-center justify-center text-xl shadow-[2px_2px_0px_black]">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="font-black text-2xl uppercase leading-none">We Don't Hire Rookies</h3>
+                        </div>
+                        <p class="font-medium opacity-80 leading-relaxed mb-4">
+                            Our rate ensures a <strong>$100k+ living wage</strong> because we genuinely care about our employees. We want them to support their families comfortably, not scrape by.
+                        </p>
+                        <p class="font-bold text-sm border-l-4 border-brimmer-success pl-4">
+                            When a technician can feed their family without needing a commission check, they have no reason to lie to you. Happy techs = Honest service.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service Area Section (Framed Map Integration) -->
+        <section class="py-24 px-4 bg-brimmer-bg border-b-4 border-brimmer-dark relative overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    
+                    <!-- Left Column: Text Content -->
+                    <div class="lg:col-span-5 flex flex-col justify-center h-full">
+                        <div class="inline-block bg-white border-4 border-brimmer-dark px-4 py-1 rounded-full text-sm font-black uppercase tracking-widest mb-6 shadow-neo w-max">
+                            <i class="fas fa-map-marker-alt text-brimmer-alert mr-2"></i> Service Territory
+                        </div>
+                        
+                        <h2 class="text-5xl md:text-7xl font-black uppercase leading-[0.9] tracking-tighter mb-8">
+                            We Go Where<br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brimmer-blue to-brimmer-accent">You Are.</span>
+                        </h2>
+
+                        <div class="space-y-6 text-lg font-medium opacity-90">
+                            <p class="leading-relaxed">
+                                <span class="font-black text-xl">The 35-Mile Rule:</span> We operate out of Burlington, WI. To ensure we can provide same-day emergency service, we stick to a strict 35-mile radius.
+                            </p>
+                            <p class="leading-relaxed">
+                                If your property is inside the blue circle, you pay our standard flat rate. No travel fees. No "zone charges." Just service.
+                            </p>
+                        </div>
+
+                        <!-- Simple List -->
+                        <div class="mt-8 pt-8 border-t-4 border-brimmer-dark/10">
+                            <h4 class="font-black uppercase tracking-widest mb-4 text-sm">Key Counties Served:</h4>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Racine</span>
+                                <span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Kenosha</span>
+                                <span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Walworth</span>
+                                <span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Milwaukee</span>
+                                <span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Waukesha</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: The Framed Map -->
+                    <div class="lg:col-span-7">
+                        <div class="relative w-full aspect-square md:aspect-[4/3] bg-white border-4 border-brimmer-dark rounded-[2rem] shadow-neo-lg overflow-hidden group">
+                            <!-- The Map Container -->
+                            <div id="service-map" class="w-full h-full"></div>
+                            
+                            <!-- Corner Badge -->
+                            <div class="absolute bottom-6 left-6 bg-brimmer-dark text-white px-4 py-2 rounded-xl border-2 border-white shadow-lg z-10 pointer-events-none">
+                                <div class="text-xs font-bold uppercase opacity-60">Home Base</div>
+                                <div class="text-lg font-black">Burlington, WI</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -465,6 +653,209 @@
                 <button class="bg-brimmer-highlight text-brimmer-dark text-2xl md:text-4xl font-black py-6 px-12 rounded-full border-4 border-brimmer-dark shadow-[8px_8px_0px_0px_#1c1917] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 animate-bounce">
                     GET SERVICE TODAY
                 </button>
+            </div>
+        </section>
+
+        <!-- NEW: REPAIR EXAMPLES SECTION (Transparency Library) -->
+        <section id="repair-examples" class="py-24 px-4 bg-white border-y-4 border-brimmer-dark relative overflow-hidden">
+            <div class="max-w-7xl mx-auto relative z-10">
+                <div class="text-center mb-16">
+                    <span class="bg-brimmer-highlight border-2 border-brimmer-dark px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-neo mb-4 inline-block">Transparency Library</span>
+                    <h2 class="text-5xl md:text-7xl font-black uppercase leading-[0.9] tracking-tighter mb-4">
+                        Common Repair<br>Estimates
+                    </h2>
+                    <p class="text-lg font-bold opacity-60 max-w-2xl mx-auto">We don't hide prices. Here are actual breakdowns of the most common repairs we perform.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <!-- 1. Dual Run Capacitor -->
+                    <div class="bg-white border-4 border-brimmer-dark rounded-3xl overflow-hidden shadow-neo hover:-translate-y-2 transition-transform group">
+                        <div class="bg-brimmer-dark text-white p-4 flex justify-between items-center border-b-4 border-brimmer-dark">
+                            <span class="font-black uppercase tracking-widest text-sm text-brimmer-highlight">AC Repair</span>
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="font-black text-2xl leading-none">Dual Run Capacitor</h3>
+                            <p class="text-xs font-bold opacity-60">Symptoms: AC hums but fan won't spin, or compressor won't start.</p>
+                            
+                            <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-2">
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span>Labor (1 Hr Flat Rate)</span>
+                                    <span>$150.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span class="text-brimmer-blue">Part Cost (Zero Markup)</span>
+                                    <span class="text-brimmer-blue">$25.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold text-gray-400">
+                                    <span>Tax (5.5%)</span>
+                                    <span>$9.63</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 border-t-4 border-brimmer-dark flex justify-between items-center">
+                            <span class="text-xs font-black uppercase opacity-50">Total Estimate</span>
+                            <span class="text-3xl font-black text-brimmer-dark">$184.63</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Contactor Replacement -->
+                    <div class="bg-white border-4 border-brimmer-dark rounded-3xl overflow-hidden shadow-neo hover:-translate-y-2 transition-transform group">
+                        <div class="bg-brimmer-dark text-white p-4 flex justify-between items-center border-b-4 border-brimmer-dark">
+                            <span class="font-black uppercase tracking-widest text-sm text-brimmer-highlight">AC Repair</span>
+                            <i class="fas fa-magnet"></i>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="font-black text-2xl leading-none">Contactor Replacement</h3>
+                            <p class="text-xs font-bold opacity-60">Symptoms: AC keeps running when off, or unit won't turn on (pitted contacts).</p>
+                            
+                            <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-2">
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span>Labor (1 Hr Flat Rate)</span>
+                                    <span>$150.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span class="text-brimmer-blue">Part Cost (Zero Markup)</span>
+                                    <span class="text-brimmer-blue">$18.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold text-gray-400">
+                                    <span>Tax (5.5%)</span>
+                                    <span>$9.24</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 border-t-4 border-brimmer-dark flex justify-between items-center">
+                            <span class="text-xs font-black uppercase opacity-50">Total Estimate</span>
+                            <span class="text-3xl font-black text-brimmer-dark">$177.24</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Flame Sensor -->
+                    <div class="bg-white border-4 border-brimmer-dark rounded-3xl overflow-hidden shadow-neo hover:-translate-y-2 transition-transform group">
+                        <div class="bg-brimmer-dark text-white p-4 flex justify-between items-center border-b-4 border-brimmer-dark">
+                            <span class="font-black uppercase tracking-widest text-sm text-brimmer-alert">Heater Repair</span>
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="font-black text-2xl leading-none">Flame Sensor Clean/Replace</h3>
+                            <p class="text-xs font-bold opacity-60">Symptoms: Furnace lights for 3 seconds then shuts off immediately.</p>
+                            
+                            <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-2">
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span>Labor (1 Hr Flat Rate)</span>
+                                    <span>$150.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span class="text-brimmer-blue">Part Cost (Zero Markup)</span>
+                                    <span class="text-brimmer-blue">$12.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold text-gray-400">
+                                    <span>Tax (5.5%)</span>
+                                    <span>$8.91</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 border-t-4 border-brimmer-dark flex justify-between items-center">
+                            <span class="text-xs font-black uppercase opacity-50">Total Estimate</span>
+                            <span class="text-3xl font-black text-brimmer-dark">$170.91</span>
+                        </div>
+                    </div>
+
+                    <!-- 4. Hot Surface Ignitor -->
+                    <div class="bg-white border-4 border-brimmer-dark rounded-3xl overflow-hidden shadow-neo hover:-translate-y-2 transition-transform group">
+                        <div class="bg-brimmer-dark text-white p-4 flex justify-between items-center border-b-4 border-brimmer-dark">
+                            <span class="font-black uppercase tracking-widest text-sm text-brimmer-alert">Heater Repair</span>
+                            <i class="fas fa-burn"></i>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="font-black text-2xl leading-none">Hot Surface Ignitor</h3>
+                            <p class="text-xs font-bold opacity-60">Symptoms: Furnace blows cold air, no glow seen inside unit.</p>
+                            
+                            <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-2">
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span>Labor (1 Hr Flat Rate)</span>
+                                    <span>$150.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span class="text-brimmer-blue">Part Cost (Zero Markup)</span>
+                                    <span class="text-brimmer-blue">$45.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold text-gray-400">
+                                    <span>Tax (5.5%)</span>
+                                    <span>$10.73</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 border-t-4 border-brimmer-dark flex justify-between items-center">
+                            <span class="text-xs font-black uppercase opacity-50">Total Estimate</span>
+                            <span class="text-3xl font-black text-brimmer-dark">$205.73</span>
+                        </div>
+                    </div>
+
+                    <!-- 5. Blower Motor -->
+                    <div class="bg-white border-4 border-brimmer-dark rounded-3xl overflow-hidden shadow-neo hover:-translate-y-2 transition-transform group">
+                        <div class="bg-brimmer-dark text-white p-4 flex justify-between items-center border-b-4 border-brimmer-dark">
+                            <span class="font-black uppercase tracking-widest text-sm text-white">Major Repair</span>
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="font-black text-2xl leading-none">Blower Motor (1/3 HP)</h3>
+                            <p class="text-xs font-bold opacity-60">Symptoms: No airflow, loud screeching noise, burning smell.</p>
+                            
+                            <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-2">
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span>Labor (2 Hrs @ $150/hr)</span>
+                                    <span>$300.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span class="text-brimmer-blue">Part Cost (Zero Markup)</span>
+                                    <span class="text-brimmer-blue">$120.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold text-gray-400">
+                                    <span>Tax (5.5%)</span>
+                                    <span>$23.10</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 border-t-4 border-brimmer-dark flex justify-between items-center">
+                            <span class="text-xs font-black uppercase opacity-50">Total Estimate</span>
+                            <span class="text-3xl font-black text-brimmer-dark">$443.10</span>
+                        </div>
+                    </div>
+
+                    <!-- 6. Condensate Pump -->
+                    <div class="bg-white border-4 border-brimmer-dark rounded-3xl overflow-hidden shadow-neo hover:-translate-y-2 transition-transform group">
+                        <div class="bg-brimmer-dark text-white p-4 flex justify-between items-center border-b-4 border-brimmer-dark">
+                            <span class="font-black uppercase tracking-widest text-sm text-brimmer-blue">Water Issue</span>
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <h3 class="font-black text-2xl leading-none">Condensate Pump</h3>
+                            <p class="text-xs font-bold opacity-60">Symptoms: Water pooling around furnace/AC, or unit shut off by water safety switch.</p>
+                            
+                            <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-2">
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span>Labor (1 Hr Flat Rate)</span>
+                                    <span>$150.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold">
+                                    <span class="text-brimmer-blue">Part Cost (Zero Markup)</span>
+                                    <span class="text-brimmer-blue">$65.00</span>
+                                </div>
+                                <div class="flex justify-between text-sm font-bold text-gray-400">
+                                    <span>Tax (5.5%)</span>
+                                    <span>$11.83</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 border-t-4 border-brimmer-dark flex justify-between items-center">
+                            <span class="text-xs font-black uppercase opacity-50">Total Estimate</span>
+                            <span class="text-3xl font-black text-brimmer-dark">$226.83</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
 
@@ -487,7 +878,6 @@
                             <i class="fab fa-youtube"></i>
                         </a>
                     </div>
-                    <!-- HIRING BUTTON REMOVED -->
                 </div>
                 <div class="text-sm opacity-50">
                     &copy; 2024 Brimmer. All rights reserved.
@@ -501,13 +891,12 @@
     <!-- CUT HERE TO SEPARATE HIRING PAGE -->
     <!-- ========================================= -->
     <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12">
-        <i class="fas fa-scissors text-2xl text-brimmer-dark rotate-90"></i>
+        <i class="fas fa-scissors text-brimmer-dark text-2xl rotate-90"></i>
         <div class="cut-line w-full max-w-4xl h-1"></div>
         <span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR HIRING PAGE</span>
     </div>
 
     <!-- PAGE: HIRING (THE ANTI-SALES FORCE) -->
-    <!-- Added snap-start -->
     <section id="page-hiring" class="snap-start min-h-screen bg-brimmer-highlight text-brimmer-dark border-4 border-brimmer-dark p-8 relative overflow-hidden" style="font-family: 'Space Grotesk', sans-serif;">
         <!-- Background Pattern -->
         <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #1c1917 0, #1c1917 2px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
@@ -576,7 +965,6 @@
     </div>
 
     <!-- PAGE: VLOG PROTOCOL (TECHNICAL/CLEAN) -->
-    <!-- Added snap-start -->
     <section id="page-vlog" class="snap-start min-h-screen bg-white text-brimmer-dark relative overflow-hidden border-t-4 border-brimmer-dark">
         
         <!-- Grid Background -->
@@ -636,7 +1024,6 @@
                         <h3 class="font-black text-xl mb-2 uppercase">Review</h3>
                         <p class="text-sm font-medium opacity-80">You get a text link. Watch the 3-minute summary before you pay the invoice.</p>
                     </div>
-
                 </div>
             </div>
 
@@ -655,7 +1042,6 @@
                     Watch Sample Video
                 </a>
             </div>
-
         </div>
     </section>
 
@@ -669,7 +1055,6 @@
     </div>
 
     <!-- PAGE: ABOUT US (ORIGIN STORY - DARK MODE) -->
-    <!-- Added snap-start -->
     <section id="page-about" class="snap-start min-h-screen bg-brimmer-dark text-white border-t-4 border-white relative overflow-hidden p-8">
         
         <!-- Decorative Elements -->
@@ -732,6 +1117,15 @@
 
         </div>
     </section>
+
+    <!-- Google Maps API Loader -->
+    <!-- Note: You must insert your valid API Key in the 'key' parameter below for this to work in production -->
+    <script>
+        (function(g){var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+            key: "", // <--- INSERT YOUR GOOGLE MAPS API KEY HERE
+            v: "weekly",
+        });
+    </script>
 
     <!-- Scripts -->
     <script>
@@ -924,9 +1318,82 @@
             observer.observe(element);
         });
 
+        // --- Google Maps Initialization ---
+        async function initMap() {
+            const { Map } = await google.maps.importLibrary("maps");
+            const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+            const { Circle } = await google.maps.importLibrary("maps");
+
+            // Burlington WI Coordinates
+            const hqCoords = { lat: 42.6778, lng: -88.2720 };
+            const radiusMiles = 35;
+            const radiusMeters = radiusMiles * 1609.34;
+
+            // Custom Neo-Brutalist Style
+            // Strips color, uses creams, greys, and blacks to match site theme
+            const neoStyle = [
+                { elementType: "geometry", stylers: [{ color: "#e5e5e5" }] }, // Base land color
+                { elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+                { elementType: "labels.text.fill", stylers: [{ color: "#1c1917" }] }, // Dark labels
+                { elementType: "labels.text.stroke", stylers: [{ color: "#ffffff" }] },
+                { featureType: "administrative.land_parcel", elementType: "labels.text.fill", stylers: [{ color: "#bdbdbd" }] },
+                { featureType: "poi", elementType: "geometry", stylers: [{ color: "#eeeeee" }] },
+                { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
+                { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] }, // White roads
+                { featureType: "road.arterial", elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
+                { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#1c1917" }] }, // Black highways
+                { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#ffffff" }] }, // White highway text
+                { featureType: "road.local", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] },
+                { featureType: "water", elementType: "geometry", stylers: [{ color: "#d4d4d4" }] }, // Grey water
+                { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#9e9e9e" }] }
+            ];
+
+            const map = new Map(document.getElementById("service-map"), {
+                center: hqCoords,
+                zoom: 9,
+                mapId: "DEMO_MAP_ID", // Required for AdvancedMarkerElement
+                styles: neoStyle,
+                disableDefaultUI: true, // Clean look
+                zoomControl: true, // Re-enabled zoom for usability in the frame
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false,
+            });
+
+            // Add Service Area Circle
+            const cityCircle = new google.maps.Circle({
+                strokeColor: "#3b82f6", // Brimmer Blue
+                strokeOpacity: 0.8,
+                strokeWeight: 3,
+                fillColor: "#3b82f6",
+                fillOpacity: 0.15,
+                map,
+                center: hqCoords,
+                radius: radiusMeters,
+            });
+
+            // Add HQ Marker
+            // Creating a custom DOM element for the marker to match the theme
+            const markerDiv = document.createElement("div");
+            markerDiv.style.width = "16px";
+            markerDiv.style.height = "16px";
+            markerDiv.style.backgroundColor = "#1c1917";
+            markerDiv.style.border = "3px solid white";
+            markerDiv.style.borderRadius = "50%";
+            markerDiv.style.boxShadow = "2px 2px 0px #000000";
+
+            const marker = new AdvancedMarkerElement({
+                map: map,
+                position: hqCoords,
+                content: markerDiv,
+                title: "Brimmer HQ",
+            });
+        }
+
         // --- Initialize ---
         window.onload = function() {
             checkBusinessHours();
+            initMap();
         }
     </script>
 </body>
