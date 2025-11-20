@@ -1305,23 +1305,36 @@
                     <div class="md:w-5/12 order-3 md:order-1"></div>
                     <div class="w-20 h-20 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-3xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">2</div>
                     <div class="md:w-5/12 order-2 md:order-3">
-                         <div class="bg-white border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left">
+                         <div class="bg-brimmer-highlight border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left group">
                             <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-paper-plane mr-2 text-brimmer-accent"></i> 2. The "Stranger Danger" Check</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">You get a text tracking link. You see the tech's face, name, and bio before they arrive.</p>
                             
+                            <!-- Header -->
+                            <h3 class="font-black text-2xl uppercase mb-2 text-brimmer-dark"><i class="fas fa-paper-plane mr-2"></i> 2. The "Stranger Danger" Check</h3>
+                            <p class="font-bold opacity-80 text-lg leading-tight mb-6 text-brimmer-dark">You get a text. It has a link. You see the tech's face, name, and bio before they pull up.</p>
+                            
+                            <!-- Interactive Element: Tracking Button -->
+                            <button class="w-full bg-white border-2 border-brimmer-dark rounded-xl px-4 py-3 font-bold flex items-center justify-between hover:bg-brimmer-dark hover:text-white transition-colors group/btn">
+                                <span class="flex items-center gap-2">
+                                    <span class="relative flex h-3 w-3">
+                                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brimmer-blue opacity-75"></span>
+                                      <span class="relative inline-flex rounded-full h-3 w-3 bg-brimmer-blue"></span>
+                                    </span>
+                                    Track Your Tech
+                                </span>
+                                <i class="fas fa-map-marker-alt group-hover/btn:scale-110 transition-transform"></i>
+                            </button>
+
                             <!-- Collapsible Details -->
-                            <details class="group border-t-2 border-dashed border-gray-300 pt-4">
-                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
+                            <details class="group/details border-t-2 border-dashed border-brimmer-dark/30 pt-4 mt-4">
+                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:opacity-70 transition-opacity text-brimmer-dark">
                                     <span>See The Details</span>
-                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                    <i class="fas fa-chevron-down group-open/details:rotate-180 transition-transform"></i>
                                 </summary>
-                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-gray-50 p-3 rounded-xl">
-                                    <p class="mb-2">We know inviting someone into your home is a big deal.</p>
-                                    <ul class="list-disc list-inside space-y-1">
-                                        <li>GPS Tracking (Watch the van arrive)</li>
-                                        <li>Technician Photo & Bio</li>
-                                        <li>Background Checked Badge</li>
+                                <div class="mt-3 text-sm font-bold text-brimmer-dark/80 leading-relaxed">
+                                    <ul class="space-y-2">
+                                        <li class="flex items-center gap-2"><i class="fas fa-satellite-dish"></i> Live GPS Map View</li>
+                                        <li class="flex items-center gap-2"><i class="fas fa-id-badge"></i> Tech Photo & Bio</li>
+                                        <li class="flex items-center gap-2"><i class="fas fa-shield-alt"></i> Background Check Verified</li>
                                     </ul>
                                 </div>
                             </details>
@@ -1334,22 +1347,38 @@
                     <div class="md:w-5/12 order-2 md:order-1">
                         <div class="bg-white border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative group">
                              <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-shoe-prints mr-2 text-brimmer-blue"></i> 3. The Red Carpet Arrival</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">We park on the street, not your driveway. Shoe covers go on BEFORE we step inside.</p>
                             
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-black text-2xl uppercase"><i class="fas fa-shoe-prints mr-2 text-brimmer-blue"></i> 3. The Arrival</h3>
+                                <!-- Safety Badge -->
+                                <div class="bg-brimmer-success text-brimmer-dark text-[10px] font-black px-2 py-1 rounded border border-brimmer-dark uppercase tracking-wider flex items-center gap-1">
+                                    <i class="fas fa-check"></i> Safety Mode
+                                </div>
+                            </div>
+                            
+                            <p class="font-bold opacity-70 text-lg leading-tight mb-6">We respect your castle. We don't park in your driveway, and we gear up before we enter.</p>
+                            
+                            <!-- Visual Checklist -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-gray-100 border-2 border-gray-300 rounded-lg text-xs font-bold text-gray-500 flex items-center gap-2 group-hover:bg-brimmer-blue group-hover:text-white group-hover:border-brimmer-dark transition-colors duration-300">
+                                    <i class="fas fa-socks"></i> Shoe Covers ON
+                                </span>
+                                <span class="px-3 py-1 bg-gray-100 border-2 border-gray-300 rounded-lg text-xs font-bold text-gray-500 flex items-center gap-2 group-hover:bg-brimmer-blue group-hover:text-white group-hover:border-brimmer-dark transition-colors duration-500">
+                                    <i class="fas fa-video"></i> Body Cam REC
+                                </span>
+                                <span class="px-3 py-1 bg-gray-100 border-2 border-gray-300 rounded-lg text-xs font-bold text-gray-500 flex items-center gap-2 group-hover:bg-brimmer-blue group-hover:text-white group-hover:border-brimmer-dark transition-colors duration-700">
+                                    <i class="fas fa-rug"></i> Floor Mats DOWN
+                                </span>
+                            </div>
+
                             <!-- Collapsible Details -->
-                            <details class="group border-t-2 border-dashed border-gray-300 pt-4">
+                            <details class="group/details border-t-2 border-dashed border-gray-300 pt-4">
                                 <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
                                     <span>See The Details</span>
-                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                    <i class="fas fa-chevron-down group-open/details:rotate-180 transition-transform"></i>
                                 </summary>
                                 <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-gray-50 p-3 rounded-xl">
-                                    <p class="mb-2">We treat your castle with respect.</p>
-                                    <ul class="list-disc list-inside space-y-1">
-                                        <li>Floor Mats laid down for tools</li>
-                                        <li>Fresh Shoe Covers (Booties)</li>
-                                        <li>Body Cam turns ON for safety</li>
-                                    </ul>
+                                    <p>We assume every floor is white carpet. Our "Red Carpet" protocol ensures we leave your home cleaner than we found it.</p>
                                 </div>
                             </details>
                         </div>
@@ -1363,23 +1392,30 @@
                     <div class="md:w-5/12 order-3 md:order-1"></div>
                     <div class="w-20 h-20 bg-brimmer-dark border-4 border-white rounded-full z-10 flex items-center justify-center text-white font-black text-3xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">4</div>
                     <div class="md:w-5/12 order-2 md:order-3">
-                         <div class="bg-brimmer-bg border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left">
+                         <div class="bg-brimmer-dark border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left group text-white">
                              <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-file-signature mr-2"></i> 4. The "Permission" Slip</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">We diagnose the issue. We build a quote with the "Max Cap". You approve it on the iPad.</p>
                             
+                            <h3 class="font-black text-2xl uppercase mb-2 text-white"><i class="fas fa-file-signature mr-2 text-brimmer-highlight"></i> 4. The "Max Cap" Quote</h3>
+                            <p class="font-medium opacity-80 text-lg leading-tight mb-6">We diagnose the issue. We hand you the iPad. You see the <strong>Max Cap Price</strong>. You sign.</p>
+                            
+                            <!-- Interactive Element: Sign Button -->
+                            <button class="w-full bg-white/10 border-2 border-white/20 rounded-xl px-4 py-3 font-bold flex items-center justify-between hover:bg-brimmer-success hover:text-brimmer-dark hover:border-brimmer-dark transition-all group/btn text-white">
+                                <span><i class="fas fa-pen-fancy mr-2"></i> Review & Sign Quote</span>
+                                <i class="fas fa-chevron-right group-hover/btn:translate-x-1 transition-transform"></i>
+                            </button>
+
                             <!-- Collapsible Details -->
-                            <details class="group border-t-2 border-dashed border-brimmer-dark/20 pt-4">
-                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
+                            <details class="group/details border-t-2 border-dashed border-white/20 pt-4 mt-4">
+                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-highlight transition-colors">
                                     <span>See The Details</span>
-                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                    <i class="fas fa-chevron-down group-open/details:rotate-180 transition-transform"></i>
                                 </summary>
-                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-white/50 p-3 rounded-xl border border-brimmer-dark/10">
-                                    <p class="mb-2">We don't twist a single wrench without your permission.</p>
+                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-white/10 p-3 rounded-xl border border-white/10">
+                                    <p class="mb-2">Zero surprises.</p>
                                     <ul class="list-disc list-inside space-y-1">
-                                        <li>Full breakdown of the job</li>
-                                        <li>Max Cap Price is locked in</li>
-                                        <li>You sign digitally to authorize</li>
+                                        <li>You approve the "Worst Case" price</li>
+                                        <li>We explain the fix in plain English</li>
+                                        <li>No work starts without a signature</li>
                                     </ul>
                                 </div>
                             </details>
@@ -1390,24 +1426,33 @@
                 <!-- Step 5: The Fix -->
                  <div class="flex flex-col md:flex-row items-center justify-between mb-20 relative">
                     <div class="md:w-5/12 order-2 md:order-1">
-                        <div class="bg-white border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative group">
+                        <div class="bg-brimmer-bg border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative group">
                              <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-tools mr-2 text-brimmer-success"></i> 5. The Surgery</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">We fix it. We record the repair. If we find something else, we STOP and ask.</p>
                             
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-tools mr-2 text-brimmer-success"></i> 5. The Surgery</h3>
+                                <!-- REC Badge -->
+                                <div class="flex items-center gap-2 bg-red-100 text-red-600 px-2 py-1 rounded border border-red-200 text-[10px] font-black uppercase">
+                                    <div class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></div> REC
+                                </div>
+                            </div>
+
+                            <p class="font-bold opacity-70 text-lg leading-tight mb-6">We fix it. We record the repair. If we finish fast, you save money. If it fights us, your price is capped.</p>
+                            
+                            <!-- Interactive Element: View Cam -->
+                            <button class="w-full bg-white border-2 border-brimmer-dark rounded-xl px-4 py-3 font-bold flex items-center justify-between hover:bg-brimmer-dark hover:text-white transition-colors group/btn">
+                                <span><i class="fas fa-video mr-2"></i> View Body Cam (Demo)</span>
+                                <i class="fas fa-play-circle group-hover/btn:scale-110 transition-transform"></i>
+                            </button>
+
                             <!-- Collapsible Details -->
-                            <details class="group border-t-2 border-dashed border-gray-300 pt-4">
+                            <details class="group/details border-t-2 border-dashed border-gray-300 pt-4 mt-4">
                                 <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
                                     <span>See The Details</span>
-                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                    <i class="fas fa-chevron-down group-open/details:rotate-180 transition-transform"></i>
                                 </summary>
-                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-gray-50 p-3 rounded-xl">
-                                    <p class="mb-2">Transparency is key.</p>
-                                    <ul class="list-disc list-inside space-y-1">
-                                        <li>Old part goes in a bag for you</li>
-                                        <li>Video evidence of the new part</li>
-                                        <li>System test to ensure 100% operation</li>
-                                    </ul>
+                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-white p-3 rounded-xl border border-brimmer-dark/10">
+                                    <p>If we find a second problem during the repair, we STOP, record it, and come find you. We never "just fix it" and bill you later.</p>
                                 </div>
                             </details>
                         </div>
@@ -1421,22 +1466,32 @@
                     <div class="md:w-5/12 order-3 md:order-1"></div>
                     <div class="w-20 h-20 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-3xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">6</div>
                     <div class="md:w-5/12 order-2 md:order-3">
-                         <div class="bg-white border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left">
+                         <div class="bg-brimmer-success border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left group">
                              <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-popcorn mr-2 text-brimmer-accent"></i> 6. The "Popcorn" Review</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">You get a text link. Watch the recap video to verify the work, then pay on your phone.</p>
                             
+                            <h3 class="font-black text-2xl uppercase mb-2 text-brimmer-dark"><i class="fas fa-popcorn mr-2"></i> 6. The "Popcorn" Review</h3>
+                            <p class="font-bold opacity-80 text-lg leading-tight mb-6 text-brimmer-dark">You get a text link. Watch the 2-minute recap video. Verify the work. Pay instantly.</p>
+                            
+                            <!-- Interactive Element: Pay Button -->
+                            <button class="w-full bg-white border-2 border-brimmer-dark rounded-xl px-4 py-3 font-bold flex items-center justify-between hover:bg-brimmer-dark hover:text-white transition-colors group/btn shadow-[4px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]">
+                                <span class="flex items-center gap-2">
+                                    <i class="fab fa-apple-pay text-xl"></i> / <i class="fas fa-credit-card"></i>
+                                    Pay & Review
+                                </span>
+                                <i class="fas fa-check-circle text-brimmer-success bg-brimmer-dark rounded-full p-1 border border-brimmer-dark group-hover:bg-white group-hover:text-brimmer-dark"></i>
+                            </button>
+
                             <!-- Collapsible Details -->
-                            <details class="group border-t-2 border-dashed border-gray-300 pt-4">
-                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
+                            <details class="group/details border-t-2 border-dashed border-brimmer-dark/30 pt-4 mt-4">
+                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:opacity-70 transition-opacity text-brimmer-dark">
                                     <span>See The Details</span>
-                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                    <i class="fas fa-chevron-down group-open/details:rotate-180 transition-transform"></i>
                                 </summary>
-                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-gray-50 p-3 rounded-xl">
+                                <div class="mt-3 text-sm font-bold text-brimmer-dark/80 leading-relaxed bg-white/50 p-3 rounded-xl">
                                     <p class="mb-2">The easiest checkout ever.</p>
                                     <ul class="list-disc list-inside space-y-1">
-                                        <li>Watch the 2-minute "Fix Summary"</li>
-                                        <li>See the final invoice (Actual vs Cap)</li>
+                                        <li>Watch the "Fix Summary" video</li>
+                                        <li>See Actual Hours vs Cap Price</li>
                                         <li>Pay via Apple Pay, Card, or Bank</li>
                                     </ul>
                                 </div>
@@ -1809,4 +1864,3 @@
     </script>
 </body>
 </html>
-            
