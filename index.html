@@ -823,12 +823,121 @@
                     </div>
                     <div class="mt-6 text-center">
                         <p class="text-sm font-bold opacity-60">*Parts are separate (but remember, zero markup!)</p>
+                <!-- NEW: WIN-WIN SCENARIOS (SAME JOB, TWO OUTCOMES) -->
+                <div class="max-w-5xl mx-auto mb-16">
+                    <!-- Explainer Header for this section -->
+                    <div class="text-center mb-8">
+                        <span class="bg-brimmer-dark text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-2 inline-block">The "Same Job" Experiment</span>
+                        <h4 class="text-2xl font-black uppercase leading-none">One Job. Two Possible Outcomes.</h4>
+                        <p class="text-sm font-bold opacity-60 mt-2">See how our Capped Hourly model protects you in every situation.</p>
                     </div>
-                </div>
 
-                <div class="text-center mb-12">
-                    <h3 class="text-3xl font-black uppercase tracking-tight">Detailed Breakdowns</h3>
-                    <p class="opacity-60 font-bold">See exactly how the math works.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        
+                        <!-- SCENARIO A: SMOOTH SAILING -->
+                        <div class="bg-white border-4 border-brimmer-dark rounded-3xl overflow-hidden shadow-neo hover:-translate-y-2 transition-transform group relative">
+                            <!-- Floating Badge -->
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-white/90 backdrop-blur text-green-800 border-2 border-green-800 text-[10px] font-black px-2 py-1 rounded uppercase shadow-sm animate-pulse">
+                                    Beats "Flat Rate"
+                                </span>
+                            </div>
+
+                            <div class="bg-brimmer-success text-brimmer-dark p-4 flex justify-between items-center border-b-4 border-brimmer-dark">
+                                <span class="font-black uppercase tracking-widest text-sm">Outcome A</span>
+                                <i class="fas fa-check-circle text-xl"></i>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div>
+                                    <h3 class="font-black text-2xl leading-none">Blower Motor Swap</h3>
+                                    <p class="text-xs font-bold opacity-60 mt-1">Situation: Job went smoothly.</p>
+                                </div>
+                                
+                                <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-4">
+                                    <!-- Labor Item with MATH -->
+                                    <div class="space-y-1">
+                                        <div class="flex justify-between text-sm font-bold text-gray-500">
+                                            <span>Standard "Flat Rate" (2.5 Hrs)</span>
+                                            <span class="line-through decoration-2 decoration-gray-400">$500.00</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm font-black text-brimmer-success">
+                                            <span><i class="fas fa-minus-circle mr-1"></i>Efficiency Savings</span>
+                                            <span>-$300.00</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm font-black text-brimmer-dark border-t-2 border-gray-100 pt-1 mt-1">
+                                            <span>Actual Billed Labor (1.0 Hr)</span>
+                                            <span>$200.00</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between text-sm font-bold">
+                                        <span class="text-brimmer-blue">Part Cost (Zero Markup)</span>
+                                        <span class="text-brimmer-blue">$120.00</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm font-bold text-gray-400">
+                                        <span>Tax (5.5%)</span>
+                                        <span>$17.60</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-4 border-t-4 border-brimmer-dark flex justify-between items-center">
+                                <span class="text-xs font-black uppercase opacity-50">Total Due</span>
+                                <span class="text-3xl font-black text-brimmer-dark">$337.60</span>
+                            </div>
+                        </div>
+
+                        <!-- SCENARIO B: THE UNEXPECTED -->
+                        <div class="bg-white border-4 border-brimmer-dark rounded-3xl overflow-hidden shadow-neo hover:-translate-y-2 transition-transform group relative">
+                             <!-- Floating Badge -->
+                             <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-brimmer-dark text-white border-2 border-white text-[10px] font-black px-2 py-1 rounded uppercase shadow-sm">
+                                    Cap Protection
+                                </span>
+                            </div>
+
+                            <div class="bg-brimmer-blue text-white p-4 flex justify-between items-center border-b-4 border-brimmer-dark">
+                                <span class="font-black uppercase tracking-widest text-sm">Outcome B</span>
+                                <i class="fas fa-shield-alt text-xl"></i>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div>
+                                    <h3 class="font-black text-2xl leading-none">Blower Motor Swap</h3>
+                                    <p class="text-xs font-bold opacity-60 mt-1">Situation: Rusted shut. Everything fought us.</p>
+                                </div>
+
+                                <div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-4">
+                                    <!-- Labor Item with MATH -->
+                                    <div class="space-y-1">
+                                        <div class="flex justify-between text-sm font-bold text-gray-500">
+                                            <span>Actual Time (4.0 Hrs @ $200)</span>
+                                            <span class="line-through decoration-2 decoration-brimmer-alert">$800.00</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm font-black text-brimmer-success">
+                                            <span><i class="fas fa-minus-circle mr-1"></i>Cap Protection Adjustment</span>
+                                            <span>-$300.00</span>
+                                        </div>
+                                        <div class="flex justify-between text-sm font-black text-brimmer-dark border-t-2 border-gray-100 pt-1 mt-1">
+                                            <span>Billed Labor (Max Cap)</span>
+                                            <span>$500.00</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex justify-between text-sm font-bold">
+                                        <span class="text-brimmer-blue">Part Cost (Zero Markup)</span>
+                                        <span class="text-brimmer-blue">$120.00</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm font-bold text-gray-400">
+                                        <span>Tax (5.5%)</span>
+                                        <span>$34.10</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-4 border-t-4 border-brimmer-dark flex justify-between items-center">
+                                <span class="text-xs font-black uppercase opacity-50">Total Due</span>
+                                <span class="text-3xl font-black text-brimmer-dark">$654.10</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
