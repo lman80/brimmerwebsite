@@ -503,6 +503,27 @@
                     </div>
                 </div>
 
+                <!-- NEW FLASHY CTA FOR CAP BOOK -->
+                <!-- Changed mb-16 to mb-8 to match the spacing of the cards above -->
+                <div class="mb-8 relative z-20 group">
+                    <a href="#repair-examples" class="block bg-brimmer-highlight border-4 border-brimmer-dark rounded-2xl p-4 shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all transform hover:-rotate-1">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="bg-brimmer-dark text-white w-12 h-12 flex items-center justify-center rounded-full font-black text-xl animate-bounce">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="font-black text-2xl md:text-3xl uppercase leading-none">Check The Cap Book</h3>
+                                    <p class="font-bold text-sm opacity-80">See the Maximum Hours for every common job. We published the list.</p>
+                                </div>
+                            </div>
+                            <div class="bg-white border-2 border-brimmer-dark px-6 py-2 rounded-full font-black uppercase tracking-widest text-sm group-hover:bg-brimmer-dark group-hover:text-white transition-colors">
+                                View The List <i class="fas fa-arrow-down ml-2"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
                 <!-- PRICING PHILOSOPHY: Competitors & Wages -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                     
@@ -685,9 +706,129 @@
                 <div class="text-center mb-16">
                     <span class="bg-brimmer-highlight border-2 border-brimmer-dark px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-neo mb-4 inline-block">Transparency Library</span>
                     <h2 class="text-5xl md:text-7xl font-black uppercase leading-[0.9] tracking-tighter mb-4">
-                        Common Repair<br>Estimates
+                        The Official<br>Cap Book
                     </h2>
-                    <p class="text-lg font-bold opacity-60 max-w-2xl mx-auto">We don't hide prices. These estimates are based on our new $200/hr rate.</p>
+                    <p class="text-lg font-bold opacity-60 max-w-2xl mx-auto">We don't hide our caps. Here is the maximum time you will ever be billed for these common jobs.</p>
+                </div>
+
+                <!-- THE CAP BOOK MENU LIST -->
+                <div class="max-w-4xl mx-auto bg-brimmer-bg border-4 border-brimmer-dark rounded-[2rem] p-8 shadow-neo-lg mb-16">
+                    <div class="flex items-center justify-between border-b-4 border-brimmer-dark pb-4 mb-6">
+                        <h3 class="font-black text-2xl uppercase"><i class="fas fa-clipboard-list mr-2"></i> Service Menu</h3>
+                        <span class="bg-brimmer-dark text-white px-3 py-1 rounded text-xs font-bold uppercase">Rate: $200/hr</span>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <!-- Item 1 -->
+                        <div class="flex items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-brimmer-blue/10 rounded-full flex items-center justify-center text-brimmer-blue border-2 border-brimmer-dark">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <div>
+                                    <p class="font-black text-lg uppercase leading-none">Basic Diagnostics</p>
+                                    <p class="text-xs font-bold opacity-50">Includes Trip Charge</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-black text-xl">1.0 Hr Max</p>
+                                <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="flex items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-brimmer-highlight/20 rounded-full flex items-center justify-center text-brimmer-dark border-2 border-brimmer-dark">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <div>
+                                    <p class="font-black text-lg uppercase leading-none">Capacitor Replacement</p>
+                                    <p class="text-xs font-bold opacity-50">Common AC Repair</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-black text-xl">0.5 Hr Max</p>
+                                <p class="text-xs font-bold text-brimmer-success">($100 Cap)</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="flex items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-brimmer-alert/10 rounded-full flex items-center justify-center text-brimmer-alert border-2 border-brimmer-dark">
+                                    <i class="fas fa-fire"></i>
+                                </div>
+                                <div>
+                                    <p class="font-black text-lg uppercase leading-none">Gas Valve Replacement</p>
+                                    <p class="text-xs font-bold opacity-50">Furnace Repair</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-black text-xl">2.0 Hr Max</p>
+                                <p class="text-xs font-bold text-brimmer-success">($400 Cap)</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div class="flex items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 border-2 border-brimmer-dark">
+                                    <i class="fas fa-microchip"></i>
+                                </div>
+                                <div>
+                                    <p class="font-black text-lg uppercase leading-none">Control Board Swap</p>
+                                    <p class="text-xs font-bold opacity-50">Universal or OEM</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-black text-xl">1.5 Hr Max</p>
+                                <p class="text-xs font-bold text-brimmer-success">($300 Cap)</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div class="flex items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 border-2 border-brimmer-dark">
+                                    <i class="fas fa-fan"></i>
+                                </div>
+                                <div>
+                                    <p class="font-black text-lg uppercase leading-none">Blower Motor</p>
+                                    <p class="text-xs font-bold opacity-50">Major Repair</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-black text-xl">2.0 Hr Max</p>
+                                <p class="text-xs font-bold text-brimmer-success">($400 Cap)</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Item 6 -->
+                        <div class="flex items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 border-2 border-brimmer-dark">
+                                    <i class="fas fa-thermometer-half"></i>
+                                </div>
+                                <div>
+                                    <p class="font-black text-lg uppercase leading-none">Smart Thermostat Install</p>
+                                    <p class="text-xs font-bold opacity-50">Customer Provided</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-black text-xl">1.0 Hr Max</p>
+                                <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-sm font-bold opacity-60">*Parts are separate (but remember, zero markup!)</p>
+                    </div>
+                </div>
+
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-black uppercase tracking-tight">Detailed Breakdowns</h3>
+                    <p class="opacity-60 font-bold">See exactly how the math works.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
