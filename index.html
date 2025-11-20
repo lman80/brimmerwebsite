@@ -1238,81 +1238,111 @@
     </div>
 
     <!-- PAGE: VLOG PROTOCOL (TECHNICAL/CLEAN) -->
-    <section id="page-vlog" class="snap-start min-h-screen bg-white text-brimmer-dark relative overflow-hidden border-t-4 border-brimmer-dark">
-        
-        <!-- Grid Background -->
-        <div class="absolute inset-0 opacity-5" style="background-image: linear-gradient(#1c1917 1px, transparent 1px), linear-gradient(90deg, #1c1917 1px, transparent 1px); background-size: 40px 40px;"></div>
+    <section id="page-vlog" class="snap-start min-h-screen bg-white text-brimmer-dark relative overflow-hidden border-t-4 border-brimmer-dark py-24">
+        <!-- Background -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#1c1917 1px, transparent 1px); background-size: 20px 20px;"></div>
 
-        <div class="max-w-7xl mx-auto px-8 py-24 relative z-10">
-            
-            <!-- Header Area -->
-            <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-24 gap-8">
-                <div>
-                    <span class="bg-brimmer-blue text-white font-bold px-3 py-1 text-xs uppercase tracking-widest rounded mb-2 inline-block">Protocol V.3.0</span>
-                    <h1 class="text-6xl md:text-8xl font-black leading-none tracking-tighter">
-                        TOTAL<br>VISIBILITY.
-                    </h1>
-                </div>
-                <div class="max-w-md">
-                    <p class="text-xl font-medium leading-tight">
-                        We treat your HVAC system like a crime scene. We document the evidence, record the process, and close the case. No hearsay.
-                    </p>
-                </div>
+        <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-20">
+                <span class="bg-brimmer-highlight border-2 border-brimmer-dark px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-neo mb-4 inline-block rotate-2">The Roadmap</span>
+                <h2 class="text-5xl md:text-8xl font-black uppercase leading-[0.85] tracking-tighter">
+                    From "It's Broken"<br>To <span class="text-brimmer-success">"It's Fixed"</span>
+                </h2>
             </div>
 
-            <!-- The Process Visuals -->
+            <!-- Timeline Container -->
             <div class="relative">
-                <!-- Connecting Line -->
-                <div class="absolute top-1/2 left-0 w-full h-2 bg-brimmer-dark -translate-y-1/2 hidden md:block z-0"></div>
+                <!-- The Road Line (Desktop) -->
+                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-4 bg-brimmer-dark -translate-x-1/2 rounded-full"></div>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
-                    
-                    <!-- Step 1 -->
-                    <div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-2xl shadow-neo hover:-translate-y-2 transition-transform group">
-                        <div class="w-12 h-12 bg-brimmer-dark text-white rounded-full flex items-center justify-center font-black text-2xl mb-4 border-4 border-white shadow-lg relative">
-                            1
-                            <div class="absolute -top-2 -right-2 bg-red-500 w-4 h-4 rounded-full animate-pulse"></div>
+                <!-- Step 1: Contact -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                    <!-- Content Left -->
+                    <div class="md:w-5/12 order-2 md:order-1">
+                        <div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative group">
+                            <!-- Arrow pointing to center -->
+                            <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-mobile-alt mr-2 text-brimmer-blue"></i> 1. The "Oh No" Moment</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight">AC dies. You panic. Then you book online instantly or start a free Video Diagnostic call. No phone tag.</p>
                         </div>
-                        <h3 class="font-black text-xl mb-2 uppercase">Record</h3>
-                        <p class="text-sm font-medium opacity-80">Technician arrives. Body cam goes ON. We narrate the initial inspection.</p>
                     </div>
+                    <!-- Center Node -->
+                    <div class="w-16 h-16 bg-brimmer-blue border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-white font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0 relative">1</div>
+                    <!-- Empty Right -->
+                    <div class="md:w-5/12 order-3"></div>
+                </div>
 
-                    <!-- Step 2 -->
-                    <div class="bg-white border-4 border-brimmer-dark p-6 rounded-2xl shadow-neo hover:-translate-y-2 transition-transform group mt-8 md:mt-0">
-                        <div class="w-12 h-12 bg-brimmer-blue text-white rounded-full flex items-center justify-center font-black text-2xl mb-4 border-4 border-brimmer-dark shadow-lg">2</div>
-                        <h3 class="font-black text-xl mb-2 uppercase">Diagnose</h3>
-                        <p class="text-sm font-medium opacity-80">We find the broken part. We point to it. We explain <em>why</em> it failed on camera.</p>
-                    </div>
-
-                    <!-- Step 3 -->
-                    <div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-2xl shadow-neo hover:-translate-y-2 transition-transform group mt-8 md:mt-0">
-                        <div class="w-12 h-12 bg-brimmer-accent text-white rounded-full flex items-center justify-center font-black text-2xl mb-4 border-4 border-white shadow-lg">3</div>
-                        <h3 class="font-black text-xl mb-2 uppercase">Repair</h3>
-                        <p class="text-sm font-medium opacity-80">We film the fix. Old part out. New part in. We verify the system is running.</p>
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div class="bg-white border-4 border-brimmer-dark p-6 rounded-2xl shadow-neo hover:-translate-y-2 transition-transform group mt-8 md:mt-0">
-                        <div class="w-12 h-12 bg-brimmer-success text-brimmer-dark rounded-full flex items-center justify-center font-black text-2xl mb-4 border-4 border-brimmer-dark shadow-lg">4</div>
-                        <h3 class="font-black text-xl mb-2 uppercase">Review</h3>
-                        <p class="text-sm font-medium opacity-80">You get a text link. Watch the 3-minute summary before you pay the invoice.</p>
+                <!-- Step 2: Dispatch -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                    <div class="md:w-5/12 order-3 md:order-1"></div>
+                    <div class="w-16 h-16 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">2</div>
+                    <div class="md:w-5/12 order-2 md:order-3">
+                         <div class="bg-white border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative text-left">
+                            <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-paper-plane mr-2 text-brimmer-accent"></i> 2. The Heads Up</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight">You get a text. "Dan is on the way." You see his face, his bio, and exactly when he'll arrive. Stranger danger = 0.</p>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Step 3: Arrival -->
+                 <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                    <div class="md:w-5/12 order-2 md:order-1">
+                        <div class="bg-white border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative group">
+                             <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-video mr-2 text-brimmer-alert"></i> 3. Lights, Camera...</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight">Tech arrives. Body cam turns ON. We treat your house like a crime scene—documenting the issue before we touch it.</p>
+                        </div>
+                    </div>
+                    <div class="w-16 h-16 bg-brimmer-alert border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-white font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">3</div>
+                    <div class="md:w-5/12 order-3"></div>
+                </div>
+
+                 <!-- Step 4: Diagnosis -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                    <div class="md:w-5/12 order-3 md:order-1"></div>
+                    <div class="w-16 h-16 bg-brimmer-dark border-4 border-white rounded-full z-10 flex items-center justify-center text-white font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">4</div>
+                    <div class="md:w-5/12 order-2 md:order-3">
+                         <div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative text-left">
+                             <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-file-signature mr-2"></i> 4. The Cap Quote</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight">We find the issue. We give you the "Max Cap" price upfront. You approve it on the iPad before we twist a single wrench.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: The Fix -->
+                 <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                    <div class="md:w-5/12 order-2 md:order-1">
+                        <div class="bg-white border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative group">
+                             <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-tools mr-2 text-brimmer-success"></i> 5. The Surgery</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight">We fix it. We record the repair. If we finish fast, you save money. If it takes forever, your price is capped. Zero stress.</p>
+                        </div>
+                    </div>
+                    <div class="w-16 h-16 bg-brimmer-success border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">5</div>
+                    <div class="md:w-5/12 order-3"></div>
+                </div>
+
+                 <!-- Step 6: Payment -->
+                <div class="flex flex-col md:flex-row items-center justify-between relative">
+                    <div class="md:w-5/12 order-3 md:order-1"></div>
+                    <div class="w-16 h-16 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">6</div>
+                    <div class="md:w-5/12 order-2 md:order-3">
+                         <div class="bg-white border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative text-left">
+                             <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-popcorn mr-2 text-brimmer-accent"></i> 6. The Popcorn</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight">You get a text link. Watch the 2-minute recap video of your repair to verify the work, then pay instantly on your phone.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-
-            <!-- Bottom Area -->
-            <div class="mt-24 bg-brimmer-dark text-white rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8 shadow-neo-lg pb-12">
-                <div class="flex items-center gap-6">
-                    <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center text-3xl animate-pulse">
-                        <i class="fas fa-play"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-3xl font-black uppercase">See an example</h3>
-                        <p class="opacity-60">Watch a real service call from last Tuesday.</p>
-                    </div>
-                </div>
-                <a href="#" class="bg-white text-brimmer-dark font-black px-8 py-4 rounded-xl border-4 border-transparent hover:border-brimmer-blue transition-all shadow-lg whitespace-nowrap">
-                    Watch Sample Video
+            
+            <!-- Footer CTA -->
+            <div class="text-center mt-20">
+                 <a href="#booking" class="inline-block bg-brimmer-dark text-white text-2xl font-black px-12 py-6 rounded-full border-4 border-transparent hover:border-white shadow-neo-lg hover:scale-105 transition-all uppercase animate-bounce">
+                    Start This Process <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
         </div>
