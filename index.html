@@ -232,23 +232,33 @@
                         JUST <span class="wavy-underline">SERVICE.</span>
                     </h1>
                     
-                    <!-- SERVICE TAGS -->
-                    <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-8">
-                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                            <i class="fas fa-fire text-brimmer-alert mr-1"></i> Heating Repairs
-                        </span>
-                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                            <i class="fas fa-snowflake text-brimmer-blue mr-1"></i> A/C Repairs
-                        </span>
-                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                            <i class="fas fa-wrench text-brimmer-accent mr-1"></i> Installs
-                        </span>
-                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                            <i class="fas fa-clipboard-check text-brimmer-success mr-1"></i> Inspections
-                        </span>
-                        <span class="inline-block px-3 py-1 bg-brimmer-highlight border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo hover:-translate-y-0.5 transition-transform cursor-default">
-                            All Things HVAC
-                        </span>
+                    <!-- NEW: IMMEDIATE ANSWERS (REPLACED SERVICE TAGS) -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mb-10">
+                        
+                        <!-- Button 1: The Cost (Slot Machine Effect) -->
+                        <a href="#pricing" class="group relative overflow-hidden bg-brimmer-highlight border-4 border-brimmer-dark rounded-xl px-8 py-4 font-black uppercase tracking-wide shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto min-w-[200px] text-center">
+                            <!-- Default Text -->
+                            <span class="block group-hover:-translate-y-[150%] transition-transform duration-300 ease-in-out">
+                                <i class="fas fa-tag mr-2"></i> What's The Price?
+                            </span>
+                            <!-- Hover Text -->
+                            <span class="absolute inset-0 flex items-center justify-center translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out bg-brimmer-dark text-white">
+                                $200 Max / Hr
+                            </span>
+                        </a>
+
+                        <!-- Button 2: The Process (Slot Machine Effect) -->
+                        <a href="#page-vlog" class="group relative overflow-hidden bg-white border-4 border-brimmer-dark rounded-xl px-8 py-4 font-black uppercase tracking-wide shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto min-w-[200px] text-center">
+                            <!-- Default Text -->
+                            <span class="block group-hover:-translate-y-[150%] transition-transform duration-300 ease-in-out">
+                                <i class="fas fa-map-signs mr-2"></i> How Does It Work?
+                            </span>
+                            <!-- Hover Text -->
+                            <span class="absolute inset-0 flex items-center justify-center translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out bg-brimmer-blue text-white">
+                                See The Roadmap
+                            </span>
+                        </a>
+
                     </div>
 
                     <!-- MOVED CARDS: Info Tiles (Compact Grid) -->
@@ -372,7 +382,8 @@
         </div>
 
         <!-- Pricing Section -->
-        <section class="pt-24 pb-20 px-4 relative overflow-hidden bg-white border-y-4 border-brimmer-dark">
+        <!-- ADDED ID="pricing" HERE -->
+        <section id="pricing" class="pt-24 pb-20 px-4 relative overflow-hidden bg-white border-y-4 border-brimmer-dark">
             <div class="max-w-6xl mx-auto relative z-10 text-center">
                 <h2 class="text-5xl md:text-7xl font-black mb-12 uppercase reveal-on-scroll">
                     Pricing So Simple <br>It's <span class="text-brimmer-blue underline decoration-wavy">Better</span>
@@ -1255,84 +1266,181 @@
                 <!-- The Road Line (Desktop) -->
                 <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-4 bg-brimmer-dark -translate-x-1/2 rounded-full"></div>
 
-                <!-- Step 1: Contact -->
-                <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                <!-- Step 1: The "Oh No" Moment (INTERACTIVE) -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-20 relative">
                     <!-- Content Left -->
                     <div class="md:w-5/12 order-2 md:order-1">
-                        <div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative group">
+                        <div class="bg-brimmer-bg border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative group z-20">
                             <!-- Arrow pointing to center -->
                             <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-mobile-alt mr-2 text-brimmer-blue"></i> 1. The "Oh No" Moment</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight">AC dies. You panic. Then you book online instantly or start a free Video Diagnostic call. No phone tag.</p>
+                            
+                            <h3 class="font-black text-3xl uppercase mb-2"><i class="fas fa-bomb mr-2 text-brimmer-alert"></i> 1. The "Oh No" Moment</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight mb-6">It's 90 degrees. The AC stops. You panic. But then you realize you have 3 choices.</p>
+                            
+                            <!-- ACTION BUTTONS -->
+                            <div class="grid grid-cols-1 gap-3">
+                                <a href="tel:5551234567" class="flex items-center justify-between bg-white border-2 border-brimmer-dark rounded-xl px-4 py-3 hover:bg-brimmer-blue hover:text-white transition-colors font-bold group/btn">
+                                    <span><i class="fas fa-phone-alt mr-2"></i> Call a Human</span>
+                                    <i class="fas fa-arrow-right opacity-0 group-hover/btn:opacity-100 transition-opacity"></i>
+                                </a>
+                                <a href="#booking" class="flex items-center justify-between bg-white border-2 border-brimmer-dark rounded-xl px-4 py-3 hover:bg-brimmer-success hover:text-brimmer-dark transition-colors font-bold group/btn">
+                                    <span><i class="fas fa-mouse-pointer mr-2"></i> Book Online</span>
+                                    <i class="fas fa-arrow-right opacity-0 group-hover/btn:opacity-100 transition-opacity"></i>
+                                </a>
+                                <a href="#booking" class="flex items-center justify-between bg-white border-2 border-brimmer-dark rounded-xl px-4 py-3 hover:bg-brimmer-highlight hover:text-brimmer-dark transition-colors font-bold group/btn">
+                                    <span><i class="fas fa-video mr-2"></i> Free Video Chat</span>
+                                    <i class="fas fa-arrow-right opacity-0 group-hover/btn:opacity-100 transition-opacity"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <!-- Center Node -->
-                    <div class="w-16 h-16 bg-brimmer-blue border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-white font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0 relative">1</div>
+                    <div class="w-20 h-20 bg-brimmer-alert border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-white font-black text-3xl shadow-lg order-1 md:order-2 mb-6 md:mb-0 relative">1</div>
                     <!-- Empty Right -->
                     <div class="md:w-5/12 order-3"></div>
                 </div>
 
                 <!-- Step 2: Dispatch -->
-                <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                <div class="flex flex-col md:flex-row items-center justify-between mb-20 relative">
                     <div class="md:w-5/12 order-3 md:order-1"></div>
-                    <div class="w-16 h-16 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">2</div>
+                    <div class="w-20 h-20 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-3xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">2</div>
                     <div class="md:w-5/12 order-2 md:order-3">
-                         <div class="bg-white border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative text-left">
+                         <div class="bg-white border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left">
                             <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-paper-plane mr-2 text-brimmer-accent"></i> 2. The Heads Up</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight">You get a text. "Dan is on the way." You see his face, his bio, and exactly when he'll arrive. Stranger danger = 0.</p>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-paper-plane mr-2 text-brimmer-accent"></i> 2. The "Stranger Danger" Check</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">You get a text tracking link. You see the tech's face, name, and bio before they arrive.</p>
+                            
+                            <!-- Collapsible Details -->
+                            <details class="group border-t-2 border-dashed border-gray-300 pt-4">
+                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
+                                    <span>See The Details</span>
+                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-gray-50 p-3 rounded-xl">
+                                    <p class="mb-2">We know inviting someone into your home is a big deal.</p>
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>GPS Tracking (Watch the van arrive)</li>
+                                        <li>Technician Photo & Bio</li>
+                                        <li>Background Checked Badge</li>
+                                    </ul>
+                                </div>
+                            </details>
                         </div>
                     </div>
                 </div>
 
                 <!-- Step 3: Arrival -->
-                 <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                 <div class="flex flex-col md:flex-row items-center justify-between mb-20 relative">
                     <div class="md:w-5/12 order-2 md:order-1">
-                        <div class="bg-white border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative group">
+                        <div class="bg-white border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative group">
                              <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-video mr-2 text-brimmer-alert"></i> 3. Lights, Camera...</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight">Tech arrives. Body cam turns ON. We treat your house like a crime scene—documenting the issue before we touch it.</p>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-shoe-prints mr-2 text-brimmer-blue"></i> 3. The Red Carpet Arrival</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">We park on the street, not your driveway. Shoe covers go on BEFORE we step inside.</p>
+                            
+                            <!-- Collapsible Details -->
+                            <details class="group border-t-2 border-dashed border-gray-300 pt-4">
+                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
+                                    <span>See The Details</span>
+                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-gray-50 p-3 rounded-xl">
+                                    <p class="mb-2">We treat your castle with respect.</p>
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>Floor Mats laid down for tools</li>
+                                        <li>Fresh Shoe Covers (Booties)</li>
+                                        <li>Body Cam turns ON for safety</li>
+                                    </ul>
+                                </div>
+                            </details>
                         </div>
                     </div>
-                    <div class="w-16 h-16 bg-brimmer-alert border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-white font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">3</div>
+                    <div class="w-20 h-20 bg-brimmer-blue border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-white font-black text-3xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">3</div>
                     <div class="md:w-5/12 order-3"></div>
                 </div>
 
                  <!-- Step 4: Diagnosis -->
-                <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                <div class="flex flex-col md:flex-row items-center justify-between mb-20 relative">
                     <div class="md:w-5/12 order-3 md:order-1"></div>
-                    <div class="w-16 h-16 bg-brimmer-dark border-4 border-white rounded-full z-10 flex items-center justify-center text-white font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">4</div>
+                    <div class="w-20 h-20 bg-brimmer-dark border-4 border-white rounded-full z-10 flex items-center justify-center text-white font-black text-3xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">4</div>
                     <div class="md:w-5/12 order-2 md:order-3">
-                         <div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative text-left">
+                         <div class="bg-brimmer-bg border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left">
                              <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-file-signature mr-2"></i> 4. The Cap Quote</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight">We find the issue. We give you the "Max Cap" price upfront. You approve it on the iPad before we twist a single wrench.</p>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-file-signature mr-2"></i> 4. The "Permission" Slip</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">We diagnose the issue. We build a quote with the "Max Cap". You approve it on the iPad.</p>
+                            
+                            <!-- Collapsible Details -->
+                            <details class="group border-t-2 border-dashed border-brimmer-dark/20 pt-4">
+                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
+                                    <span>See The Details</span>
+                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-white/50 p-3 rounded-xl border border-brimmer-dark/10">
+                                    <p class="mb-2">We don't twist a single wrench without your permission.</p>
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>Full breakdown of the job</li>
+                                        <li>Max Cap Price is locked in</li>
+                                        <li>You sign digitally to authorize</li>
+                                    </ul>
+                                </div>
+                            </details>
                         </div>
                     </div>
                 </div>
 
                 <!-- Step 5: The Fix -->
-                 <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                 <div class="flex flex-col md:flex-row items-center justify-between mb-20 relative">
                     <div class="md:w-5/12 order-2 md:order-1">
-                        <div class="bg-white border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative group">
+                        <div class="bg-white border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative group">
                              <div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
                             <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-tools mr-2 text-brimmer-success"></i> 5. The Surgery</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight">We fix it. We record the repair. If we finish fast, you save money. If it takes forever, your price is capped. Zero stress.</p>
+                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">We fix it. We record the repair. If we find something else, we STOP and ask.</p>
+                            
+                            <!-- Collapsible Details -->
+                            <details class="group border-t-2 border-dashed border-gray-300 pt-4">
+                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
+                                    <span>See The Details</span>
+                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-gray-50 p-3 rounded-xl">
+                                    <p class="mb-2">Transparency is key.</p>
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>Old part goes in a bag for you</li>
+                                        <li>Video evidence of the new part</li>
+                                        <li>System test to ensure 100% operation</li>
+                                    </ul>
+                                </div>
+                            </details>
                         </div>
                     </div>
-                    <div class="w-16 h-16 bg-brimmer-success border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">5</div>
+                    <div class="w-20 h-20 bg-brimmer-success border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-3xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">5</div>
                     <div class="md:w-5/12 order-3"></div>
                 </div>
 
                  <!-- Step 6: Payment -->
                 <div class="flex flex-col md:flex-row items-center justify-between relative">
                     <div class="md:w-5/12 order-3 md:order-1"></div>
-                    <div class="w-16 h-16 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">6</div>
+                    <div class="w-20 h-20 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-3xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">6</div>
                     <div class="md:w-5/12 order-2 md:order-3">
-                         <div class="bg-white border-4 border-brimmer-dark p-6 rounded-3xl shadow-neo hover:-translate-y-1 transition-transform relative text-left">
+                         <div class="bg-white border-4 border-brimmer-dark p-8 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left">
                              <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div>
-                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-popcorn mr-2 text-brimmer-accent"></i> 6. The Popcorn</h3>
-                            <p class="font-bold opacity-70 text-lg leading-tight">You get a text link. Watch the 2-minute recap video of your repair to verify the work, then pay instantly on your phone.</p>
+                            <h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-popcorn mr-2 text-brimmer-accent"></i> 6. The "Popcorn" Review</h3>
+                            <p class="font-bold opacity-70 text-lg leading-tight mb-4">You get a text link. Watch the recap video to verify the work, then pay on your phone.</p>
+                            
+                            <!-- Collapsible Details -->
+                            <details class="group border-t-2 border-dashed border-gray-300 pt-4">
+                                <summary class="flex justify-between items-center font-black cursor-pointer list-none hover:text-brimmer-blue transition-colors">
+                                    <span>See The Details</span>
+                                    <i class="fas fa-chevron-down group-open:rotate-180 transition-transform"></i>
+                                </summary>
+                                <div class="mt-3 text-sm font-medium opacity-80 leading-relaxed bg-gray-50 p-3 rounded-xl">
+                                    <p class="mb-2">The easiest checkout ever.</p>
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>Watch the 2-minute "Fix Summary"</li>
+                                        <li>See the final invoice (Actual vs Cap)</li>
+                                        <li>Pay via Apple Pay, Card, or Bank</li>
+                                    </ul>
+                                </div>
+                            </details>
                         </div>
                     </div>
                 </div>
@@ -1701,3 +1809,4 @@
     </script>
 </body>
 </html>
+            
