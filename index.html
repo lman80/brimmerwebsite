@@ -749,12 +749,19 @@
 
                 <!-- THE CAP BOOK MENU LIST -->
                 <div class="max-w-5xl mx-auto bg-brimmer-bg border-4 border-brimmer-dark rounded-[2rem] p-8 shadow-neo-lg mb-16">
-                    <div class="flex items-center justify-between border-b-4 border-brimmer-dark pb-4 mb-6">
-                        <h3 class="font-black text-2xl uppercase"><i class="fas fa-clipboard-list mr-2"></i> Service Menu</h3>
-                        <span class="bg-brimmer-dark text-white px-3 py-1 rounded text-xs font-bold uppercase">Rate: $200/hr</span>
+                    <div class="flex flex-col md:flex-row items-center justify-between border-b-4 border-brimmer-dark pb-6 mb-6 gap-4">
+                        <div>
+                            <h3 class="font-black text-2xl uppercase"><i class="fas fa-clipboard-list mr-2"></i> Service Menu</h3>
+                            <span class="bg-brimmer-dark text-white px-3 py-1 rounded text-xs font-bold uppercase mt-1 inline-block">Rate: $200/hr</span>
+                        </div>
+                        <!-- Search Bar -->
+                        <div class="relative w-full md:w-96">
+                            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <input type="text" id="menuSearch" onkeyup="filterMenu()" placeholder="Search (e.g. 'Motor', 'Sensor')..." class="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-brimmer-dark font-bold focus:outline-none focus:ring-4 focus:ring-brimmer-blue/20 shadow-sm">
+                        </div>
                     </div>
                     
-                    <div class="space-y-3">
+                    <div id="menuList" class="space-y-3">
                         <!-- Header Row -->
                         <div class="hidden md:flex items-center justify-between px-4 pb-2 font-black uppercase text-sm opacity-50 tracking-widest">
                             <div class="w-1/4">Service</div>
@@ -762,8 +769,10 @@
                             <div class="w-1/4 text-right">Guaranteed Max</div>
                         </div>
 
+                        <!-- FEATURED ITEMS (Always Visible) -->
+                        
                         <!-- Item 1 -->
-                        <div class="flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                        <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
                             <div class="flex items-center gap-4 w-full md:w-1/3">
                                 <div class="w-10 h-10 bg-brimmer-blue/10 rounded-full flex items-center justify-center text-brimmer-blue border-2 border-brimmer-dark shrink-0">
                                     <i class="fas fa-search"></i>
@@ -783,7 +792,7 @@
                         </div>
 
                         <!-- Item 2 -->
-                        <div class="flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                        <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
                             <div class="flex items-center gap-4 w-full md:w-1/3">
                                 <div class="w-10 h-10 bg-brimmer-highlight/20 rounded-full flex items-center justify-center text-brimmer-dark border-2 border-brimmer-dark shrink-0">
                                     <i class="fas fa-bolt"></i>
@@ -803,7 +812,7 @@
                         </div>
 
                         <!-- Item 3 -->
-                        <div class="flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                        <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
                             <div class="flex items-center gap-4 w-full md:w-1/3">
                                 <div class="w-10 h-10 bg-brimmer-alert/10 rounded-full flex items-center justify-center text-brimmer-alert border-2 border-brimmer-dark shrink-0">
                                     <i class="fas fa-fire"></i>
@@ -823,7 +832,7 @@
                         </div>
 
                         <!-- Item 4 -->
-                        <div class="flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                        <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
                             <div class="flex items-center gap-4 w-full md:w-1/3">
                                 <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 border-2 border-brimmer-dark shrink-0">
                                     <i class="fas fa-microchip"></i>
@@ -843,7 +852,7 @@
                         </div>
 
                         <!-- Item 5 -->
-                        <div class="flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                        <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
                             <div class="flex items-center gap-4 w-full md:w-1/3">
                                 <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 border-2 border-brimmer-dark shrink-0">
                                     <i class="fas fa-fan"></i>
@@ -863,7 +872,7 @@
                         </div>
                         
                         <!-- Item 6 -->
-                        <div class="flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                        <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
                             <div class="flex items-center gap-4 w-full md:w-1/3">
                                 <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 border-2 border-brimmer-dark shrink-0">
                                     <i class="fas fa-thermometer-half"></i>
@@ -881,8 +890,649 @@
                                 <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
                             </div>
                         </div>
+
+                        <!-- EXTENDED ITEMS (Hidden by default) -->
+                        <div id="extendedMenu" class="hidden space-y-3">
+                            
+                            <!-- === ELECTRICAL & CONTROLS === -->
+                            
+                            <!-- Item: Fuses -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Fuse Replacement</p>
+                                        <p class="text-xs font-bold opacity-50">Disconnect or Board</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 15 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">0.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($100 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Disconnect Box -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-700 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-power-off"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Disconnect Box Swap</p>
+                                        <p class="text-xs font-bold opacity-50">Outdoor Power Box</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 45 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($300 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Whip Replacement -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-700 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-plug"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Electrical Whip</p>
+                                        <p class="text-xs font-bold opacity-50">Outdoor Wire Conduit</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 30 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Transformer -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Transformer</p>
+                                        <p class="text-xs font-bold opacity-50">Low Voltage Power</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 30-45 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Contactor -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-magnet"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Contactor (AC)</p>
+                                        <p class="text-xs font-bold opacity-50">Electrical Relay</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 20-30 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Thermostat Wire Repair -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-code-branch"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Thermostat Wire Repair</p>
+                                        <p class="text-xs font-bold opacity-50">Broken/Chewed Wires</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 45 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($300 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- === HEATING SPECIFIC === -->
+
+                            <!-- Item: Inducer Motor -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-wind"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Draft Inducer Motor</p>
+                                        <p class="text-xs font-bold opacity-50">Furnace Exhaust Fan</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 1.0 Hr</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($300 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Pressure Switch -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Pressure Switch</p>
+                                        <p class="text-xs font-bold opacity-50">Safety Control</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 30 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Flame Sensor -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-fire-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Flame Sensor</p>
+                                        <p class="text-xs font-bold opacity-50">Clean or Replace</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 15-20 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Ignitor -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-red-200 rounded-full flex items-center justify-center text-red-800 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-burn"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Hot Surface Ignitor</p>
+                                        <p class="text-xs font-bold opacity-50">Furnace Part</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 20-30 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Limit Switch -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-thermometer-full"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Limit Switch</p>
+                                        <p class="text-xs font-bold opacity-50">Safety Control</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 30 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Rollout Switch -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Rollout Switch</p>
+                                        <p class="text-xs font-bold opacity-50">Flame Safety</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 15-20 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">0.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($100 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Thermocouple -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-fire-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Thermocouple</p>
+                                        <p class="text-xs font-bold opacity-50">Pilot Light Sensor</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 30 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Pilot Assembly -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-burn"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Pilot Assembly</p>
+                                        <p class="text-xs font-bold opacity-50">Clean or Replace</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 45 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- === AC & HEAT PUMP === -->
+
+                             <!-- Item: Hard Start Kit -->
+                             <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-yellow-200 rounded-full flex items-center justify-center text-yellow-800 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-car-battery"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Hard Start Kit</p>
+                                        <p class="text-xs font-bold opacity-50">Compressor Saver</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 20-30 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">0.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($100 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Condenser Fan Motor -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-green-200 rounded-full flex items-center justify-center text-green-800 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-fan"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Condenser Fan Motor</p>
+                                        <p class="text-xs font-bold opacity-50">Outdoor AC Motor</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 1.0 Hr</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($300 Cap)</p>
+                                </div>
+                            </div>
+
+                             <!-- Item: Leak Search -->
+                             <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center text-purple-800 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-search-location"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Refrigerant Leak Search</p>
+                                        <p class="text-xs font-bold opacity-50">Electronic & Dye</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 1.0-1.5 Hrs</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">2.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($400 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Filter Drier -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-filter"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Filter Drier (Braze-in)</p>
+                                        <p class="text-xs font-bold opacity-50">Refrigerant System</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 2.0 Hrs</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">2.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($500 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: TXV -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-expand-arrows-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">TXV Replacement</p>
+                                        <p class="text-xs font-bold opacity-50">Expansion Valve</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 2.0-2.5 Hrs</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">3.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($600 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Defrost Board -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-snowflake"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Defrost Board</p>
+                                        <p class="text-xs font-bold opacity-50">Heat Pump Control</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 1.0 Hr</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($300 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Schrader Core -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-dot-circle"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Schrader Core</p>
+                                        <p class="text-xs font-bold opacity-50">Service Port Valve</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 15 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">0.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($100 Cap)</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Item: Sound Blanket -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-volume-mute"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Compressor Blanket</p>
+                                        <p class="text-xs font-bold opacity-50">Sound Reduction</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 20 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">0.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($100 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- === MAINTENANCE & DRAINAGE === -->
+
+                            <!-- Item: Drain Clearing -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-water"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Drain Line Clearing</p>
+                                        <p class="text-xs font-bold opacity-50">Water Leak Repair</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 30-45 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Condensate Trap -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center text-blue-800 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-sink"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Condensate Trap</p>
+                                        <p class="text-xs font-bold opacity-50">Clean or Replace</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 20 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">0.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($100 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Tune Up -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-brimmer-success/20 rounded-full flex items-center justify-center text-brimmer-success border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-check-double"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">System Tune-Up</p>
+                                        <p class="text-xs font-bold opacity-50">Maintenance Visit</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 45-60 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- === ACCESSORIES === -->
+
+                            <!-- Item: Humidifier Pad -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-tint"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Humidifier Pad</p>
+                                        <p class="text-xs font-bold opacity-50">Water Panel</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 15 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">0.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($100 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: UV Bulb -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">UV Bulb Replacement</p>
+                                        <p class="text-xs font-bold opacity-50">Air Purifier</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 15 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">0.25 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($50 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Zone Damper -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-random"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Zone Damper Motor</p>
+                                        <p class="text-xs font-bold opacity-50">Airflow Control</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 30-45 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- === BOILER / HYDRONIC === -->
+
+                            <!-- Item: Circulator Pump -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-sync"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Circulator Pump</p>
+                                        <p class="text-xs font-bold opacity-50">Boiler Water Pump</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 1.0-1.5 Hrs</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">2.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($400 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Expansion Tank -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-hdd"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Expansion Tank</p>
+                                        <p class="text-xs font-bold opacity-50">Boiler Pressure</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 30-45 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">1.0 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($200 Cap)</p>
+                                </div>
+                            </div>
+
+                            <!-- Item: Zone Valve Head -->
+                            <div class="menu-item flex flex-col md:flex-row items-center justify-between p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-4">
+                                <div class="flex items-center gap-4 w-full md:w-1/3">
+                                    <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 border-2 border-brimmer-dark shrink-0">
+                                        <i class="fas fa-cogs"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-black text-lg uppercase leading-none">Zone Valve Head</p>
+                                        <p class="text-xs font-bold opacity-50">Boiler Control</p>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/3 text-left md:text-center border-t md:border-t-0 md:border-l border-gray-100 pt-2 md:pt-0 md:pl-4">
+                                    <p class="text-sm font-bold text-gray-500">Typical: 15-20 Mins</p>
+                                </div>
+                                <div class="w-full md:w-1/3 text-right">
+                                    <p class="font-black text-xl">0.5 Hr Max</p>
+                                    <p class="text-xs font-bold text-brimmer-success">($100 Cap)</p>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+                    
                     <div class="mt-6 text-center">
+                        <button onclick="toggleMenu()" id="toggleMenuBtn" class="bg-white border-2 border-brimmer-dark px-8 py-3 rounded-full font-black uppercase tracking-widest hover:bg-brimmer-dark hover:text-white transition-colors shadow-[4px_4px_0px_rgba(28,25,23,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none mb-4">
+                            View Full Menu <i class="fas fa-chevron-down ml-2"></i>
+                        </button>
                         <p class="text-sm font-bold opacity-60">*Parts are separate (but remember, zero markup!)</p>
                     </div>
                 </div>
@@ -1732,6 +2382,53 @@
         window.onload = function() {
             checkBusinessHours();
             initMap();
+        }
+
+        // --- Menu Logic ---
+        function toggleMenu() {
+            const extended = document.getElementById('extendedMenu');
+            const btn = document.getElementById('toggleMenuBtn');
+            const isHidden = extended.classList.contains('hidden');
+
+            if (isHidden) {
+                extended.classList.remove('hidden');
+                btn.innerHTML = 'Show Less <i class="fas fa-chevron-up ml-2"></i>';
+            } else {
+                extended.classList.add('hidden');
+                btn.innerHTML = 'View Full Menu <i class="fas fa-chevron-down ml-2"></i>';
+                // Optional: scroll to top of menu list if needed
+            }
+        }
+
+        function filterMenu() {
+            const input = document.getElementById('menuSearch');
+            const filter = input.value.toUpperCase();
+            const menuList = document.getElementById('menuList');
+            const extended = document.getElementById('extendedMenu');
+            const btn = document.getElementById('toggleMenuBtn');
+            
+            const items = menuList.querySelectorAll('.menu-item');
+            let hasResults = false;
+
+            // Auto-expand if searching
+            if (filter.length > 0) {
+                extended.classList.remove('hidden');
+                btn.classList.add('hidden'); // Hide button while searching to avoid confusion
+            } else {
+                extended.classList.add('hidden');
+                btn.classList.remove('hidden');
+                btn.innerHTML = 'View Full Menu <i class="fas fa-chevron-down ml-2"></i>';
+            }
+
+            items.forEach(item => {
+                const text = item.innerText || item.textContent;
+                if (text.toUpperCase().indexOf(filter) > -1) {
+                    item.classList.remove('hidden');
+                    hasResults = true;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
         }
     </script>
 </body>
