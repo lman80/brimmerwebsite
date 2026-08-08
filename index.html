@@ -1,806 +1,443 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth snap-y snap-mandatory h-screen w-full overflow-y-scroll">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brimmer Heating and Cooling | Transparent Service</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Space Grotesk', 'sans-serif'] },
-                    colors: {
-                        brimmer: { bg: '#Fdf6e3', blue: '#3b82f6', dark: '#1c1917', accent: '#a855f7', alert: '#ff6b6b', success: '#4ade80', highlight: '#facc15' }
-                    },
-                    boxShadow: { 'neo': '5px 5px 0px 0px rgba(28, 25, 23, 1)', 'neo-hover': '2px 2px 0px 0px rgba(28, 25, 23, 1)', 'neo-lg': '8px 8px 0px 0px rgba(28, 25, 23, 1)' },
-                    animation: { 
-                        'marquee': 'marquee 25s linear infinite', 
-                        'float': 'float 6s ease-in-out infinite', 
-                        'wiggle': 'wiggle 1s ease-in-out infinite', 
-                        'bounce-in': 'bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)', 
-                        'spin-slow': 'spin 12s linear infinite', 
-                        'radar-ping': 'radarPing 3s cubic-bezier(0, 0, 0.2, 1) infinite'
-                    },
-                    keyframes: {
-                        marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-100%)' } },
-                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } },
-                        wiggle: { '0%, 100%': { transform: 'rotate(-3deg)' }, '50%': { transform: 'rotate(3deg)' } },
-                        bounceIn: { '0%': { opacity: '0', transform: 'scale(0.9) translateY(10px)' }, '100%': { opacity: '1', transform: 'scale(1) translateY(0)' } },
-                        radarPing: { '75%, 100%': { transform: 'scale(2)', opacity: '0' } }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        body { background-color: #Fdf6e3; background-image: radial-gradient(#3b82f6 0.5px, transparent 0.5px), radial-gradient(#3b82f6 0.5px, #Fdf6e3 0.5px); background-size: 20px 20px; background-position: 0 0, 10px 10px; padding-bottom: 80px; /* Space for bottom nav on mobile */ }
-        @media (min-width: 768px) { body { padding-bottom: 0; } }
-        
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* Snap Utilities */
-        .snap-x-mandatory { scroll-snap-type: x mandatory; }
-        .snap-center { scroll-snap-align: center; }
-
-        .reveal-on-scroll { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .reveal-on-scroll.active { opacity: 1; transform: translateY(0); }
-        .wavy-underline { text-decoration: none; background-image: url("data:image/svg+xml,%3Csvg width='20' height='10' viewBox='0 0 20 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 Q 5 0 10 5 T 20 5' fill='none' stroke='%23facc15' stroke-width='4' stroke-linecap='round' /%3E%3C/svg%3E"); background-position: 0 100%; background-size: 20px 10px; background-repeat: repeat-x; padding-bottom: 5px; display: inline-block; }
-        .cut-line { background-image: linear-gradient(to right, #1c1917 50%, rgba(255,255,255,0) 0%); background-position: bottom; background-size: 30px 4px; background-repeat: repeat-x; }
-        #service-map { background-color: #e5e5e5; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Brimmer Heating &amp; Cooling serves Burlington, WI and nearby homes with recorded repairs, parts at cost, and Efficiency Pricing™: $250 per hour, billed in 15-minute increments with an upfront guaranteed maximum.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Brimmer Heating &amp; Cooling — Straight answers. Recorded repairs.">
+  <meta property="og:description" content="Heating and cooling service in and around Burlington, WI. No salesmen. Just service.">
+  <meta property="og:image" content="og.png">
+  <meta property="og:image:alt" content="Abstract airflow contour graphic in Brimmer's slate, paper, teal, and ember palette.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Brimmer Heating &amp; Cooling — Straight answers. Recorded repairs.">
+  <meta name="twitter:description" content="Heating and cooling service in and around Burlington, WI. No salesmen. Just service.">
+  <meta name="twitter:image" content="og.png">
+  <meta name="twitter:image:alt" content="Abstract airflow contour graphic in Brimmer's slate, paper, teal, and ember palette.">
+  <title>Brimmer Heating &amp; Cooling | Burlington, WI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --slate: #102a43;
+      --ink: #1f2933;
+      --paper: #f7f3ec;
+      --mist: #dceaf1;
+      --teal: #0b6e69;
+      --ember: #b9441d;
+      --white: #fff;
+      --line: rgba(16, 42, 67, .18);
+      --shadow: 0 18px 42px rgba(16, 42, 67, .09);
+      --radius: 22px;
+      --max: 1180px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "DM Sans", system-ui, sans-serif; line-height: 1.55; overflow-x: hidden; }
+    body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .2; background-image: radial-gradient(rgba(16,42,67,.13) .6px, transparent .6px); background-size: 12px 12px; z-index: -2; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button, input, textarea, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--ember); outline-offset: 4px; }
+    .skip-link { position: fixed; left: 16px; top: -80px; z-index: 100; background: var(--slate); color: var(--white); padding: 12px 16px; font-weight: 700; border-radius: 0 0 10px 10px; transition: top .2s ease; }
+    .skip-link:focus { top: 0; }
+    .wrap { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .eyebrow { margin: 0 0 14px; font: 500 .72rem/1.2 "DM Mono", monospace; letter-spacing: .13em; text-transform: uppercase; color: var(--teal); }
+    h1, h2, h3, h4 { font-family: "Space Grotesk", system-ui, sans-serif; letter-spacing: -.045em; margin: 0; color: var(--slate); }
+    h1 { font-size: clamp(3.15rem, 8vw, 7.2rem); line-height: .93; max-width: 840px; }
+    h2 { font-size: clamp(2.25rem, 5vw, 4.6rem); line-height: .98; }
+    h3 { font-size: clamp(1.3rem, 2vw, 1.7rem); line-height: 1.08; }
+    p { margin: 0; }
+    .muted { color: rgba(31, 41, 51, .68); }
+    .mono { font: 500 .75rem/1.4 "DM Mono", monospace; letter-spacing: .05em; }
+    .location-strip { background: var(--slate); color: var(--white); font-size: .79rem; letter-spacing: .02em; }
+    .location-strip .wrap { min-height: 34px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .location-strip strong { color: #a6d6d0; font-weight: 700; }
+    .location-strip a { text-decoration: none; color: var(--white); opacity: .82; }
+    .location-strip a:hover { opacity: 1; }
+    .site-header { position: sticky; top: 0; z-index: 50; background: rgba(247,243,236,.94); border-bottom: 1px solid var(--line); backdrop-filter: blur(12px); }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { text-decoration: none; display: inline-flex; align-items: center; gap: 11px; color: var(--slate); }
+    .brand-mark { width: 34px; height: 34px; border: 2px solid var(--slate); border-radius: 50%; position: relative; overflow: hidden; background: var(--mist); }
+    .brand-mark::before, .brand-mark::after { content: ""; position: absolute; height: 2px; width: 28px; left: 2px; background: var(--teal); transform: rotate(-22deg); }
+    .brand-mark::before { top: 12px; box-shadow: 4px 7px 0 var(--teal); }
+    .brand-mark::after { top: 19px; background: var(--ember); width: 17px; left: 10px; }
+    .brand-text { font: 700 1.1rem/1 "Space Grotesk", system-ui, sans-serif; letter-spacing: -.04em; }
+    .brand-text small { display: block; margin-top: 4px; font: 500 .58rem/1 "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); }
+    .nav-links { display: flex; align-items: center; gap: 26px; font-size: .9rem; font-weight: 600; }
+    .nav-links a { text-decoration: none; color: var(--ink); }
+    .nav-links > a:not(.button) { min-height: 44px; display: inline-flex; align-items: center; }
+    .nav-links a:hover { color: var(--teal); }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: transparent; color: var(--slate); border-radius: 9px; min-width: 44px; min-height: 44px; cursor: pointer; }
+    .menu-toggle span { display: block; width: 20px; height: 2px; margin: 4px auto; background: currentColor; }
+    .button { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: 10px; padding: 11px 18px; border: 1px solid transparent; border-radius: 9px; font-weight: 700; text-decoration: none; cursor: pointer; transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: var(--white); background: var(--teal); }
+    .button-primary:hover { background: #085852; }
+    .button-quiet { color: var(--slate); background: transparent; border-color: var(--line); }
+    .button-quiet:hover { border-color: var(--teal); color: var(--teal); }
+    .button-paper { background: var(--white); color: var(--slate); }
+    .hero { padding: clamp(60px, 9vw, 122px) 0 86px; position: relative; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(300px, .7fr); align-items: end; gap: 64px; }
+    .hero h1 span { color: var(--teal); }
+    .hero-dek { max-width: 580px; margin: 28px 0 30px; font-size: clamp(1.1rem, 1.7vw, 1.35rem); color: rgba(31,41,51,.76); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note { display: flex; align-items: flex-start; gap: 10px; margin-top: 18px; max-width: 510px; color: #52616f; font-size: .84rem; }
+    .hero-note b { color: var(--ember); font-family: "DM Mono", monospace; }
+    .hero-card { position: relative; border: 1px solid var(--slate); border-radius: var(--radius); padding: 26px; background: var(--slate); color: var(--white); box-shadow: var(--shadow); overflow: hidden; }
+    .hero-card::before { content: ""; position: absolute; width: 280px; height: 140px; right: -74px; top: 55px; border: 1px solid rgba(166,214,208,.35); border-radius: 50%; transform: rotate(-17deg); box-shadow: -18px 14px 0 -1px rgba(166,214,208,.18), -38px 29px 0 -1px rgba(166,214,208,.12); }
+    .hero-card::after { content: ""; position: absolute; width: 120px; height: 80px; right: -25px; bottom: -28px; border: 1px solid rgba(185,68,29,.7); border-radius: 50%; transform: rotate(-19deg); }
+    .hero-card > * { position: relative; z-index: 1; }
+    .hero-card .mono { color: #a6d6d0; }
+    .price { margin: 20px 0 22px; display: flex; align-items: baseline; gap: 6px; }
+    .price strong { font: 700 clamp(3rem, 6vw, 5.5rem)/.8 "Space Grotesk", system-ui, sans-serif; letter-spacing: -.08em; }
+    .price span { color: #a6d6d0; font-size: .9rem; }
+    .hero-card ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; font-size: .92rem; }
+    .hero-card li { display: flex; gap: 10px; }
+    .hero-card li::before { content: "↳"; color: #f0b59e; font-weight: 700; }
+    .contours { height: 68px; margin-top: 70px; border-top: 1px solid rgba(16,42,67,.15); border-bottom: 1px solid rgba(16,42,67,.12); position: relative; overflow: hidden; }
+    .contours::before, .contours::after { content: ""; position: absolute; width: 110%; height: 95px; left: -5%; border: 1px solid rgba(11,110,105,.28); border-radius: 50%; transform: rotate(-3deg); }
+    .contours::before { top: 30px; box-shadow: 0 -10px 0 rgba(11,110,105,.2), 0 -20px 0 rgba(11,110,105,.12), 0 -30px 0 rgba(11,110,105,.08); }
+    .contours::after { top: -78px; border-color: rgba(185,68,29,.23); transform: rotate(4deg); }
+    .proof-rail { background: var(--mist); border-block: 1px solid var(--line); }
+    .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .proof-item { min-height: 128px; padding: 24px 24px 24px 0; display: grid; grid-template-columns: 38px 1fr; gap: 14px; align-content: center; border-right: 1px solid var(--line); }
+    .proof-item + .proof-item { padding-left: 28px; }
+    .proof-item:last-child { border-right: 0; }
+    .proof-number { color: var(--ember); font: 500 1.2rem/1 "DM Mono", monospace; }
+    .proof-item h3 { font-size: 1.08rem; margin-bottom: 4px; }
+    .proof-item p { font-size: .88rem; color: rgba(31,41,51,.69); }
+    section { padding: clamp(74px, 10vw, 132px) 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 48px; }
+    .section-head > div:first-child { max-width: 700px; }
+    .section-head p { max-width: 420px; color: rgba(31,41,51,.69); }
+    .triage { background: var(--white); }
+    .triage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .triage-card { min-height: 230px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); transition: transform .2s ease, border-color .2s ease; }
+    .triage-card:hover { transform: translateY(-4px); border-color: var(--teal); }
+    .triage-card:nth-child(2) { background: var(--mist); }
+    .triage-card:nth-child(3) { background: #f3e2db; }
+    .triage-card .index { font: 500 .75rem/1 "DM Mono", monospace; color: var(--teal); }
+    .triage-card h3 { margin: 18px 0 8px; }
+    .triage-card p { font-size: .92rem; color: rgba(31,41,51,.72); }
+    .text-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 22px; color: var(--teal); font-size: .86rem; font-weight: 700; text-decoration: none; }
+    .text-link:hover { color: var(--ember); }
+    .pricing { background: var(--slate); color: var(--white); position: relative; overflow: hidden; }
+    .pricing::before { content: ""; position: absolute; width: 720px; height: 350px; right: -250px; top: 40px; border: 1px solid rgba(166,214,208,.19); border-radius: 50%; transform: rotate(-18deg); box-shadow: -18px 16px 0 rgba(166,214,208,.1), -36px 32px 0 rgba(166,214,208,.07), -54px 48px 0 rgba(166,214,208,.045); }
+    .pricing h2, .pricing h3 { color: var(--white); }
+    .pricing .eyebrow { color: #a6d6d0; }
+    .pricing .section-head p { color: rgba(255,255,255,.7); }
+    .pricing-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: 60px; align-items: start; position: relative; z-index: 1; }
+    .pricing-intro > p { margin-top: 22px; max-width: 490px; color: rgba(255,255,255,.73); font-size: 1.1rem; }
+    .pricing-rule { display: grid; gap: 0; margin-top: 38px; border-top: 1px solid rgba(255,255,255,.2); }
+    .pricing-rule div { display: grid; grid-template-columns: 32px 1fr; gap: 12px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.2); }
+    .pricing-rule b { color: #f0b59e; font: 500 .8rem/1.5 "DM Mono", monospace; }
+    .pricing-rule p { color: rgba(255,255,255,.72); font-size: .91rem; }
+    .pricing-rule strong { color: var(--white); }
+    .timeline-card { padding: 28px; background: var(--white); color: var(--ink); border-radius: var(--radius); box-shadow: 0 22px 50px rgba(0,0,0,.18); }
+    .timeline-card h3 { color: var(--slate); margin-bottom: 24px; }
+    .timeline { display: grid; grid-template-columns: repeat(5, 1fr); position: relative; gap: 0; margin: 30px 0 28px; }
+    .timeline::before { content: ""; position: absolute; left: 5%; right: 5%; top: 12px; height: 1px; background: var(--line); }
+    .timeline-step { position: relative; display: grid; justify-items: center; gap: 10px; text-align: center; }
+    .timeline-step i { width: 25px; height: 25px; display: grid; place-items: center; border-radius: 50%; background: var(--mist); border: 1px solid var(--teal); color: var(--teal); font: 500 .7rem "DM Mono", monospace; font-style: normal; z-index: 1; }
+    .timeline-step:last-child i { background: var(--teal); color: var(--white); }
+    .timeline-step span { max-width: 92px; color: rgba(31,41,51,.65); font-size: .7rem; line-height: 1.25; }
+    .bill-example { padding: 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+    .bill-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .bill-top strong { color: var(--slate); font-size: 1.25rem; }
+    .bill-top span { color: var(--teal); font: 500 .73rem "DM Mono", monospace; }
+    .bill-line { display: flex; justify-content: space-between; gap: 16px; margin-top: 11px; font-size: .84rem; }
+    .bill-line.total { margin-top: 15px; padding-top: 13px; border-top: 1px dashed var(--line); color: var(--slate); font-weight: 700; }
+    .pricing-footnote { margin-top: 20px; color: #52616f; font-size: .76rem; }
+    .services { background: var(--paper); }
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .filter { min-height: 42px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--ink); cursor: pointer; font-size: .82rem; font-weight: 700; }
+    .filter[aria-pressed="true"], .filter:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
+    .service-table { border-top: 1px solid var(--slate); }
+    .service-row { display: grid; grid-template-columns: minmax(190px, 1.4fr) minmax(130px, .8fr) minmax(150px, .8fr) minmax(120px, .55fr); gap: 20px; align-items: center; padding: 19px 0; border-bottom: 1px solid var(--line); }
+    .service-row.header { padding: 11px 0; color: #52616f; font: 500 .68rem "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .service-name { display: flex; align-items: center; gap: 10px; }
+    .service-name strong { color: var(--slate); }
+    .service-name span { display: block; color: #52616f; font-size: .78rem; }
+    .service-meta { font-size: .88rem; color: rgba(31,41,51,.72); }
+    .cap { color: var(--teal); font: 500 .82rem "DM Mono", monospace; }
+    .service-row.is-hidden { display: none; }
+    .scenarios { margin-top: 60px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .scenario { padding: 24px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+    .scenario:nth-child(2) { background: var(--mist); }
+    .scenario-head { display: flex; justify-content: space-between; align-items: start; gap: 16px; margin-bottom: 20px; }
+    .scenario-head .tag { color: var(--teal); font: 500 .68rem "DM Mono", monospace; text-transform: uppercase; }
+    .scenario h3 { margin-top: 6px; }
+    .math { display: grid; gap: 8px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: .84rem; }
+    .math div { display: flex; justify-content: space-between; gap: 12px; }
+    .math div:last-child { color: var(--slate); font-weight: 700; }
+    .scenario-total { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--slate); font: 700 1.1rem "Space Grotesk", system-ui, sans-serif; }
+    .video-section { background: var(--white); }
+    .video-grid { display: grid; grid-template-columns: .86fr 1.14fr; gap: 50px; align-items: center; }
+    .video-copy p { max-width: 470px; color: rgba(31,41,51,.72); font-size: 1.05rem; }
+    .video-copy .button { margin-top: 26px; }
+    .video-frame { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; min-width: 0; min-height: 280px; display: grid; place-items: center; overflow: hidden; border-radius: var(--radius); background: var(--slate); border: 1px solid var(--slate); }
+    .video-frame::before { content: ""; position: absolute; inset: 16px; border: 1px solid rgba(166,214,208,.32); border-radius: 15px; background: repeating-linear-gradient( -18deg, transparent 0 34px, rgba(166,214,208,.11) 35px 36px ); }
+    .video-frame::after { content: "REPAIR / RECORDED / 02:14"; position: absolute; top: 28px; left: 29px; color: #f0b59e; font: 500 .68rem "DM Mono", monospace; letter-spacing: .08em; }
+    .video-play { position: relative; z-index: 1; width: 76px; height: 76px; display: grid; place-items: center; padding-left: 4px; border: 1px solid #a6d6d0; border-radius: 50%; color: var(--white); background: rgba(11,110,105,.9); font-size: 1.5rem; cursor: pointer; }
+    .video-play:hover { background: var(--ember); border-color: #f0b59e; transform: scale(1.05); }
+    .video-caption { position: absolute; left: 29px; right: 29px; bottom: 24px; z-index: 1; color: rgba(255,255,255,.78); font-size: .8rem; }
+    .video-caption strong { color: var(--white); }
+    .process { background: var(--mist); }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+    .process-step { min-height: 245px; padding: 28px; background: var(--mist); }
+    .process-step .num { display: block; margin-bottom: 50px; color: var(--ember); font: 500 .75rem "DM Mono", monospace; }
+    .process-step h3 { margin-bottom: 10px; }
+    .process-step p { max-width: 280px; color: rgba(31,41,51,.7); font-size: .9rem; }
+    .local { background: var(--paper); }
+    .local-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
+    .local-copy p { max-width: 520px; margin-top: 22px; color: rgba(31,41,51,.75); font-size: 1.08rem; }
+    .signature { margin-top: 35px; display: inline-flex; flex-direction: column; gap: 3px; padding-top: 15px; border-top: 1px solid var(--slate); }
+    .signature strong { color: var(--slate); font: 600 1.05rem "Space Grotesk", system-ui, sans-serif; }
+    .signature span { color: var(--teal); font: 500 .7rem "DM Mono", monospace; text-transform: uppercase; letter-spacing: .08em; }
+    .local-note { padding: 29px; border: 1px solid var(--slate); border-radius: var(--radius); background: var(--white); }
+    .local-note h3 { margin-bottom: 22px; }
+    .local-note p { color: rgba(31,41,51,.7); font-size: .93rem; }
+    .local-note .radius { display: flex; align-items: baseline; gap: 12px; margin: 24px 0 19px; padding-bottom: 19px; border-bottom: 1px dashed var(--line); }
+    .radius strong { color: var(--teal); font: 700 3.7rem/.8 "Space Grotesk", system-ui, sans-serif; letter-spacing: -.08em; }
+    .radius span { color: rgba(31,41,51,.66); font-size: .9rem; }
+    .faq { background: var(--white); }
+    .faq-grid { display: grid; grid-template-columns: .72fr 1.28fr; gap: 70px; align-items: start; }
+    .faq-intro p { margin-top: 20px; color: rgba(31,41,51,.69); }
+    details { border-top: 1px solid var(--line); }
+    details:last-child { border-bottom: 1px solid var(--line); }
+    summary { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 18px; cursor: pointer; list-style: none; color: var(--slate); font-weight: 700; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--teal); font: 500 1.35rem "DM Mono", monospace; }
+    details[open] summary::after { content: "−"; }
+    details > p { padding: 0 44px 21px 0; color: rgba(31,41,51,.7); font-size: .9rem; }
+    .contact { background: var(--ember); color: var(--white); position: relative; overflow: hidden; }
+    .contact::before { content: ""; position: absolute; width: 650px; height: 280px; right: -180px; top: -40px; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; transform: rotate(-11deg); box-shadow: -20px 17px 0 rgba(255,255,255,.1), -40px 34px 0 rgba(255,255,255,.06); }
+    .contact h2 { color: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: 70px; position: relative; z-index: 1; }
+    .contact-copy p { margin-top: 21px; max-width: 430px; color: rgba(255,255,255,.9); font-size: 1.05rem; }
+    .contact-copy .mono { display: block; margin-top: 26px; color: #fff; }
+    .contact-form { padding: 28px; border-radius: var(--radius); background: var(--white); color: var(--ink); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { display: grid; gap: 6px; color: var(--slate); font-size: .8rem; font-weight: 700; }
+    label.full { grid-column: 1 / -1; }
+    input, textarea, select { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--paper); }
+    textarea { min-height: 110px; resize: vertical; }
+    .form-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; margin-top: 17px; }
+    .form-actions .button { border: 0; }
+    .form-note { color: #52616f; font-size: .74rem; }
+    .form-status { width: 100%; min-height: 1.2em; color: var(--teal); font-size: .8rem; font-weight: 700; }
+    footer { padding: 38px 0 86px; background: var(--slate); color: rgba(255,255,255,.68); }
+    .footer-grid { display: flex; justify-content: space-between; gap: 30px; align-items: start; }
+    footer .brand { color: var(--white); }
+    footer .brand-mark { border-color: var(--white); background: rgba(255,255,255,.12); }
+    footer .brand-text small { color: #a6d6d0; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; justify-content: end; font-size: .82rem; }
+    .footer-links a { color: rgba(255,255,255,.8); text-decoration: none; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom { margin-top: 31px; padding-top: 17px; border-top: 1px solid rgba(255,255,255,.17); display: flex; justify-content: space-between; gap: 20px; font-size: .73rem; }
+    .mobile-cta { display: none; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width: 900px) {
+      .hero-grid, .pricing-grid, .video-grid, .local-grid, .faq-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-card { max-width: 560px; }
+      .pricing-grid { gap: 35px; }
+      .contact-grid { gap: 30px; }
+      .section-head { align-items: start; flex-direction: column; gap: 15px; }
+      .nav-links { gap: 16px; }
+    }
+    @media (max-width: 680px) {
+      .wrap { width: min(calc(100% - 28px), var(--max)); }
+      body { padding-bottom: 72px; }
+      .location-strip .wrap { min-height: 38px; font-size: .7rem; }
+      .location-strip a { display: none; }
+      .nav { min-height: 64px; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; padding: 15px 14px 18px; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links.is-open { display: flex; }
+      .nav-links a, .nav-links .button { min-height: 46px; display: flex; align-items: center; padding: 9px 5px; }
+      .nav-links .button { justify-content: center; margin-top: 7px; }
+      .brand-text { font-size: 1rem; }
+      .hero { padding-top: 58px; padding-bottom: 58px; }
+      .hero-grid { gap: 38px; }
+      h1 { font-size: clamp(3rem, 16vw, 5.2rem); }
+      h2 { font-size: clamp(2.2rem, 12vw, 3.8rem); }
+      .hero-actions .button { width: 100%; }
+      .proof-grid { display: block; }
+      .proof-item, .proof-item + .proof-item { min-height: 0; padding: 19px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .proof-item:last-child { border-bottom: 0; }
+      .triage-grid, .scenarios, .process-grid { grid-template-columns: 1fr; }
+      .triage-card { min-height: 190px; }
+      section { padding: 75px 0; }
+      .timeline { gap: 0; margin-inline: -9px; }
+      .timeline-step span { font-size: .63rem; }
+      .timeline-card { padding: 21px 16px; }
+      .service-table { border-top: 0; }
+      .service-row.header { display: none; }
+      .service-row { grid-template-columns: 1fr auto; gap: 7px 14px; padding: 19px 0; }
+      .service-name { grid-column: 1 / -1; }
+      .service-meta:nth-of-type(1)::before { content: "Typical "; color: rgba(31,41,51,.5); }
+      .service-meta:nth-of-type(2)::before { content: "Max "; color: rgba(31,41,51,.5); }
+      .service-row > .service-meta { font-size: .78rem; }
+      .service-row > .service-meta:last-child { text-align: right; }
+      .video-frame { min-height: 230px; }
+      .process-step { min-height: 185px; }
+      .process-step .num { margin-bottom: 28px; }
+      .form-grid { grid-template-columns: 1fr; }
+      label.full { grid-column: auto; }
+      .contact-form { padding: 19px; }
+      .footer-grid, .footer-bottom { flex-direction: column; }
+      .footer-links { justify-content: start; }
+      .mobile-cta { position: fixed; display: grid; grid-template-columns: 1fr auto; gap: 8px; left: 10px; right: 10px; bottom: 10px; z-index: 60; padding: 7px; background: var(--white); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 8px 30px rgba(16,42,67,.18); }
+      .mobile-cta .button { min-height: 46px; }
+      .mobile-cta .button-quiet { width: 46px; padding: 0; font-size: 0; }
+      .mobile-cta .button-quiet::after { content: "↑"; font-size: 1rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
 </head>
-<body class="text-brimmer-dark font-sans selection:bg-brimmer-accent selection:text-white">
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="location-strip">
+    <div class="wrap"><span><strong>BURLINGTON, WI</strong> &nbsp;·&nbsp; Serving homes within 35 miles</span><a href="#contact">See how to reach Brimmer <span aria-hidden="true">↗</span></a></div>
+  </div>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Brimmer Heating and Cooling home">
+        <span class="brand-mark" aria-hidden="true"></span><span class="brand-text">Brimmer<small>Heating &amp; Cooling</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links"><span></span><span></span><span></span><span class="sr-only" id="nav-toggle-label">Open navigation</span></button>
+      <div class="nav-links" id="nav-links">
+        <a href="#pricing">Pricing</a><a href="#services">Service menu</a><a href="#proof">Proof</a><a href="#faq">FAQ</a><a class="button button-primary" href="#contact">Start with the details <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
 
-    <div id="main-site" class="snap-start">
-        
-        <!-- ORIGINAL NAV BAR HTML (Mobile Optimized) -->
-        <nav class="fixed w-full z-50 top-2 md:top-4 px-2 md:px-8 pointer-events-none">
-            <div class="max-w-7xl mx-auto flex justify-between items-stretch pointer-events-auto gap-2">
-                
-                <!-- LEFT GROUP: Logo + Dept -->
-                <div class="bg-white border-4 border-brimmer-dark rounded-full shadow-neo px-3 py-2 md:px-6 md:py-3 flex items-center gap-2 md:gap-6 transition-all duration-300 hover:shadow-neo-lg relative z-40 flex-shrink-0">
-                    <a href="#" class="text-lg md:text-3xl font-black tracking-tighter uppercase hover:-rotate-2 transition-transform shrink-0 leading-none">
-                        Brimmer
-                    </a>
-                    <div class="relative shrink-0">
-                        <button onclick="toggleDeptMenu()" id="dept-btn" class="bg-brimmer-blue text-white border-2 border-brimmer-dark rounded-full px-2 py-1 md:px-5 md:py-2 font-bold flex items-center gap-1 md:gap-2 transition-all duration-200 shadow-neo hover:shadow-neo-hover hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none text-[10px] md:text-base whitespace-nowrap">
-                            <span>Residential</span>
-                            <i class="fas fa-chevron-down text-[8px] md:text-sm ml-0.5"></i>
-                        </button>
-                        <div id="dept-menu" class="absolute top-full left-0 mt-4 w-48 bg-white border-4 border-brimmer-dark rounded-3xl shadow-neo overflow-hidden hidden transform origin-top-left animate-bounce-in z-50">
-                            <a href="#" class="block px-6 py-3 hover:bg-brimmer-highlight font-bold border-b-2 border-brimmer-dark text-base">Residential</a>
-                            <a href="#" class="block px-6 py-3 hover:bg-brimmer-highlight font-bold border-b-2 border-brimmer-dark text-base">Commercial</a>
-                            <a href="#" class="block px-6 py-3 hover:bg-brimmer-highlight font-bold text-base">State</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- RIGHT GROUP: Status + Contact -->
-                <div class="flex items-stretch gap-2 md:gap-4 flex-grow justify-end md:justify-start md:flex-grow-0">
-                    <!-- 1. Status Button (Adjusted width to be auto, not full) -->
-                    <div class="relative z-30">
-                        <button onclick="toggleHoursMenu()" id="status-badge" class="w-auto h-full flex items-center justify-between gap-2 px-3 md:px-5 md:py-2 rounded-full border-4 border-brimmer-dark font-black shadow-neo transition-all duration-200 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-neo-hover active:translate-y-[4px] active:translate-x-[4px] active:shadow-none group bg-white">
-                            <div class="relative flex items-center justify-center">
-                                <div id="status-dot" class="w-2 h-2 md:w-3 md:h-3 rounded-full animate-pulse border border-black/20 shrink-0"></div>
-                                <i id="mobile-status-icon" class="hidden"></i>
-                            </div>
-                            <!-- Text now visible on mobile (flex instead of hidden) -->
-                            <div class="flex flex-col items-start text-left leading-none gap-0.5">
-                                <span id="status-headline" class="text-[10px] md:text-xs font-black uppercase tracking-tighter">CHECKING</span>
-                                <span id="status-subline" class="text-[8px] md:text-[10px] font-bold uppercase opacity-90 whitespace-nowrap">Please Wait</span>
-                            </div>
-                            <i class="fas fa-chevron-down text-[10px] md:text-xs opacity-50 group-hover:opacity-100 transition-opacity"></i>
-                        </button>
-                        <!-- Hours Popover Card -->
-                        <div id="hours-menu" class="absolute right-0 top-full mt-4 w-72 md:w-80 bg-white border-4 border-brimmer-dark rounded-[2rem] shadow-neo p-6 hidden flex-col gap-4 transform origin-top-right animate-bounce-in z-50">
-                            <div class="flex justify-between items-center border-b-2 border-brimmer-dark pb-2">
-                                <h3 class="font-black text-xl uppercase">Office Hours</h3>
-                                <i class="fas fa-clock text-brimmer-blue text-xl"></i>
-                            </div>
-                            <!-- Auto Generated Hours List -->
-                            <ul id="hours-list" class="space-y-2 text-sm font-bold"></ul>
-                            
-                            <div id="menu-footer-status" class="bg-brimmer-dark text-white p-3 rounded-xl text-center font-bold text-xs uppercase tracking-wider mt-2">
-                                <!-- Dynamic Status Text Here -->
-                            </div>
-                            <div class="mt-2 pt-4 border-t-2 border-brimmer-dark">
-                                <a href="#booking" class="flex items-center justify-center gap-2 w-full bg-brimmer-alert text-white text-center font-black py-3 rounded-xl border-4 border-brimmer-dark shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all uppercase group">
-                                    Book Online <i class="fas fa-bolt group-hover:animate-wiggle"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. Contact Button (Hidden on Mobile - Moved to Bottom Bar) -->
-                    <div class="relative z-30 hidden md:block">
-                        <button onclick="toggleContactMenu()" class="w-12 h-12 md:w-auto md:h-full bg-brimmer-highlight border-4 border-brimmer-dark text-brimmer-dark rounded-full md:px-6 md:py-2 font-bold shadow-neo hover:shadow-neo-lg active:shadow-neo-hover active:translate-x-[3px] active:translate-y-[3px] transition-all flex items-center justify-center gap-2">
-                            <span class="hidden md:inline">Contact Us</span>
-                            <i class="fas fa-comment-dots text-xl md:text-xl"></i>
-                        </button>
-                        <div id="contact-menu" class="absolute right-0 top-full mt-4 w-64 bg-white border-4 border-brimmer-dark rounded-3xl shadow-neo p-4 hidden flex-col gap-3 transform transition-all z-50 animate-bounce-in">
-                            <a href="tel:+15551234567" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-brimmer-blue hover:text-white transition-colors font-bold border-2 border-transparent hover:border-brimmer-dark">
-                                <i class="fas fa-phone"></i> Call Us
-                            </a>
-                            <a href="sms:+15551234567" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-brimmer-success hover:text-white transition-colors font-bold border-2 border-transparent hover:border-brimmer-dark">
-                                <i class="fas fa-comment"></i> Text Us
-                            </a>
-                            <button onclick="copyPhoneNumber()" class="flex items-center gap-3 p-3 rounded-2xl hover:bg-brimmer-highlight hover:text-brimmer-dark transition-colors font-bold border-2 border-transparent hover:border-brimmer-dark text-left w-full">
-                                <i class="fas fa-copy"></i> <span id="copy-text">555-123-4567</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <!-- STICKY MOBILE BOTTOM NAV (New for Intuitive Mobile Use) -->
-        <div class="fixed bottom-4 left-4 right-4 z-50 md:hidden flex gap-2">
-            <a href="#booking" class="flex-1 bg-brimmer-alert text-white border-4 border-brimmer-dark rounded-xl py-3 font-black uppercase text-center shadow-neo active:translate-y-1 active:shadow-none flex items-center justify-center gap-2 text-lg">
-                <i class="fas fa-bolt"></i> Book
-            </a>
-            <a href="tel:5551234567" class="flex-none w-16 bg-white text-brimmer-dark border-4 border-brimmer-dark rounded-xl flex items-center justify-center shadow-neo active:translate-y-1 active:shadow-none text-xl">
-                <i class="fas fa-phone"></i>
-            </a>
-            <a href="sms:5551234567" class="flex-none w-16 bg-brimmer-blue text-white border-4 border-brimmer-dark rounded-xl flex items-center justify-center shadow-neo active:translate-y-1 active:shadow-none text-xl">
-                <i class="fas fa-comment"></i>
-            </a>
+  <main id="main-content">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Heating + cooling / Burlington, Wisconsin</p>
+          <h1 id="hero-title">Straight answers.<br><span>Recorded repairs.</span><br>No sales pitch.</h1>
+          <p class="hero-dek">Brimmer Heating &amp; Cooling brings the work into the open: clear caps, parts at cost, and a repair video you can actually watch.</p>
+          <div class="hero-actions"><a class="button button-primary" href="#contact">Tell us what’s happening <span aria-hidden="true">↗</span></a><a class="button button-quiet" href="#pricing">Read Efficiency Pricing™</a></div>
+          <p class="hero-note"><b>01 /</b> No salesmen. Just service. A 15-minute video diagnostic is also available as an existing offer—ask about it when you reach out.</p>
         </div>
-
-        <!-- Hero Section -->
-        <header class="pt-24 pb-12 md:pt-32 md:pb-16 px-4 max-w-7xl mx-auto relative overflow-hidden">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
-                <div class="md:col-span-7 text-center md:text-left relative">
-                    <!-- Increased size to text-6xl on mobile -->
-                    <h1 class="text-6xl md:text-8xl font-black leading-[0.9] tracking-tighter mb-8 mt-4 relative">
-                        NO <br class="md:hidden">
-                        <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-brimmer-blue to-brimmer-accent">
-                            SALESMEN.
-                        </span><br>
-                        JUST <span class="wavy-underline">SERVICE.</span>
-                    </h1>
-                    
-                    <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-8">
-                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo cursor-default"><i class="fas fa-fire text-brimmer-alert mr-1"></i> Heating</span>
-                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo cursor-default"><i class="fas fa-snowflake text-brimmer-blue mr-1"></i> A/C</span>
-                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo cursor-default"><i class="fas fa-wrench text-brimmer-accent mr-1"></i> Installs</span>
-                        <span class="inline-block px-3 py-1 bg-white border-2 border-brimmer-dark rounded-lg text-xs font-black uppercase tracking-wider shadow-neo cursor-default"><i class="fas fa-clipboard-check text-brimmer-success mr-1"></i> Checks</span>
-                    </div>
-
-                    <!-- Mobile Swipeable Cards (Horizontal Scroll) -->
-                    <div id="info-carousel" class="flex overflow-x-auto snap-x snap-mandatory space-x-4 pb-6 md:grid md:grid-cols-3 md:space-x-0 md:gap-4 no-scrollbar -mx-4 px-4 md:mx-0 md:px-0">
-                        <div class="min-w-[280px] md:min-w-0 snap-center bg-white border-4 border-brimmer-dark rounded-2xl p-5 shadow-neo flex flex-col items-start">
-                            <div class="w-10 h-10 bg-brimmer-blue rounded-full border-2 border-brimmer-dark flex items-center justify-center mb-3 text-white text-sm shadow-neo"><i class="fas fa-video"></i></div>
-                            <h3 class="font-black text-lg leading-none mb-2">We Vlog It</h3>
-                            <p class="text-sm font-medium opacity-90 leading-tight">We record the fix. You see exactly what we do.</p>
-                        </div>
-                        <div class="min-w-[280px] md:min-w-0 snap-center bg-brimmer-highlight border-4 border-brimmer-dark rounded-2xl p-5 shadow-neo flex flex-col items-start">
-                            <div class="w-10 h-10 bg-white rounded-full border-2 border-brimmer-dark flex items-center justify-center mb-3 text-brimmer-dark text-sm shadow-neo"><i class="fas fa-ban"></i></div>
-                            <h3 class="font-black text-lg leading-none mb-2">No Markups</h3>
-                            <p class="text-sm font-medium opacity-90 leading-tight">We charge $0 markup on parts. You pay our cost.</p>
-                        </div>
-                        <div class="min-w-[280px] md:min-w-0 snap-center bg-white border-4 border-brimmer-dark rounded-2xl p-5 shadow-neo flex flex-col items-start">
-                            <div class="w-10 h-10 bg-brimmer-alert rounded-full border-2 border-brimmer-dark flex items-center justify-center mb-3 text-white text-sm shadow-neo"><i class="fas fa-user-slash"></i></div>
-                            <h3 class="font-black text-lg leading-none mb-2">Just Fixers</h3>
-                            <p class="text-sm font-medium opacity-90 leading-tight">No salesmen. We fix it, we don't upsell it.</p>
-                        </div>
-                    </div>
-
-                    <!-- Hero Video Card: Condensed for Mobile (Row Layout) -->
-                    <div class="bg-brimmer-dark text-white border-4 border-white/50 rounded-2xl p-3 md:p-4 flex flex-row items-center gap-3 md:gap-4 shadow-neo hover:-translate-y-1 transition-transform cursor-pointer group">
-                        <!-- Badge: Smaller on mobile -->
-                        <div class="bg-brimmer-success text-brimmer-dark px-2 py-0.5 md:px-3 md:py-1 rounded font-bold uppercase text-[10px] md:text-xs flex items-center gap-1.5 md:gap-2 animate-pulse flex-shrink-0">
-                            <div class="w-1.5 h-1.5 md:w-2 md:h-2 bg-brimmer-dark rounded-full"></div> Live
-                        </div>
-                        <!-- Text: Left aligned, smaller fonts -->
-                        <div class="text-left flex-1">
-                            <p class="font-black uppercase text-[10px] md:text-sm tracking-widest text-brimmer-highlight mb-0.5 md:mb-1">New Service</p>
-                            <h4 class="font-bold text-sm md:text-lg leading-tight group-hover:text-brimmer-highlight transition-colors">Free 15-Min Video Diagnostics</h4>
-                        </div>
-                        <!-- Icon: Smaller -->
-                        <i class="fas fa-arrow-right text-base md:text-xl group-hover:translate-x-2 transition-transform"></i>
-                    </div>
-                </div>
-
-                <div class="md:col-span-5 relative hidden md:block">
-                    <!-- Only show big hero image on desktop to save scroll space on mobile -->
-                    <div class="bg-white border-4 border-brimmer-dark rounded-[3rem] p-6 shadow-neo-lg rotate-2 hover:rotate-0 transition-transform duration-500">
-                        <div class="bg-gray-100 rounded-[2rem] overflow-hidden border-2 border-brimmer-dark relative aspect-[4/5] group">
-                            <div class="absolute inset-0 overflow-hidden"><iframe src="https://www.youtube.com/embed/PvQcD-bK7sk?autoplay=1&mute=1&controls=0&loop=1&playlist=PvQcD-bK7sk&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&start=10" class="absolute top-1/2 left-1/2 w-[250%] h-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-                            <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 animate-pulse z-10 pointer-events-none"><div class="w-2 h-2 bg-white rounded-full"></div> REC</div>
-                        </div>
-                        <div class="mt-4 text-center"><h3 class="font-black text-xl">Watch Your Technician</h3><p class="text-sm">We record the fix. You verify the work.</p></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mt-16 mb-4 relative z-20">
-                <a href="#pricing" class="group relative overflow-hidden bg-brimmer-highlight border-4 border-brimmer-dark rounded-xl px-8 py-4 font-black uppercase tracking-wide shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto min-w-[280px] text-center">
-                    <span class="block group-hover:-translate-y-[150%] transition-transform duration-300 ease-in-out"><i class="fas fa-tag mr-2"></i> What's The Price?</span>
-                    <span class="absolute inset-0 flex items-center justify-center translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out bg-brimmer-dark text-white">$250 Max / Hr</span>
-                </a>
-                <a href="#page-vlog" class="group relative overflow-hidden bg-white border-4 border-brimmer-dark rounded-xl px-8 py-4 font-black uppercase tracking-wide shadow-neo hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto min-w-[280px] text-center">
-                    <span class="block group-hover:-translate-y-[150%] transition-transform duration-300 ease-in-out"><i class="fas fa-map-signs mr-2"></i> How Does It Work?</span>
-                    <span class="absolute inset-0 flex items-center justify-center translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 ease-in-out bg-brimmer-blue text-white">See The Roadmap</span>
-                </a>
-            </div>
-        </header>
-
-        <!-- Infinite Marquee -->
-        <div class="relative z-30 bg-brimmer-dark text-white py-4 border-y-4 border-brimmer-dark overflow-hidden -rotate-1 scale-[1.02] shadow-neo-lg origin-center -my-8 group">
-            <div class="flex overflow-hidden w-full" id="marquee-container"></div>
-        </div>
-
-        <!-- Pricing Section -->
-        <section id="pricing" class="pt-24 pb-20 px-4 relative overflow-hidden bg-white border-y-4 border-brimmer-dark">
-            <div class="max-w-6xl mx-auto relative z-10 text-center">
-                <h2 class="text-5xl md:text-7xl font-black mb-12 uppercase reveal-on-scroll">Fair Pricing. <br><span class="text-brimmer-blue underline decoration-wavy">Finally.</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
-                    <!-- LEFT COLUMN -->
-                    <div class="text-left space-y-8 reveal-on-scroll">
-                        <div>
-                            <span class="bg-brimmer-highlight border-2 border-brimmer-dark px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-neo mb-4 inline-block">The New Standard</span>
-                            <h3 class="text-4xl md:text-6xl font-black uppercase leading-none mb-4">Efficiency Pricing™</h3>
-                            <p class="text-xl font-medium opacity-80">You only pay for the time we actually use. <br><span class="text-brimmer-blue font-bold">But you're protected by a Hard Cap.</span></p>
-                        </div>
-                        <div class="space-y-6">
-                            <div class="flex items-start gap-4 bg-brimmer-bg p-4 rounded-2xl border-2 border-transparent hover:border-brimmer-dark transition-colors">
-                                <div class="w-12 h-12 bg-brimmer-success text-brimmer-dark rounded-full flex items-center justify-center text-xl font-black border-2 border-brimmer-dark shrink-0"><i class="fas fa-hourglass-half"></i></div>
-                                <div><h4 class="font-black text-xl uppercase">We Finish Fast? You Save.</h4><p class="text-sm font-bold opacity-70">If a job takes 20 minutes, you pay for 20 minutes. Not the full "book price."</p></div>
-                            </div>
-                            <div class="flex items-start gap-4 bg-brimmer-bg p-4 rounded-2xl border-2 border-transparent hover:border-brimmer-dark transition-colors">
-                                <div class="w-12 h-12 bg-brimmer-blue text-white rounded-full flex items-center justify-center text-xl font-black border-2 border-brimmer-dark shrink-0"><i class="fas fa-shield-alt"></i></div>
-                                <div><h4 class="font-black text-xl uppercase">Job Gets Hard? You're Capped.</h4><p class="text-sm font-bold opacity-70">We quote a Maximum Time upfront. Even if it takes us all day, you never pay a penny more.</p></div>
-                            </div>
-                            <div class="flex items-start gap-4 bg-brimmer-bg p-4 rounded-2xl border-2 border-transparent hover:border-brimmer-dark transition-colors">
-                                <div class="w-12 h-12 bg-white text-brimmer-dark rounded-full flex items-center justify-center text-xl font-black border-2 border-brimmer-dark shrink-0"><i class="fas fa-ban"></i></div>
-                                <div><h4 class="font-black text-xl uppercase">Zero Markup on Parts.</h4><p class="text-sm font-bold opacity-70">We don't profit on parts. You pay exactly what we pay.</p></div>
-                            </div>
-                        </div>
-                        <div class="pt-4 border-t-2 border-dashed border-gray-300">
-                            <p class="text-5xl font-black text-brimmer-dark">$250<span class="text-lg opacity-50 align-top ml-1">/ Hr</span></p>
-                            <p class="text-xs font-bold uppercase opacity-50 tracking-widest">Billed in 15-min increments</p>
-                        </div>
-                    </div>
-                    <!-- RIGHT COLUMN -->
-                    <div class="bg-white border-4 border-brimmer-dark rounded-[2.5rem] p-6 shadow-neo-lg relative reveal-on-scroll text-left flex flex-col overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:rotate-1 max-w-md mx-auto md:max-w-none w-full">
-                        <div class="absolute top-4 right-8 text-gray-200 text-9xl opacity-20 -rotate-12 z-0 pointer-events-none"><i class="fas fa-file-invoice-dollar"></i></div>
-                        <div class="relative z-10">
-                            <h3 class="font-black text-2xl uppercase mb-6 text-center border-b-4 border-brimmer-dark pb-4">How Your Bill Works</h3>
-                            <div class="mb-4 relative group">
-                                <div class="absolute left-4 top-full h-8 w-1 bg-gray-300 ml-[11px] -mt-2 z-0"></div>
-                                <div class="bg-gray-50 border-2 border-dashed border-gray-300 rounded-xl p-4 flex items-center gap-4 relative z-10">
-                                    <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center font-black text-gray-500 shrink-0 border-2 border-white shadow-sm">1</div>
-                                    <div class="flex-1">
-                                        <div class="flex justify-between items-center mb-1"><p class="font-black text-sm uppercase text-gray-400">The Safety Net</p><span class="bg-gray-200 text-gray-500 px-2 py-0.5 rounded text-[10px] font-black uppercase">Signed Upfront</span></div>
-                                        <div class="flex justify-between items-center"><p class="font-bold text-gray-600 leading-tight">Guaranteed Max: 2.0 Hrs</p><p class="font-black text-gray-400 decoration-2 line-through decoration-red-400">$500.00</p></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-4 relative group">
-                                <div class="absolute left-4 top-full h-8 w-1 bg-brimmer-dark ml-[11px] -mt-2 z-0"></div>
-                                <div class="bg-brimmer-dark text-white rounded-xl p-4 flex items-center gap-4 relative z-10 shadow-lg">
-                                    <div class="w-8 h-8 bg-brimmer-highlight text-brimmer-dark rounded-full flex items-center justify-center font-black shrink-0 border-2 border-brimmer-dark">2</div>
-                                    <div class="flex-1">
-                                        <div class="flex justify-between items-center mb-1"><p class="font-black text-sm uppercase text-brimmer-highlight">The Work</p><i class="fas fa-stopwatch text-brimmer-highlight animate-pulse"></i></div>
-                                        <p class="font-bold text-lg leading-tight">Technician finishes in <br><span class="text-brimmer-highlight underline decoration-wavy">45 Minutes</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bg-green-50 border-4 border-brimmer-success rounded-xl p-4 relative z-10 shadow-sm">
-                                <div class="flex items-center gap-4 mb-4 border-b-2 border-green-200 pb-4"><div class="w-8 h-8 bg-brimmer-success text-white rounded-full flex items-center justify-center font-black shrink-0 border-2 border-white shadow-sm">3</div><div class="flex-1"><p class="font-black text-sm uppercase text-green-800">The Final Bill</p><p class="text-xs font-bold text-green-700">You only pay for time used.</p></div></div>
-                                <div class="space-y-2 text-sm">
-                                    <div class="flex justify-between items-center"><span class="font-bold text-brimmer-dark">Labor (0.75 hrs @ $250)</span><span class="font-black text-brimmer-dark">$187.50</span></div>
-                                    <div class="flex justify-between items-center opacity-60"><span class="font-bold">Part (Capacitor - At Cost)</span><span class="font-bold">$20.00</span></div>
-                                    <div class="flex justify-between items-center bg-green-100 p-2 rounded-lg border border-green-200 mt-2"><span class="font-black text-green-800 flex items-center gap-2"><i class="fas fa-piggy-bank"></i> Savings vs Max Cap</span><span class="font-black text-green-800">-$312.50</span></div>
-                                </div>
-                                <div class="mt-4 pt-4 border-t-2 border-dashed border-green-200 flex justify-between items-center"><span class="text-xs font-bold uppercase tracking-widest text-green-800">Total Due</span><span class="text-4xl font-black text-brimmer-dark">$207.50</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mb-16">
-                    <h3 class="text-3xl font-black uppercase mb-2">Why The Industry Hates This Model<br><span class="text-lg font-bold opacity-60 normal-case">(And why customers love it)</span></h3>
-                    <!-- Horizontal scroll on mobile -->
-                    <!-- Reduced mb-8 to mb-2 for the h3 above -->
-                    <!-- Changed py-12 to pt-8 pb-12 on the container to reduce gap while preventing clipping -->
-                    <div class="flex overflow-x-auto snap-x snap-mandatory space-x-6 pt-8 pb-12 md:py-6 md:grid md:grid-cols-3 md:space-x-0 md:gap-6 text-left no-scrollbar -mx-4 px-6 md:mx-0 md:px-4 animate-none" id="pricing-comparison-grid">
-                    </div>
-                </div>
-
-                <div class="mb-8 relative z-20 group">
-                    <a href="#repair-examples" class="block bg-brimmer-highlight border-4 border-brimmer-dark rounded-2xl p-4 shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all transform hover:-rotate-1">
-                        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                            <div class="flex items-center gap-4"><div class="bg-brimmer-dark text-white w-12 h-12 flex items-center justify-center rounded-full font-black text-xl animate-bounce"><i class="fas fa-book-open"></i></div><div class="text-left"><h3 class="font-black text-2xl md:text-3xl uppercase leading-none">Check The Cap Book</h3><p class="font-bold text-sm opacity-80">See the Maximum Hours for every common job. We published the list.</p></div></div>
-                            <div class="bg-white border-2 border-brimmer-dark px-6 py-2 rounded-full font-black uppercase tracking-widest text-sm group-hover:bg-brimmer-dark group-hover:text-white transition-colors">View The List <i class="fas fa-arrow-down ml-2"></i></div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- REVERTED: Bottom Video Card (Original Larger Mobile Size) -->
-                <div class="bg-brimmer-dark text-white border-4 border-brimmer-dark rounded-[2.5rem] p-8 shadow-neo-lg reveal-on-scroll flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden mb-8">
-                    <div class="absolute inset-0 bg-gradient-to-r from-brimmer-success/20 via-transparent to-transparent pointer-events-none"></div>
-                    <div class="flex-shrink-0 relative"><div class="w-24 h-24 md:w-32 md:h-32 bg-white rounded-full flex items-center justify-center border-4 border-brimmer-success shadow-[0_0_30px_rgba(74,222,128,0.4)] animate-pulse"><i class="fas fa-video text-4xl md:text-5xl text-brimmer-dark"></i></div><div class="absolute -top-2 -right-2 bg-brimmer-alert text-white text-xs font-black uppercase px-3 py-1 rounded-full border-2 border-white rotate-12 shadow-lg">Try This First</div></div>
-                    <div class="flex-1 text-left">
-                        <h3 class="text-3xl md:text-5xl font-black uppercase leading-none mb-2">Video <span class="text-brimmer-success">Diagnostics</span></h3>
-                        <p class="text-xl font-medium opacity-90 mb-4">Don't pay for a service call yet. Jump on a 15-min video call using your favorite app.</p>
-                        <div class="flex flex-wrap gap-4 md:gap-6 mb-6 opacity-80 border-b border-white/10 pb-4">
-                            <div class="flex items-center gap-2"><i class="fab fa-apple text-2xl"></i> <span class="font-bold text-xs uppercase tracking-wider">FaceTime</span></div>
-                            <div class="flex items-center gap-2"><i class="fab fa-whatsapp text-2xl"></i> <span class="font-bold text-xs uppercase tracking-wider">WhatsApp</span></div>
-                            <div class="flex items-center gap-2"><i class="fab fa-facebook-messenger text-2xl"></i> <span class="font-bold text-xs uppercase tracking-wider">Messenger</span></div>
-                            <div class="flex items-center gap-2"><i class="fas fa-video text-2xl"></i> <span class="font-bold text-xs uppercase tracking-wider">Zoom/Meet</span></div>
-                        </div>
-                    </div>
-                    <div class="text-center md:text-right flex-shrink-0">
-                        <div class="text-6xl font-black text-brimmer-success mb-2">$0</div><div class="text-xs font-bold uppercase tracking-widest opacity-60 mb-4">15 Minutes Free</div>
-                        <button class="bg-brimmer-success text-brimmer-dark font-black text-xl px-8 py-3 rounded-xl border-4 border-transparent hover:border-white shadow-lg transition-all hover:-translate-y-1 whitespace-nowrap">Book Video Call <i class="fas fa-arrow-right ml-2"></i></button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Service Area Section -->
-        <section class="py-24 px-4 bg-brimmer-bg border-b-4 border-brimmer-dark relative overflow-hidden">
-            <div class="max-w-7xl mx-auto">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                    <div class="lg:col-span-5 flex flex-col justify-center h-full">
-                        <div class="inline-block bg-white border-4 border-brimmer-dark px-4 py-1 rounded-full text-sm font-black uppercase tracking-widest mb-6 shadow-neo w-max"><i class="fas fa-map-marker-alt text-brimmer-alert mr-2"></i> Service Territory</div>
-                        <h2 class="text-5xl md:text-7xl font-black uppercase leading-[0.9] tracking-tighter mb-8">We Go Where<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brimmer-blue to-brimmer-accent">You Are.</span></h2>
-                        <div class="space-y-6 text-lg font-medium opacity-90"><p class="leading-relaxed"><span class="font-black text-xl">The 35-Mile Rule:</span> We operate out of Burlington, WI. To ensure we can provide same-day emergency service, we stick to a strict 35-mile radius.</p></div>
-                        <div class="mt-8 pt-8 border-t-4 border-brimmer-dark/10">
-                            <h4 class="font-black uppercase tracking-widest mb-4 text-sm">Key Counties Served:</h4>
-                            <div class="flex flex-wrap gap-3"><span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Racine</span><span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Kenosha</span><span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Walworth</span><span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Milwaukee</span><span class="px-3 py-1 border-2 border-brimmer-dark rounded-lg font-bold text-sm bg-white">Waukesha</span></div>
-                        </div>
-                    </div>
-                    <div class="lg:col-span-7">
-                        <!-- Changed aspect-video to aspect-square for mobile height -->
-                        <div class="relative w-full aspect-square md:aspect-[4/3] bg-white border-4 border-brimmer-dark rounded-[2rem] shadow-neo-lg overflow-hidden group">
-                            <div id="service-map" class="w-full h-full"></div>
-                            <div class="absolute bottom-6 left-6 bg-brimmer-dark text-white px-4 py-2 rounded-xl border-2 border-white shadow-lg z-10 pointer-events-none"><div class="text-xs font-bold uppercase opacity-60">Home Base</div><div class="text-lg font-black">Burlington, WI</div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Booking CTA -->
-        <section id="booking" class="py-24 px-4 bg-brimmer-blue text-white text-center relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 2px, transparent 2px); background-size: 30px 30px;"></div>
-            <div class="max-w-4xl mx-auto relative z-10">
-                <h2 class="text-5xl md:text-7xl font-black mb-8 reveal-on-scroll">YOUR AC IS BROKEN.<br>LET'S FIX IT.</h2>
-                <p class="text-2xl font-medium mb-12 reveal-on-scroll">Schedule online instantly. No phone tag.</p>
-                <button class="bg-brimmer-highlight text-brimmer-dark text-2xl md:text-4xl font-black py-6 px-12 rounded-full border-4 border-brimmer-dark shadow-[8px_8px_0px_0px_#1c1917] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-200 animate-bounce">GET SERVICE TODAY</button>
-            </div>
-        </section>
-
-        <!-- REPAIR EXAMPLES -->
-        <section id="repair-examples" class="py-24 px-4 bg-white border-y-4 border-brimmer-dark relative overflow-hidden">
-            <div class="max-w-7xl mx-auto relative z-10">
-                <div class="text-center mb-16">
-                    <span class="bg-brimmer-highlight border-2 border-brimmer-dark px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-neo mb-4 inline-block">Transparency Library</span>
-                    <h2 class="text-5xl md:text-7xl font-black uppercase leading-[0.9] tracking-tighter mb-4">Common Jobs & Guaranteed Max Prices</h2>
-                    <p class="text-lg font-bold opacity-60 max-w-2xl mx-auto">($250/hr — you only pay for time used — most jobs finish early and cost less)</p>
-                </div>
-
-                <div class="max-w-5xl mx-auto bg-brimmer-bg border-4 border-brimmer-dark rounded-[2rem] p-8 shadow-neo-lg mb-16">
-                    <div class="flex flex-col md:flex-row items-center justify-between border-b-4 border-brimmer-dark pb-6 mb-6 gap-4">
-                        <div><h3 class="font-black text-2xl uppercase"><i class="fas fa-clipboard-list mr-2"></i> Service Menu</h3><span class="bg-brimmer-dark text-white px-3 py-1 rounded text-xs font-bold uppercase mt-1 inline-block">Rate: $250/hr</span></div>
-                        <div class="relative w-full md:w-96"><i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i><input type="text" id="menuSearch" onkeyup="filterMenu()" placeholder="Search (e.g. 'Motor', 'Sensor')..." class="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-brimmer-dark font-bold focus:outline-none focus:ring-4 focus:ring-brimmer-blue/20 shadow-sm"></div>
-                    </div>
-                    
-                    <div id="menuList" class="space-y-3">
-                        <div class="hidden md:flex items-center justify-between px-4 pb-2 font-black uppercase text-sm opacity-50 tracking-widest"><div class="w-1/4">Service</div><div class="w-1/4 text-center">Typical Time</div><div class="w-1/4 text-right">Guaranteed Max</div></div>
-                        <!-- Items Generated by JS -->
-                        <div id="primaryMenuItems" class="space-y-3"></div>
-                        <div id="extendedMenu" class="hidden space-y-3"></div>
-                    </div> 
-
-                    <div class="mt-6 text-center">
-                        <button onclick="toggleMenu()" id="toggleMenuBtn" class="bg-white border-2 border-brimmer-dark px-8 py-3 rounded-full font-black uppercase tracking-widest hover:bg-brimmer-dark hover:text-white transition-colors shadow-[4px_4px_0px_rgba(28,25,23,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none mb-4">View Full Menu <i class="fas fa-chevron-down ml-2"></i></button>
-                        <p class="text-sm font-bold opacity-60">*Parts are separate (but remember, zero markup!)</p>
-                    </div>
-                </div>
-
-                <div class="max-w-6xl mx-auto mb-16 bg-brimmer-blue text-white border-4 border-brimmer-dark rounded-[2.5rem] p-8 shadow-neo-lg relative overflow-hidden">
-                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
-                    <div class="relative z-10">
-                        <div class="text-center mb-12">
-                            <span class="bg-brimmer-highlight text-brimmer-dark border-2 border-brimmer-dark px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest mb-4 inline-block shadow-neo">The "Same Job" Experiment</span>
-                            <h4 class="text-3xl md:text-5xl font-black uppercase leading-none mb-2">One Job. Two Outcomes.</h4>
-                            <p class="text-lg font-bold opacity-80 max-w-2xl mx-auto">See how Efficiency Pricing™ protects you whether the job is easy or hard.</p>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="scenarios-container">
-                             <!-- Scenarios Generated by JS to save space -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="bg-brimmer-dark text-white py-12 px-4 border-t-4 border-brimmer-dark">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="text-center md:text-left"><h3 class="text-3xl font-black uppercase tracking-tighter">Brimmer</h3><p class="opacity-50 mt-2">Heating & Cooling</p></div>
-                <div class="flex items-center gap-8 flex-col md:flex-row"><div class="flex gap-4"><a href="#" class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-brimmer-dark transition-colors"><i class="fab fa-facebook-f"></i></a><a href="#" class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-brimmer-dark transition-colors"><i class="fab fa-instagram"></i></a><a href="#" class="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-white hover:text-brimmer-dark transition-colors"><i class="fab fa-youtube"></i></a></div></div>
-                <div class="text-sm opacity-50">&copy; 2024 Brimmer. All rights reserved.</div>
-            </div>
-        </footer>
-    </div>
-
-    <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12"><i class="fas fa-scissors text-brimmer-dark text-2xl rotate-90"></i><div class="cut-line w-full max-w-4xl h-1"></div><span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR HIRING PAGE</span></div>
-
-    <section id="page-hiring" class="snap-start min-h-screen bg-brimmer-highlight text-brimmer-dark border-4 border-brimmer-dark p-8 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #1c1917 0, #1c1917 2px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
-        <div class="max-w-7xl mx-auto relative z-10 pt-12">
-            <div class="flex justify-between items-center mb-16"><h2 class="text-4xl font-black uppercase tracking-tighter border-4 border-brimmer-dark bg-white px-4 py-2 shadow-neo rotate-1">Careers</h2><div class="text-right hidden md:block"><p class="font-black text-xl">JOIN THE REBELLION</p><p class="text-sm font-mono">EST. 2024</p></div></div>
-            <div class="text-center mb-16"><h1 class="text-6xl md:text-9xl font-black leading-[0.85] tracking-tighter mb-6">WE DON'T WANT<br>YOUR RESUME.</h1><div class="inline-block bg-brimmer-dark text-white text-2xl md:text-4xl font-black px-8 py-4 -rotate-2 border-4 border-white shadow-neo-lg">WE WANT YOUR SKILLS.</div></div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
-                <div class="bg-white border-4 border-brimmer-dark p-8 shadow-neo rounded-3xl"><h3 class="text-3xl font-black mb-4 uppercase">The Corporate Trap</h3><ul class="space-y-4 font-bold text-lg opacity-70"><li><i class="fas fa-times-circle text-brimmer-alert mr-2"></i> Sales Quotas to hit every month</li><li><i class="fas fa-times-circle text-brimmer-alert mr-2"></i> Pushing repairs grandma doesn't need</li><li><i class="fas fa-times-circle text-brimmer-alert mr-2"></i> "Comfort Advisor" titles</li><li><i class="fas fa-times-circle text-brimmer-alert mr-2"></i> Commission-based anxiety</li></ul></div>
-                <div class="bg-brimmer-dark text-white border-4 border-brimmer-dark p-8 shadow-neo rounded-3xl relative overflow-hidden"><div class="absolute -right-4 -top-4 text-9xl opacity-10 rotate-12"><i class="fas fa-wrench"></i></div><h3 class="text-3xl font-black mb-4 uppercase text-brimmer-highlight">The Brimmer Way</h3><ul class="space-y-4 font-bold text-lg"><li><i class="fas fa-check-circle text-brimmer-success mr-2"></i> Hourly Pay Only ($40-$60/hr)</li><li><i class="fas fa-check-circle text-brimmer-success mr-2"></i> Diagnose. Fix. Leave.</li><li><i class="fas fa-check-circle text-brimmer-success mr-2"></i> Tools provided. Vans stocked.</li><li><i class="fas fa-check-circle text-brimmer-success mr-2"></i> Zero selling. Ever.</li></ul></div>
-            </div>
-            <div class="text-center pb-12"><p class="text-xl font-bold mb-6 uppercase tracking-widest">Think you can fix it without selling a new unit?</p><button class="bg-white text-brimmer-dark text-3xl md:text-5xl font-black py-6 px-12 rounded-full border-4 border-brimmer-dark shadow-neo hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all uppercase">Take The Tech Quiz <i class="fas fa-arrow-right ml-4"></i></button><p class="mt-4 text-xs font-mono opacity-60">*If you mention "closing rates" we will delete your application.</p></div>
-        </div>
+        <aside class="hero-card" aria-label="Efficiency Pricing summary">
+          <p class="mono">EFFICIENCY PRICING™</p>
+          <div class="price"><strong>$250</strong><span>/ hour</span></div>
+          <ul><li>Billed in 15-minute increments</li><li>Pay for the actual time used</li><li>Agree to a guaranteed max cap up front</li><li>Parts are passed through at cost</li></ul>
+        </aside>
+      </div>
+      <div class="contours" aria-hidden="true"></div>
     </section>
 
-    <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12"><i class="fas fa-scissors text-brimmer-dark text-2xl rotate-90"></i><div class="cut-line w-full max-w-4xl h-1"></div><span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR VLOG EXPLAINER</span></div>
-
-    <section id="page-vlog" class="snap-start min-h-screen bg-white text-brimmer-dark relative overflow-hidden border-t-4 border-brimmer-dark py-16">
-        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(#1c1917 1px, transparent 1px); background-size: 20px 20px;"></div>
-        <div class="max-w-6xl mx-auto px-4 relative z-10">
-            <div class="text-center mb-16"><span class="bg-brimmer-highlight border-2 border-brimmer-dark px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest shadow-neo mb-4 inline-block rotate-2">The Roadmap</span><h2 class="text-5xl md:text-8xl font-black uppercase leading-[0.85] tracking-tighter">From "It's Broken"<br>To <span class="text-brimmer-success">"It's Fixed"</span></h2></div>
-            <div class="relative">
-                <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-4 bg-brimmer-dark -translate-x-1/2 rounded-full"></div>
-                <div class="flex flex-col md:flex-row items-center justify-between mb-8 relative"><div class="md:w-5/12 order-2 md:order-1"><div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative group z-20"><div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div><h3 class="font-black text-2xl uppercase mb-2"><i class="fas fa-bomb mr-2 text-brimmer-alert"></i> 1. The "Oh No" Moment</h3><p class="font-bold opacity-70 text-base leading-tight mb-4">It's 90 degrees. The AC stops. You panic. But then you realize you have 3 choices.</p><div class="grid grid-cols-1 gap-2"><a href="tel:5551234567" class="flex items-center justify-between bg-white border-2 border-brimmer-dark rounded-xl px-4 py-2 hover:bg-brimmer-blue hover:text-white transition-colors font-bold group/btn text-sm"><span><i class="fas fa-phone-alt mr-2"></i> Call a Human</span><i class="fas fa-arrow-right opacity-0 group-hover/btn:opacity-100 transition-opacity"></i></a><a href="#booking" class="flex items-center justify-between bg-white border-2 border-brimmer-dark rounded-xl px-4 py-2 hover:bg-brimmer-success hover:text-brimmer-dark transition-colors font-bold group/btn text-sm"><span><i class="fas fa-mouse-pointer mr-2"></i> Book Online</span><i class="fas fa-arrow-right opacity-0 group-hover/btn:opacity-100 transition-opacity"></i></a><a href="#booking" class="flex items-center justify-between bg-white border-2 border-brimmer-dark rounded-xl px-4 py-2 hover:bg-brimmer-highlight hover:text-brimmer-dark transition-colors font-bold group/btn text-sm"><span><i class="fas fa-video mr-2"></i> Free Video Chat</span><i class="fas fa-arrow-right opacity-0 group-hover/btn:opacity-100 transition-opacity"></i></a></div></div></div><div class="w-16 h-16 bg-brimmer-alert border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-white font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0 relative">1</div><div class="md:w-5/12 order-3"></div></div>
-                <div class="flex flex-col md:flex-row items-center justify-between mb-8 relative"><div class="md:w-5/12 order-3 md:order-1"></div><div class="w-16 h-16 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">2</div><div class="md:w-5/12 order-2 md:order-3"><div class="bg-brimmer-highlight border-4 border-brimmer-dark p-6 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left group"><div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div><h3 class="font-black text-xl uppercase mb-2 text-brimmer-dark"><i class="fas fa-paper-plane mr-2"></i> 2. Stranger Danger Check</h3><p class="font-bold opacity-80 text-sm leading-tight mb-4 text-brimmer-dark">You get a text. It has a link. You see the tech's face, name, and bio before they pull up.</p><button class="w-full bg-white border-2 border-brimmer-dark rounded-xl px-4 py-2 font-bold flex items-center justify-between hover:bg-brimmer-dark hover:text-white transition-colors group/btn text-sm"><span class="flex items-center gap-2"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brimmer-blue opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-brimmer-blue"></span></span>Track Your Tech</span><i class="fas fa-map-marker-alt group-hover/btn:scale-110 transition-transform"></i></button><details class="group/details border-t-2 border-dashed border-brimmer-dark/30 pt-3 mt-3"><summary class="flex justify-between items-center font-black cursor-pointer list-none hover:opacity-70 transition-opacity text-brimmer-dark text-xs"><span>See The Details</span><i class="fas fa-chevron-down group-open/details:rotate-180 transition-transform"></i></summary><div class="mt-2 text-xs font-bold text-brimmer-dark/80 leading-relaxed"><ul class="space-y-1"><li class="flex items-center gap-2"><i class="fas fa-satellite-dish"></i> Live GPS Map View</li><li class="flex items-center gap-2"><i class="fas fa-id-badge"></i> Tech Photo & Bio</li><li class="flex items-center gap-2"><i class="fas fa-shield-alt"></i> Background Check Verified</li></ul></div></details></div></div></div>
-                <!-- Steps 3, 4, 5, 6 condensed similarly for brevity in source code but rendering full HTML -->
-                <div class="flex flex-col md:flex-row items-center justify-between mb-8 relative"><div class="md:w-5/12 order-2 md:order-1"><div class="bg-white border-4 border-brimmer-dark p-6 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative group"><div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div><div class="flex justify-between items-start mb-2"><h3 class="font-black text-xl uppercase"><i class="fas fa-shoe-prints mr-2 text-brimmer-blue"></i> 3. The Arrival</h3><div class="bg-brimmer-success text-brimmer-dark text-[10px] font-black px-2 py-0.5 rounded border border-brimmer-dark uppercase tracking-wider flex items-center gap-1"><i class="fas fa-check"></i> Safety Mode</div></div><p class="font-bold opacity-70 text-sm leading-tight mb-4">We respect your castle. We don't park in your driveway, and we gear up before we enter.</p><div class="flex flex-wrap gap-2 mb-4"><span class="px-2 py-1 bg-gray-100 border-2 border-gray-300 rounded-lg text-[10px] font-bold text-gray-500 flex items-center gap-1 group-hover:bg-brimmer-blue group-hover:text-white group-hover:border-brimmer-dark transition-colors duration-300"><i class="fas fa-socks"></i> Shoe Covers</span><span class="px-2 py-1 bg-gray-100 border-2 border-gray-300 rounded-lg text-[10px] font-bold text-gray-500 flex items-center gap-1 group-hover:bg-brimmer-blue group-hover:text-white group-hover:border-brimmer-dark transition-colors duration-500"><i class="fas fa-video"></i> Body Cam</span></div></div></div><div class="w-16 h-16 bg-brimmer-blue border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-white font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0 relative">3</div><div class="md:w-5/12 order-3"></div></div>
-                <div class="flex flex-col md:flex-row items-center justify-between mb-8 relative"><div class="md:w-5/12 order-3 md:order-1"></div><div class="w-16 h-16 bg-brimmer-dark border-4 border-white rounded-full z-10 flex items-center justify-center text-white font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">4</div><div class="md:w-5/12 order-2 md:order-3"><div class="bg-brimmer-dark border-4 border-brimmer-dark p-6 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left group text-white"><div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div><h3 class="font-black text-xl uppercase mb-2 text-white"><i class="fas fa-file-signature mr-2 text-brimmer-highlight"></i> 4. The "Max Cap" Quote</h3><p class="font-medium opacity-80 text-sm leading-tight mb-4">We diagnose the issue. We hand you the iPad. You see the <strong>Max Cap Price</strong>. You sign.</p><button class="w-full bg-white/10 border-2 border-white/20 rounded-xl px-4 py-2 font-bold flex items-center justify-between hover:bg-brimmer-success hover:text-brimmer-dark hover:border-brimmer-dark transition-all group/btn text-white text-sm"><span><i class="fas fa-pen-fancy mr-2"></i> Review & Sign Quote</span><i class="fas fa-chevron-right group-hover/btn:translate-x-1 transition-transform"></i></button></div></div></div>
-                <div class="flex flex-col md:flex-row items-center justify-between mb-8 relative"><div class="md:w-5/12 order-2 md:order-1"><div class="bg-brimmer-bg border-4 border-brimmer-dark p-6 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative group"><div class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div><div class="flex justify-between items-start mb-2"><h3 class="font-black text-xl uppercase mb-2"><i class="fas fa-tools mr-2 text-brimmer-success"></i> 5. The Surgery</h3><div class="flex items-center gap-2 bg-red-100 text-red-600 px-2 py-0.5 rounded border border-red-200 text-[10px] font-black uppercase"><div class="w-2 h-2 rounded-full bg-red-600 animate-pulse"></div> REC</div></div><p class="font-bold opacity-70 text-sm leading-tight mb-4">We fix it. We record the repair. If we finish fast, you save money. If it fights us, your price is capped.</p></div></div><div class="w-16 h-16 bg-brimmer-success border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0 relative">5</div><div class="md:w-5/12 order-3"></div></div>
-                <div class="flex flex-col md:flex-row items-center justify-between relative"><div class="md:w-5/12 order-3 md:order-1"></div><div class="w-16 h-16 bg-brimmer-highlight border-4 border-brimmer-dark rounded-full z-10 flex items-center justify-center text-brimmer-dark font-black text-2xl shadow-lg order-1 md:order-2 mb-6 md:mb-0">6</div><div class="md:w-5/12 order-2 md:order-3"><div class="bg-brimmer-success border-4 border-brimmer-dark p-6 rounded-[2rem] shadow-neo hover:-translate-y-1 transition-transform relative text-left group"><div class="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-brimmer-dark rotate-45 hidden md:block"></div><h3 class="font-black text-xl uppercase mb-2 text-brimmer-dark"><i class="fas fa-popcorn mr-2"></i> 6. The "Popcorn" Review</h3><p class="font-bold opacity-80 text-sm leading-tight mb-4 text-brimmer-dark">You get a text link. Watch the 2-minute recap video. Verify the work. Pay instantly.</p><button class="w-full bg-white border-2 border-brimmer-dark rounded-xl px-4 py-2 font-bold flex items-center justify-between hover:bg-brimmer-dark hover:text-white transition-colors group/btn shadow-[4px_4px_0px_rgba(0,0,0,0.2)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] text-sm"><span class="flex items-center gap-2"><i class="fab fa-apple-pay text-xl"></i> / <i class="fas fa-credit-card"></i> Pay & Review</span><i class="fas fa-check-circle text-brimmer-success bg-brimmer-dark rounded-full p-1 border border-brimmer-dark group-hover:bg-white group-hover:text-brimmer-dark"></i></button></div></div></div>
-            </div>
-            <div class="text-center mt-12"><a href="#booking" class="inline-block bg-brimmer-dark text-white text-2xl font-black px-12 py-6 rounded-full border-4 border-transparent hover:border-white shadow-neo-lg hover:scale-105 transition-all uppercase animate-bounce">Start This Process <i class="fas fa-arrow-right ml-2"></i></a></div>
-        </div>
+    <section class="proof-rail" id="proof" aria-labelledby="proof-title">
+      <div class="wrap proof-grid">
+        <h2 class="sr-only" id="proof-title">Brimmer service principles</h2>
+        <article class="proof-item"><span class="proof-number">01</span><div><h3>See the work</h3><p>Repairs are recorded so the work has a clear trail.</p></div></article>
+        <article class="proof-item"><span class="proof-number">02</span><div><h3>Know the ceiling</h3><p>Your guaranteed maximum is agreed before work begins.</p></div></article>
+        <article class="proof-item"><span class="proof-number">03</span><div><h3>Pay the real cost</h3><p>Parts are provided at cost, with no parts markup.</p></div></article>
+      </div>
     </section>
 
-    <div class="w-full h-32 flex flex-col items-center justify-center gap-2 opacity-50 my-12"><i class="fas fa-scissors text-brimmer-dark text-2xl rotate-90"></i><div class="cut-line w-full max-w-4xl h-1"></div><span class="text-xs font-mono font-bold uppercase tracking-widest">CUT HERE FOR ABOUT PAGE</span></div>
-
-    <section id="page-about" class="snap-start min-h-screen bg-brimmer-dark text-white border-t-4 border-white relative overflow-hidden p-8">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-brimmer-blue rounded-full blur-[100px] opacity-20"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 bg-brimmer-alert rounded-full blur-[100px] opacity-20"></div>
-        <div class="max-w-5xl mx-auto relative z-10 py-16">
-            <div class="text-center mb-24 pt-8"><p class="text-brimmer-highlight font-mono font-bold tracking-widest mb-4">THE ORIGIN STORY</p><h1 class="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none">We were tired of<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brimmer-alert to-brimmer-accent">Robbing People.</span></h1></div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div class="space-y-6 text-lg font-medium opacity-90 leading-relaxed"><p><span class="text-4xl float-left mr-2 font-black text-white">I</span>t's an open secret in the HVAC industry. The technician isn't paid to fix your AC. They are paid to find "opportunities."</p><p>A loose wire becomes a "failed motherboard." A dirty capacitor becomes a "full system replacement."</p><p>We worked for those big companies. We sat in the morning meetings where managers screamed about "average ticket value." We were told to sell, sell, sell.</p><p class="text-brimmer-highlight font-bold text-xl">So we quit.</p><p>Brimmer was born with one rule: <span class="underline decoration-wavy decoration-brimmer-alert">Technicians fix. Salesmen sell. We only hire technicians.</span></p></div>
-                <div class="grid grid-cols-1 gap-6"><div class="bg-white/5 border-2 border-white/10 p-6 rounded-2xl backdrop-blur-sm"><h3 class="text-4xl font-black text-brimmer-success mb-2">$0</h3><p class="font-bold uppercase text-sm tracking-widest">Commission Paid to Techs</p></div><div class="bg-white/5 border-2 border-white/10 p-6 rounded-2xl backdrop-blur-sm"><h3 class="text-4xl font-black text-brimmer-blue mb-2">100%</h3><p class="font-bold uppercase text-sm tracking-widest">Video Recorded Calls</p></div><div class="bg-white/5 border-2 border-white/10 p-6 rounded-2xl backdrop-blur-sm"><h3 class="text-4xl font-black text-white mb-2">5 Star</h3><p class="font-bold uppercase text-sm tracking-widest">Average Review</p></div></div>
-            </div>
-            <div class="mt-24 text-center border-t border-white/10 pt-12 pb-12"><h4 class="font-black text-2xl mb-2">Dan Brimmer</h4><p class="font-mono text-sm opacity-50">Founder & Head Wrench Turner</p></div>
+    <section class="triage" aria-labelledby="triage-title">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">Start with the symptom</p><h2 id="triage-title">A calmer way to<br>call for help.</h2></div><p>You do not need the right HVAC vocabulary. Share what the system is doing; we will start there.</p></div>
+        <div class="triage-grid">
+          <article class="triage-card"><div><span class="index">01 / NO AIR</span><h3>“It runs, but the house is still warm.”</h3><p>We can look at airflow, controls, and the parts that move heat.</p></div><a class="text-link" href="#contact">Describe the symptoms <span aria-hidden="true">↗</span></a></article>
+          <article class="triage-card"><div><span class="index">02 / NO START</span><h3>“It clicks, hums, or does nothing.”</h3><p>Tell us what you hear and when it happens. A useful first clue beats a guess.</p></div><a class="text-link" href="#contact">Describe the symptoms <span aria-hidden="true">↗</span></a></article>
+          <article class="triage-card"><div><span class="index">03 / NOT SURE</span><h3>“Something feels off.”</h3><p>A 15-minute video diagnostic may be a good first step before a visit.</p></div><a class="text-link" href="#video">See the video option <span aria-hidden="true">↗</span></a></article>
         </div>
+      </div>
     </section>
 
-    <!-- Scripts -->
-    <script>
-        (function(g){var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({key: "", v: "weekly"});
+    <section class="pricing" id="pricing" aria-labelledby="pricing-title">
+      <div class="wrap pricing-grid">
+        <div class="pricing-intro"><p class="eyebrow">The Brimmer model</p><h2 id="pricing-title">Efficiency Pricing™ keeps the math visible.</h2><p>Labor is $250/hour and billed in 15-minute increments. You pay for the time actually used, while an upfront guaranteed maximum protects the decision.</p><div class="pricing-rule"><div><b>01</b><p><strong>Actual time.</strong> A job that uses one 15-minute increment is billed for that increment.</p></div><div><b>02</b><p><strong>Guaranteed max.</strong> A cap is agreed before the repair starts.</p></div><div><b>03</b><p><strong>Parts at cost.</strong> The part price is passed through without markup.</p></div></div></div>
+        <div class="timeline-card"><h3>One repair, five clear moments</h3><div class="timeline" aria-label="Pricing timeline"><div class="timeline-step"><i>01</i><span>Diagnose</span></div><div class="timeline-step"><i>02</i><span>Set the max</span></div><div class="timeline-step"><i>03</i><span>Start the clock</span></div><div class="timeline-step"><i>04</i><span>Record the repair</span></div><div class="timeline-step"><i>05</i><span>Bill time used</span></div></div><div class="bill-example"><div class="bill-top"><strong>Example: 45-minute visit</strong><span>NOT A FLAT RATE</span></div><div class="bill-line"><span>Labor · 0.75 hr × $250</span><strong>$187.50</strong></div><div class="bill-line"><span>Part · at cost</span><strong>+$20.00</strong></div><div class="bill-line total"><span>Total before applicable taxes</span><strong>$207.50</strong></div></div><p class="pricing-footnote">Illustration only. Your cap and any part cost are reviewed before work begins.</p></div>
+      </div>
+    </section>
 
-        // --- Data Generation Logic ---
-        const menuData = [
-            { icon: "fas fa-search", color: "text-brimmer-blue", bg: "bg-brimmer-blue/10", title: "Basic Diagnostics", sub: "Includes Trip Charge", time: "Typical: 30-45 Mins", max: "1.0 Hr Max", cap: "($250 Cap)", hidden: false },
-            { icon: "fas fa-bolt", color: "text-brimmer-dark", bg: "bg-brimmer-highlight/20", title: "Capacitor Replacement", sub: "Common AC Repair", time: "Typical: 15-20 Mins", max: "0.5 Hr Max", cap: "($125 Cap)", hidden: false },
-            { icon: "fas fa-fire", color: "text-brimmer-alert", bg: "bg-brimmer-alert/10", title: "Gas Valve Replacement", sub: "Furnace Repair", time: "Typical: 1.0-1.5 Hrs", max: "2.0 Hr Max", cap: "($500 Cap)", hidden: false },
-            { icon: "fas fa-microchip", color: "text-purple-600", bg: "bg-purple-100", title: "Control Board Swap", sub: "Universal or OEM", time: "Typical: 45m - 1.0 Hr", max: "1.5 Hr Max", cap: "($375 Cap)", hidden: true },
-            { icon: "fas fa-fan", color: "text-green-600", bg: "bg-green-100", title: "Blower Motor", sub: "Major Repair", time: "Typical: 1.0 - 1.5 Hrs", max: "2.0 Hr Max", cap: "($500 Cap)", hidden: true },
-            { icon: "fas fa-thermometer-half", color: "text-gray-600", bg: "bg-gray-100", title: "Smart Thermostat Install", sub: "Customer Provided", time: "Typical: 30-45 Mins", max: "1.0 Hr Max", cap: "($250 Cap)", hidden: true }
-        ];
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="wrap">
+        <div class="section-head"><div><p class="eyebrow">The cap book</p><h2 id="services-title">Common jobs,<br>clear ceilings.</h2></div><p>These examples show typical time and the guaranteed max labor cap. Actual time used can be lower.</p></div>
+        <div class="filter-bar" role="group" aria-label="Filter service examples"><button class="filter" type="button" data-filter="all" aria-pressed="true">All examples</button><button class="filter" type="button" data-filter="heating" aria-pressed="false">Heating</button><button class="filter" type="button" data-filter="cooling" aria-pressed="false">Cooling</button><button class="filter" type="button" data-filter="controls" aria-pressed="false">Controls</button></div>
+        <div class="service-table" role="table" aria-label="Common service examples"><div class="service-row header" role="row"><span role="columnheader">Example</span><span role="columnheader">Typical time</span><span role="columnheader">Labor max</span><span role="columnheader">At $250/hr</span></div>
+          <div class="service-row" role="row" data-category="heating cooling controls"><div class="service-name" role="cell"><strong>Basic diagnostics</strong><span>Find the fault</span></div><span class="service-meta" role="cell">30–45 min</span><span class="service-meta" role="cell">1.0 hr</span><span class="cap" role="cell">$250 cap</span></div>
+          <div class="service-row" role="row" data-category="cooling"><div class="service-name" role="cell"><strong>Capacitor replacement</strong><span>Common AC repair</span></div><span class="service-meta" role="cell">15–20 min</span><span class="service-meta" role="cell">0.5 hr</span><span class="cap" role="cell">$125 cap</span></div>
+          <div class="service-row" role="row" data-category="heating"><div class="service-name" role="cell"><strong>Gas valve replacement</strong><span>Furnace repair</span></div><span class="service-meta" role="cell">1–1.5 hr</span><span class="service-meta" role="cell">2.0 hr</span><span class="cap" role="cell">$500 cap</span></div>
+          <div class="service-row" role="row" data-category="controls"><div class="service-name" role="cell"><strong>Control board swap</strong><span>Universal or OEM</span></div><span class="service-meta" role="cell">45–60 min</span><span class="service-meta" role="cell">1.5 hr</span><span class="cap" role="cell">$375 cap</span></div>
+          <div class="service-row" role="row" data-category="heating cooling"><div class="service-name" role="cell"><strong>Blower motor</strong><span>Major repair</span></div><span class="service-meta" role="cell">1–1.5 hr</span><span class="service-meta" role="cell">2.0 hr</span><span class="cap" role="cell">$500 cap</span></div>
+          <div class="service-row" role="row" data-category="controls"><div class="service-name" role="cell"><strong>Customer-provided smart thermostat</strong><span>Install + setup</span></div><span class="service-meta" role="cell">30–45 min</span><span class="service-meta" role="cell">1.0 hr</span><span class="cap" role="cell">$250 cap</span></div>
+        </div>
+        <div class="scenarios"><article class="scenario"><div class="scenario-head"><div><span class="tag">Worked scenario / A</span><h3>Blower motor · smooth visit</h3></div><span class="mono">ACTUAL TIME</span></div><div class="math"><div><span>Actual labor · 1.0 hr</span><strong>$250.00</strong></div><div><span>Motor · at cost</span><strong>+$120.00</strong></div></div><div class="scenario-total"><span>Illustrated total before applicable taxes</span><strong>$370.00</strong></div></article><article class="scenario"><div class="scenario-head"><div><span class="tag">Worked scenario / B</span><h3>Blower motor · cap protection</h3></div><span class="mono">MAX APPLIES</span></div><div class="math"><div><span>Actual labor · 4.0 hr, capped at 2.0 hr</span><strong>$500.00</strong></div><div><span>Motor · at cost</span><strong>+$120.00</strong></div></div><div class="scenario-total"><span>Illustrated total before applicable taxes</span><strong>$620.00</strong></div></article></div>
+      </div>
+    </section>
 
-        const comparisonData = [
-            { title: "Option 1: Flat Rate", sub: "95% of Companies", icon: "fas fa-book", iconColor: "text-gray-600", bg: "bg-gray-50", border: "border-gray-300", text: "text-gray-800", subText: "text-gray-500", listText: "text-gray-700", points: [{i: "fas fa-times-circle text-red-500", t: "Price assumes job takes 4 hours."}, {i: "fas fa-times-circle text-red-500", t: "If they finish in 20 mins, you overpay massively."}, {i: "fas fa-arrow-up text-red-500", t: "Huge markup on parts (300%+)."}], priceColor: "text-gray-600", price: "$650 - $1,200" },
-            { title: "Option 2: Hourly", sub: "The Shady 5%", icon: "fas fa-clock", iconColor: "text-gray-600", bg: "bg-gray-50", border: "border-gray-300", text: "text-gray-800", subText: "text-gray-500", listText: "text-gray-700", points: [{i: "fas fa-check-circle text-green-600", t: "Good if the tech is fast."}, {i: "fas fa-times-circle text-red-500", t: "But if they get stuck, your bill explodes."}, {i: "fas fa-times-circle text-red-500", t: "No incentive to finish quickly."}], priceColor: "text-gray-600", price: "$200 - $2,000+" },
-            { title: "Option 3: Brimmer", sub: "Efficiency Pricing™", icon: "fas fa-star", iconColor: "text-brimmer-blue", bg: "bg-white", border: "border-brimmer-blue", text: "", subText: "text-brimmer-blue", listText: "", points: [{i: "fas fa-check-circle text-brimmer-success", t: "<span class='font-black'>Easy Job?</span> You pay less (Actual time)."}, {i: "fas fa-shield-alt text-brimmer-blue", t: "<span class='font-black'>Hard Job?</span> You're protected (Max Cap)."}, {i: "fas fa-ban text-brimmer-dark", t: "Zero markup on parts."}], priceColor: "text-brimmer-success", price: "≤$195", highlight: "The New Standard" }
-        ];
+    <section class="video-section" id="video" aria-labelledby="video-title">
+      <div class="wrap video-grid"><div class="video-copy"><p class="eyebrow">See the work</p><h2 id="video-title">A repair should leave evidence.</h2><p>Watch an example of the kind of repair video Brimmer shares. The player is click-to-play and opens the existing YouTube repair video in a new tab.</p><a class="button button-primary" href="https://www.youtube.com/watch?v=PvQcD-bK7sk" target="_blank" rel="noopener" aria-label="Open example repair video on YouTube in a new tab">Open repair video <span aria-hidden="true">↗</span></a></div><div class="video-frame" aria-label="Reserved repair video player. Click the button to open the example video."><a class="video-play" href="https://www.youtube.com/watch?v=PvQcD-bK7sk" target="_blank" rel="noopener" aria-label="Open example repair video on YouTube in a new tab">▶</a><p class="video-caption"><strong>Example repair record</strong><br>Static preview · no autoplay · opens YouTube</p></div></div>
+    </section>
 
-        const scenarios = [
-            { type: 'A', title: 'Blower Motor Swap', sub: 'Situation: Job went smoothly.', badge: 'Beats "Flat Rate"', badgeColor: 'bg-green-100 text-green-800 border-green-800', headColor: 'bg-brimmer-success text-brimmer-dark', icon: 'fas fa-check-circle', math: [ { l: 'Standard "Flat Rate" (2.5 Hrs)', r: '$625.00', s: 'line-through decoration-2 decoration-gray-400' }, { l: '<i class="fas fa-minus-circle mr-1"></i>Efficiency Savings', r: '-$375.00', s: 'text-brimmer-success font-black' }, { l: 'Actual Billed Labor (1.0 Hr)', r: '$250.00', s: 'text-brimmer-dark font-black border-t-2 border-gray-100 pt-1' } ], part: '$120.00', tax: '$20.35', total: '$390.35' },
-            { type: 'B', title: 'Blower Motor Swap', sub: 'Situation: Rusted shut. Everything fought us.', badge: 'Cap Protection', badgeColor: 'bg-brimmer-dark text-white border-white', headColor: 'bg-brimmer-blue text-white', icon: 'fas fa-shield-alt', math: [ { l: 'Actual Time (4.0 Hrs @ $250)', r: '$1,000.00', s: 'line-through decoration-2 decoration-brimmer-alert' }, { l: '<i class="fas fa-minus-circle mr-1"></i>Cap Protection Adjustment', r: '-$500.00', s: 'text-brimmer-success font-black' }, { l: 'Billed Labor (Max Cap)', r: '$500.00', s: 'text-brimmer-dark font-black border-t-2 border-gray-100 pt-1' } ], part: '$120.00', tax: '$34.10', total: '$654.10' }
-        ];
+    <section class="process" aria-labelledby="process-title"><div class="wrap"><div class="section-head"><div><p class="eyebrow">The visit, in plain language</p><h2 id="process-title">Three steps.<br>No theatre.</h2></div><p>Every handoff should answer the same question: what happens next?</p></div><div class="process-grid"><article class="process-step"><span class="num">01 / LISTEN</span><h3>You share the symptom.</h3><p>We start with what you notice, then decide whether a video diagnostic or visit makes sense.</p></article><article class="process-step"><span class="num">02 / AGREE</span><h3>We set the ceiling.</h3><p>Before repair work begins, you see the guaranteed maximum and the expected part cost.</p></article><article class="process-step"><span class="num">03 / SHOW</span><h3>We fix and record it.</h3><p>The work is done, the time is measured, and a repair video gives you a clear recap.</p></article></div></div></section>
 
-        function renderComponents() {
-            // Marquee
-            const marqueeContent = `<span class="text-3xl font-black mx-8">NO SALESMEN</span><span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span><span class="text-3xl font-black mx-8">FULL VIDEO PROOF</span><span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span><span class="text-3xl font-black mx-8">EFFICIENCY PRICING™ ★ YOU ONLY PAY FOR TIME WE USE (WITH A GUARANTEED MAX)</span><span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span><span class="text-3xl font-black mx-8">NO SURPRISES</span><span class="text-3xl font-black mx-8 text-brimmer-highlight">★</span>`;
-            document.getElementById('marquee-container').innerHTML = `<div class="animate-marquee whitespace-nowrap shrink-0 flex items-center">${marqueeContent}</div><div class="animate-marquee whitespace-nowrap shrink-0 flex items-center">${marqueeContent}</div>`;
+    <section class="local" aria-labelledby="local-title"><div class="wrap local-grid"><div class="local-copy"><p class="eyebrow">Local by design</p><h2 id="local-title">Small territory.<br>Direct conversation.</h2><p>Brimmer is based in Burlington, Wisconsin. Founder Dan Brimmer built the service around a simple distinction: technicians fix; salesmen sell. Here, the work comes first.</p><div class="signature"><strong>Dan Brimmer</strong><span>Founder / Brimmer Heating &amp; Cooling</span></div></div><aside class="local-note"><p class="eyebrow">Service area / 35-mile rule</p><h3>Close enough to know the roads. Focused enough to show the work.</h3><div class="radius"><strong>35</strong><span>miles from<br>Burlington, WI</span></div><p>When you reach out, share your town and the equipment symptom. We will confirm whether your address is inside the current service area.</p></aside></div></section>
 
-            // Menu (Updated for condensed mobile layout)
-            const primaryContainer = document.getElementById('primaryMenuItems');
-            const extendedContainer = document.getElementById('extendedMenu');
-            menuData.forEach(item => {
-                const el = document.createElement('div');
-                // Changed container to Grid on mobile (grid-cols-2) and Flex on desktop
-                el.className = "menu-item grid grid-cols-2 md:flex md:flex-row items-center justify-between p-3 md:p-4 bg-white border-2 border-brimmer-dark rounded-xl hover:scale-[1.01] transition-transform gap-y-2 gap-x-4 md:gap-4";
-                
-                el.innerHTML = `
-                    <!-- Icon + Title (Spans full width on mobile) -->
-                    <div class="col-span-2 md:w-1/3 flex items-center gap-3 md:gap-4">
-                        <div class="w-8 h-8 md:w-10 md:h-10 ${item.bg} rounded-full flex items-center justify-center ${item.color} border-2 border-brimmer-dark shrink-0 text-sm md:text-base">
-                            <i class="${item.icon}"></i>
-                        </div>
-                        <div>
-                            <p class="font-black text-sm md:text-lg uppercase leading-none">${item.title}</p>
-                            <p class="text-[10px] md:text-xs font-bold opacity-50">${item.sub}</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Time (Left side of row 2 on mobile) -->
-                    <div class="col-span-1 md:w-1/3 text-left md:text-center md:border-l border-gray-100 md:pl-4">
-                        <p class="text-xs md:text-sm font-bold text-gray-500">${item.time}</p>
-                    </div>
-                    
-                    <!-- Price (Right side of row 2 on mobile) -->
-                    <div class="col-span-1 md:w-1/3 text-right">
-                        <p class="font-black text-base md:text-xl leading-none">${item.max}</p>
-                        <p class="text-[10px] md:text-xs font-bold text-brimmer-success">${item.cap}</p>
-                    </div>
-                `;
-                (item.hidden ? extendedContainer : primaryContainer).appendChild(el);
-            });
+    <section class="faq" id="faq" aria-labelledby="faq-title"><div class="wrap faq-grid"><div class="faq-intro"><p class="eyebrow">Good questions are useful</p><h2 id="faq-title">Before you reach out.</h2><p>A few straight answers, so the first conversation can stay focused on your system.</p></div><div class="faq-list"><details><summary>What does “parts at cost” mean?</summary><p>Brimmer passes the part through at the cost paid for it, without adding a parts markup. The expected part cost is discussed before repair work begins.</p></details><details><summary>What is the guaranteed maximum?</summary><p>It is the maximum labor amount agreed up front for the described repair. If the work takes less time, the labor bill reflects the actual time used; the cap protects you if the job runs long.</p></details><details><summary>Can we start with a video diagnostic?</summary><p>A free 15-minute video diagnostic is an existing offer. It is a conversation to help decide what the next useful step is, not a promise that a repair can be completed remotely.</p></details><details><summary>How do I know if you serve my address?</summary><p>Brimmer serves homes within 35 miles of Burlington, WI. Share your town or ZIP code in the contact form and the service area can be confirmed.</p></details></div></div></section>
 
-            // Comparison
-            const compContainer = document.getElementById('pricing-comparison-grid');
-            comparisonData.forEach(c => {
-                const highlight = c.highlight ? `<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-brimmer-blue text-white px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest whitespace-nowrap">${c.highlight}</div>` : '';
-                const trans = c.highlight ? 'relative transform md:-translate-y-4 shadow-neo' : 'opacity-100 transition-opacity';
-                const points = c.points.map(p => `<li class="flex items-start gap-2"><i class="${p.i} mt-1"></i> ${p.t}</li>`).join('');
-                const el = document.createElement('div');
-                // Reverted to min-w-[85vw] to ensure Option 1 feels perfectly centered
-                el.className = `min-w-[85vw] md:min-w-0 snap-center ${c.bg} border-4 ${c.border} rounded-[2rem] p-6 ${trans}`;
-                el.innerHTML = `${highlight}<div class="${c.iconColor} text-4xl mb-4"><i class="${c.icon}"></i></div><h4 class="font-black text-xl uppercase mb-2 ${c.text}">${c.title}</h4><p class="text-xs font-bold uppercase tracking-widest ${c.subText} mb-4">${c.sub}</p><ul class="space-y-3 text-sm font-bold ${c.listText}">${points}</ul><div class="mt-6 pt-4 border-t-2 border-gray-100"><p class="text-xs font-black uppercase ${c.highlight ? 'text-brimmer-dark opacity-50' : 'text-gray-500'}">Avg Capacitor Cost</p><p class="text-2xl font-black ${c.priceColor}">${c.price}</p></div>`;
-                compContainer.appendChild(el);
-            });
+    <section class="contact" id="contact" aria-labelledby="contact-title"><div class="wrap contact-grid"><div class="contact-copy"><p class="eyebrow">A useful first message</p><h2 id="contact-title">Tell us what the system is doing.</h2><p>This form is a client-side draft only. It does not submit an appointment or send a message; use it to organize the details before contacting Brimmer through the confirmed channel.</p><span class="mono">NO LIVE BOOKING BACKEND CONNECTED</span></div><form class="contact-form" id="contact-form" onsubmit="return false;"><div class="form-grid"><label for="name">Your name<input id="name" name="name" autocomplete="name" required></label><label for="town">Town / ZIP<input id="town" name="town" autocomplete="postal-code" required></label><label class="full" for="issue">What is the system doing?<textarea id="issue" name="issue" placeholder="Example: furnace starts, then stops after a minute…" required></textarea></label><label for="system">System<select id="system" name="system"><option>Not sure</option><option>Cooling / AC</option><option>Heating / furnace</option><option>Thermostat or controls</option></select></label><label for="reach">Preferred follow-up<select id="reach" name="reach"><option>We will decide after confirming contact details</option><option>Video diagnostic first</option><option>Visit discussion</option></select></label></div><div class="form-actions"><button class="button button-primary" type="submit">Prepare my details <span aria-hidden="true">↗</span></button><span class="form-note">Draft stays in this browser. Nothing is sent.</span><p class="form-status" id="form-status" role="status" aria-live="polite"></p></div></form></div></section>
+  </main>
 
-            // Scenarios
-            const scenContainer = document.getElementById('scenarios-container');
-            scenarios.forEach(s => {
-                const mathRows = s.math.map(m => `<div class="flex justify-between text-sm font-bold ${m.s.includes('gray') ? 'text-gray-500' : ''}"><span class="${m.s}">${m.l}</span><span class="${m.s}">${m.r}</span></div>`).join('');
-                const el = document.createElement('div');
-                el.className = "bg-white text-brimmer-dark border-4 border-white rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 transition-transform group relative";
-                el.innerHTML = `<div class="absolute top-4 right-4 z-10"><span class="${s.badgeColor} border-2 text-[10px] font-black px-2 py-1 rounded uppercase shadow-sm ${s.type==='A'?'animate-pulse':''}">${s.badge}</span></div><div class="${s.headColor} p-4 flex justify-between items-center border-b-4 border-brimmer-dark"><span class="font-black uppercase tracking-widest text-sm">Outcome ${s.type}</span><i class="${s.icon} text-xl"></i></div><div class="p-6 space-y-4"><div><h3 class="font-black text-2xl leading-none">${s.title}</h3><p class="text-xs font-bold opacity-60 mt-1">${s.sub}</p></div><div class="border-t-2 border-dashed border-gray-200 pt-4 space-y-4"><div class="space-y-1">${mathRows}</div><div class="flex justify-between text-sm font-bold"><span class="text-brimmer-blue">Part Cost (Zero Markup)</span><span class="text-brimmer-blue">${s.part}</span></div><div class="flex justify-between text-sm font-bold text-gray-400"><span>Tax (5.5%)</span><span>${s.tax}</span></div></div></div><div class="bg-gray-50 p-4 border-t-4 border-brimmer-dark flex justify-between items-center"><span class="text-xs font-black uppercase opacity-50">Total Due</span><span class="text-3xl font-black text-brimmer-dark">${s.total}</span></div>`;
-                scenContainer.appendChild(el);
-            });
+  <footer><div class="wrap"><div class="footer-grid"><a class="brand" href="#top" aria-label="Brimmer Heating and Cooling home"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">Brimmer<small>Heating &amp; Cooling</small></span></a><div class="footer-links"><a href="#pricing">Efficiency Pricing™</a><a href="#services">Service examples</a><a href="#video">Repair video</a><a href="#contact">Contact draft</a></div></div><div class="footer-bottom"><span>© <span id="year"></span> Brimmer Heating &amp; Cooling · Burlington, WI</span><span>No salesmen. Just service.</span></div></div></footer>
+  <div class="mobile-cta"><a class="button button-primary" href="#contact">Start with the details <span aria-hidden="true">↗</span></a><a class="button button-quiet" href="#top" aria-label="Back to top">Top</a></div>
 
-            // Hours
-            const hoursList = document.getElementById('hours-list');
-            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-            days.forEach((d, i) => {
-               const isWork = i >= 1 && i <= 5;
-               const time = isWork ? "8:00am - 5:00pm" : "Closed";
-               const op = isWork ? "" : "opacity-50";
-               hoursList.innerHTML += `<li id="day-${i}" class="flex justify-between items-center p-2 rounded-lg ${op}"><span>${d}</span> <span>${time}</span></li>`; 
-            });
-        }
-
-        // --- Status Indicator Logic (Reverted to Original) ---
-        function checkBusinessHours() {
-            const now = new Date();
-            const day = now.getDay(); // 0 = Sun, 6 = Sat
-            const hour = now.getHours(); // 0-23
-
-            // Business Hours: Mon(1) - Fri(5), 8am - 5pm (17:00)
-            const isWorkDay = day >= 1 && day <= 5;
-            const isWorkTime = hour >= 8 && hour < 17;
-            
-            const statusBadge = document.getElementById('status-badge');
-            const statusHeadline = document.getElementById('status-headline');
-            const statusSubline = document.getElementById('status-subline');
-            const statusDot = document.getElementById('status-dot');
-            const mobileIcon = document.getElementById('mobile-status-icon');
-            
-            const menuFooter = document.getElementById('menu-footer-status');
-            
-            // Reset dynamic colors
-            statusBadge.classList.remove('bg-brimmer-success', 'bg-brimmer-alert', 'bg-white', 'text-white', 'text-brimmer-dark');
-            statusDot.classList.remove('bg-brimmer-alert', 'bg-green-500', 'bg-white');
-
-            // Highlight current day in the menu
-            document.querySelectorAll('[id^="day-"]').forEach(el => {
-                el.classList.remove('bg-brimmer-highlight', 'text-brimmer-dark', 'border-2', 'border-brimmer-dark');
-            });
-            const dayEl = document.getElementById(`day-${day}`);
-            if(dayEl) {
-                dayEl.classList.add('bg-brimmer-highlight', 'text-brimmer-dark', 'border-2', 'border-brimmer-dark');
-                dayEl.classList.remove('opacity-50'); // Ensure active day isn't faded
-            }
-
-            if (isWorkDay && isWorkTime) {
-                // --- OPEN STATE (Green) ---
-                statusBadge.classList.add('bg-brimmer-success', 'text-brimmer-dark');
-                
-                statusHeadline.innerText = "WE'RE OPEN";
-                statusSubline.innerText = "Regular Service";
-                
-                statusDot.classList.add('bg-white'); // White dot on green bg
-
-                // Safety check added for mobile icon
-                if(mobileIcon) {
-                    mobileIcon.className = "fas fa-check md:hidden text-sm sm:text-lg"; // Checkmark on mobile
-                    mobileIcon.classList.remove('hidden');
-                }
-
-                menuFooter.innerText = "We are currently OPEN";
-                menuFooter.classList.add('bg-brimmer-success', 'text-brimmer-dark');
-                menuFooter.classList.remove('bg-brimmer-alert', 'text-white');
-            } else {
-                // --- CLOSED STATE (Red) ---
-                statusBadge.classList.add('bg-brimmer-alert', 'text-white');
-                
-                statusHeadline.innerText = "CLOSED";
-                statusSubline.innerText = "Emergency Service";
-                
-                statusDot.classList.add('bg-white'); // White dot on red bg
-                
-                // Safety check added for mobile icon
-                if(mobileIcon) {
-                    mobileIcon.className = "fas fa-exclamation-circle md:hidden text-sm sm:text-lg"; // Alert icon on mobile
-                    mobileIcon.classList.remove('hidden');
-                }
-
-                menuFooter.innerText = "After Hours Support Active";
-                menuFooter.classList.add('bg-brimmer-alert', 'text-white');
-                menuFooter.classList.remove('bg-brimmer-success', 'text-brimmer-dark');
-            }
-        }
-
-        // --- Hours Menu Logic ---
-        function toggleHoursMenu() {
-            const menu = document.getElementById('hours-menu');
-            const contactMenu = document.getElementById('contact-menu');
-            const deptMenu = document.getElementById('dept-menu');
-            
-            // Close other menus
-            contactMenu.classList.add('hidden');
-            contactMenu.classList.remove('flex');
-            if(deptMenu) deptMenu.classList.add('hidden');
-
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        }
-
-        // --- Contact Menu Logic ---
-        function toggleContactMenu() {
-            const menu = document.getElementById('contact-menu');
-            const hoursMenu = document.getElementById('hours-menu');
-            const deptMenu = document.getElementById('dept-menu');
-
-            // Close other menus
-            hoursMenu.classList.add('hidden');
-            hoursMenu.classList.remove('flex');
-            if(deptMenu) deptMenu.classList.add('hidden');
-
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        }
-
-        // --- Department Menu Logic (New) ---
-        function toggleDeptMenu() {
-            const deptMenu = document.getElementById('dept-menu');
-            const hoursMenu = document.getElementById('hours-menu');
-            const contactMenu = document.getElementById('contact-menu');
-
-            // Close other menus
-            hoursMenu.classList.add('hidden');
-            hoursMenu.classList.remove('flex');
-            contactMenu.classList.add('hidden');
-            contactMenu.classList.remove('flex');
-
-            // Toggle this menu
-            deptMenu.classList.toggle('hidden');
-        }
-
-        // Close menus when clicking outside (Reverted to Original Logic)
-        document.addEventListener('click', function(event) {
-            const contactMenu = document.getElementById('contact-menu');
-            const hoursMenu = document.getElementById('hours-menu');
-            const deptMenu = document.getElementById('dept-menu');
-            
-            const contactBtn = document.querySelector('button[onclick="toggleContactMenu()"]');
-            const hoursBtn = document.querySelector('button[onclick="toggleHoursMenu()"]');
-            const deptBtn = document.querySelector('button[onclick="toggleDeptMenu()"]');
-
-            // Close Contact Menu
-            if (!contactMenu.contains(event.target) && (!contactBtn || !contactBtn.contains(event.target))) {
-                contactMenu.classList.add('hidden');
-                contactMenu.classList.remove('flex');
-            }
-
-            // Close Hours Menu
-            if (!hoursMenu.contains(event.target) && (!hoursBtn || !hoursBtn.contains(event.target))) {
-                hoursMenu.classList.add('hidden');
-                hoursMenu.classList.remove('flex');
-            }
-
-            // Close Dept Menu
-            if (deptMenu && !deptMenu.contains(event.target) && (!deptBtn || !deptBtn.contains(event.target))) {
-                deptMenu.classList.add('hidden');
-            }
+  <script>
+    (function () {
+      var menuButton = document.querySelector('.menu-toggle');
+      var navLinks = document.getElementById('nav-links');
+      var navToggleLabel = document.getElementById('nav-toggle-label');
+      if (menuButton && navLinks) {
+        menuButton.addEventListener('click', function () {
+          var open = menuButton.getAttribute('aria-expanded') === 'true';
+          menuButton.setAttribute('aria-expanded', String(!open));
+          menuButton.setAttribute('aria-label', open ? 'Open navigation' : 'Close navigation');
+          if (navToggleLabel) navToggleLabel.textContent = open ? 'Open navigation' : 'Close navigation';
+          navLinks.classList.toggle('is-open', !open);
         });
+        navLinks.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () { menuButton.setAttribute('aria-expanded', 'false'); menuButton.setAttribute('aria-label', 'Open navigation'); if (navToggleLabel) navToggleLabel.textContent = 'Open navigation'; navLinks.classList.remove('is-open'); });
+        });
+      }
 
-        function toggleMenu() {
-            const ext = document.getElementById('extendedMenu'); const btn = document.getElementById('toggleMenuBtn');
-            if(ext.classList.contains('hidden')) { ext.classList.remove('hidden'); btn.innerHTML = 'Show Less <i class="fas fa-chevron-up ml-2"></i>'; }
-            else { ext.classList.add('hidden'); btn.innerHTML = 'View Full Menu <i class="fas fa-chevron-down ml-2"></i>'; }
-        }
-        function filterMenu() {
-            const filter = document.getElementById('menuSearch').value.toUpperCase();
-            const ext = document.getElementById('extendedMenu'); const btn = document.getElementById('toggleMenuBtn');
-            if(filter.length > 0) { ext.classList.remove('hidden'); btn.classList.add('hidden'); } 
-            else { ext.classList.add('hidden'); btn.classList.remove('hidden'); btn.innerHTML = 'View Full Menu <i class="fas fa-chevron-down ml-2"></i>'; }
-            document.querySelectorAll('.menu-item').forEach(item => item.classList.toggle('hidden', item.innerText.toUpperCase().indexOf(filter) === -1));
-        }
-        function copyPhoneNumber() {
-            const val = "555-123-4567"; const el = document.getElementById('copy-text');
-            const ta = document.createElement("textarea"); ta.value = val; document.body.appendChild(ta); ta.select();
-            try { document.execCommand('copy'); el.innerText = "Copied!"; setTimeout(() => el.innerText = val, 2000); } catch(e){}
-            document.body.removeChild(ta);
-        }
-        
-        // Carousel Logic for Mobile Info Tiles
-        function initCarousel() {
-            const container = document.getElementById('info-carousel');
-            if (!container) return;
-            
-            let scrollInterval;
-            
-            const startScrolling = () => {
-                if (scrollInterval) clearInterval(scrollInterval);
-                scrollInterval = setInterval(() => {
-                    // Only scroll if content overflows (mobile/tablet)
-                    if (container.scrollWidth <= container.clientWidth) return;
+      var filters = document.querySelectorAll('.filter');
+      var rows = document.querySelectorAll('.service-row[data-category]');
+      filters.forEach(function (filter) {
+        filter.addEventListener('click', function () {
+          var selected = filter.getAttribute('data-filter');
+          filters.forEach(function (item) { item.setAttribute('aria-pressed', String(item === filter)); });
+          rows.forEach(function (row) {
+            var categories = row.getAttribute('data-category').split(' ');
+            row.classList.toggle('is-hidden', selected !== 'all' && categories.indexOf(selected) === -1);
+          });
+        });
+      });
 
-                    const card = container.firstElementChild;
-                    // Width + Gap (approx 16px for space-x-4)
-                    const scrollAmount = card.offsetWidth + 16; 
-                    
-                    // If we are at the end, loop back to start
-                    if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
-                        container.scrollTo({ left: 0, behavior: 'smooth' });
-                    } else {
-                        container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                    }
-                }, 3000); // 3 Seconds
-            };
-
-            const stopScrolling = () => clearInterval(scrollInterval);
-
-            // Pause on touch so we don't fight the user
-            container.addEventListener('touchstart', stopScrolling);
-            // Restart after touch ends (with a small delay)
-            container.addEventListener('touchend', () => setTimeout(startScrolling, 3000));
-            
-            // Start loop
-            startScrolling();
-        }
-
-        // Removed initSwipeHint function to stop the initial forced scroll
-
-        // Map Setup
-        async function initMap() {
-            const { Map } = await google.maps.importLibrary("maps");
-            const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
-            const { Circle } = await google.maps.importLibrary("maps");
-            const hq = { lat: 42.6778, lng: -88.2720 };
-            const neoStyle = [{ elementType: "geometry", stylers: [{ color: "#e5e5e5" }] }, { elementType: "labels.icon", stylers: [{ visibility: "off" }] }, { elementType: "labels.text.fill", stylers: [{ color: "#1c1917" }] }, { elementType: "labels.text.stroke", stylers: [{ color: "#ffffff" }] }, { featureType: "poi", elementType: "geometry", stylers: [{ color: "#eeeeee" }] }, { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] }, { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#1c1917" }] }, { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#ffffff" }] }, { featureType: "water", elementType: "geometry", stylers: [{ color: "#d4d4d4" }] }];
-            const map = new Map(document.getElementById("service-map"), { center: hq, zoom: 9, mapId: "DEMO_MAP_ID", styles: neoStyle, disableDefaultUI: true, zoomControl: true, mapTypeControl: false, streetViewControl: false, fullscreenControl: false });
-            new Circle({ strokeColor: "#3b82f6", strokeOpacity: 0.8, strokeWeight: 3, fillColor: "#3b82f6", fillOpacity: 0.15, map, center: hq, radius: 35 * 1609.34 });
-            const div = document.createElement("div"); Object.assign(div.style, { width: "16px", height: "16px", backgroundColor: "#1c1917", border: "3px solid white", borderRadius: "50%", boxShadow: "2px 2px 0px #000000" });
-            new AdvancedMarkerElement({ map, position: hq, content: div, title: "Brimmer HQ" });
-        }
-        // Init (Removed initSwipeHint call)
-        window.onload = function() { renderComponents(); checkBusinessHours(); initMap(); initCarousel();
-            const obs = new IntersectionObserver((e) => e.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); }), { threshold: 0.1 });
-            document.querySelectorAll('.reveal-on-scroll').forEach(el => obs.observe(el));
-        }
-    </script>
+      var form = document.getElementById('contact-form');
+      var status = document.getElementById('form-status');
+      if (form && status) {
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          var name = document.getElementById('name').value.trim();
+          status.textContent = name ? 'Draft prepared for ' + name + '. Nothing was sent.' : 'Draft prepared. Nothing was sent.';
+        });
+      }
+      var year = document.getElementById('year');
+      if (year) year.textContent = new Date().getFullYear();
+    }());
+  </script>
 </body>
 </html>
